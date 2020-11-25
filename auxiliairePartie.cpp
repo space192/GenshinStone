@@ -41,11 +41,14 @@ void actualiserImage(std::vector<Cartes*> & cartesJoueur,std::vector< std::vecto
     {
         position = cartesJoueur[i]->getPosition();
         SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()], NULL, windowSurface, &position);
+        if(cartesJoueur[i]->getType() ==1 )
+        {
         machaine << cartesJoueur[i]->getVie();
         texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
         SDL_BlitSurface(texte, NULL, windowSurface, &position);
         machaine.str(" ");
         SDL_FreeSurface(texte);
+        }
     }
 
     for(size_t i = 0; i< cartesJoueurTerrain[0].size(); i++ )
@@ -115,7 +118,7 @@ void afficherDetails(int & condDetail, int & carteDetail,std::vector< std::vecto
                     position.x -= 42;
                     position.y -= 59;
                     SDL_BlitSurface(imageCache[cartesJoueurTerrain[0][carteDetail ]->getImage()-1], NULL, windowSurface, &position);
-                    machaine << cartesJoueur[0][carteDetail ]->getVie();
+                    machaine << cartesJoueurTerrain[0][carteDetail ]->getVie();
                     texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
                     SDL_BlitSurface(texte, NULL, windowSurface, &position);
                     machaine.str(" ");
@@ -145,11 +148,15 @@ void afficherDetails(int & condDetail, int & carteDetail,std::vector< std::vecto
                     position.x -= 100;
                     position.y -= 300;
                     SDL_BlitSurface(imageCache[cartesJoueur[0][carteDetail ]->getImage()-1], NULL, windowSurface, &position);
+
+                    if(cartesJoueur[0][carteDetail ]->getType() ==1 )
+                    {
                     machaine << cartesJoueur[0][carteDetail ]->getVie() ;
                     texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
                     SDL_BlitSurface(texte, NULL, windowSurface, &position);
                     machaine.str(" ");
                     SDL_FreeSurface(texte);
+                    }
                 }
                 newV = carteDetail;
                 if(old != newV)
@@ -358,7 +365,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
             }
             case 6:
             {
-                //décés d'une carte
+                //dÃ©cÃ©s d'une carte
                 break;
             }
             case 7:
@@ -401,4 +408,156 @@ void get_text_and_rect(SDL_Renderer *renderer, int x, int y, char *text, TTF_Fon
     rect->y = y;
     rect->w = text_width;
     rect->h = text_height;
+}
+
+
+
+void testSiCarteMorte(std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> > & cimetiere )
+{
+    for(size_t i = 0; i<cartesJoueurTerrain[0].size();i++)
+    {
+        if(cartesJoueurTerrain[0][i]->getVie() <=0 )
+        {
+            cimetiere[0].push_back(cartesJoueurTerrain[0][i]);
+            cartesJoueurTerrain[0].erase(cartesJoueurTerrain[0].begin() + i);
+
+
+            actualiserPositionCartesT(cartesJoueurTerrain);
+        }
+    }
+
+    for(size_t i = 0; i<cartesJoueurTerrain[1].size();i++)
+    {
+        if(cartesJoueurTerrain[1][i]->getVie() <=0 )
+        {
+            cimetiere[1].push_back(cartesJoueurTerrain[1][i]);
+            cartesJoueurTerrain[1].erase(cartesJoueurTerrain[1].begin() + i);
+
+
+            actualiserPositionCartesT(cartesJoueurTerrain);
+        }
+    }
+}
+
+void afficherCimetiere(std::vector< std::vector<Cartes*> > & cimetiere,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface)
+{
+    SDL_Rect position;
+
+
+
+
+
+
+    if(cimetiere[0].size() != NULL)
+    {
+        position.x = 0;
+        position.y = 0;
+        SDL_BlitSurface(imageCache[cimetiere[0][0]->getImage()], NULL, windowSurface, &position);
+    }
+
+   if(cimetiere[1].size() != NULL)
+   {
+
+       position.x = 0;
+    position.y = 100;
+    SDL_BlitSurface(imageCache[cimetiere[1][0]->getImage()], NULL, windowSurface, &position);
+   }
+
+
+
+}
+
+void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur,int vieJoueur[2])
+{
+
+
+    int valeur = cartesJoueur[0][selec]->getValeurT();
+    int type = cartesJoueur[0][selec]->getTypeT();
+    int carteAlea;
+
+
+
+
+
+    if( type == 1)
+    {
+        for(size_t i = 0; i < cartesJoueurTerrain[0].size() ; i ++)
+        {
+            cartesJoueurTerrain[0][i]->setVie(valeur);
+        }
+    }
+    else if( type == 2)
+    {
+
+        for(size_t i = 0; i < cartesJoueurTerrain[1].size() ; i ++)
+        {
+            cartesJoueurTerrain[1][i]->setVie(valeur);
+        }
+    }
+    else if (type == 3)
+    {
+        if(cartesJoueurTerrain[1].size() != 0)
+        {
+            carteAlea =rand()%(cartesJoueurTerrain[1].size() ) + 0;
+            cartesJoueurTerrain[1][carteAlea]->setVie(valeur);
+        }
+
+        if(cartesJoueurTerrain[1].size() != 0)
+        {
+            carteAlea =rand()%(cartesJoueurTerrain[1].size() )  + 0;
+            cartesJoueurTerrain[1][carteAlea]->setVie(valeur);
+        }
+
+    }
+    else if(type ==4)
+    {
+        energiesJoueur.push_back( EnergyCards("Carte1",2,10,1,1,797,0,1));
+        energiesJoueur.push_back( EnergyCards("Carte1",2,10,1,1,797,0,1));
+        energiesJoueur.push_back( EnergyCards("Carte1",2,10,1,1,797,0,2));
+        energiesJoueur.push_back( EnergyCards("Carte1",2,10,1,1,797,0,2));
+        energiesJoueur.push_back( EnergyCards("Carte1",2,10,1,1,797,0,3));
+        energiesJoueur.push_back( EnergyCards("Carte1",2,10,1,1,797,0,3));
+        energiesJoueur.push_back( EnergyCards("Carte1",2,10,1,1,797,0,4));
+        energiesJoueur.push_back( EnergyCards("Carte1",2,10,1,1,797,0,4));
+
+        actualiserEnergies(energiesJoueur);
+    }
+    else if(type ==5)
+    {
+        vieJoueur[0]+= valeur;
+    }
+    else if(type ==6)
+    {
+        vieJoueur[1]+= valeur;
+    }
+}
+
+void afficherPV(int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface)
+{
+    SDL_Rect position;
+    SDL_Color couleur = {255, 255, 255};
+    std::stringstream machaine;
+
+    police = TTF_OpenFont("ARLRDBD.TTF", 30);
+
+    position.x = 800;
+    position.y = 900;
+
+    machaine << "PV joueur: " <<vieJoueur[0];
+    texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
+    SDL_BlitSurface(texte, NULL, windowSurface, &position);
+    machaine.str(" ");
+    SDL_FreeSurface(texte);
+
+    position.x = 800;
+    position.y = 200;
+
+    machaine << "PV joueur: " <<vieJoueur[1];
+    texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
+    SDL_BlitSurface(texte, NULL, windowSurface, &position);
+    machaine.str(" ");
+    SDL_FreeSurface(texte);
+
+
+    TTF_CloseFont(police);
 }

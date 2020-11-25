@@ -23,16 +23,18 @@ struct Attaque {
 class Cartes
 {
 protected:
-    std::string m_name,m_type,m_description;
+    std::string m_name,m_description;
+    int m_type;
     int m_value, m_rarity;
     SDL_Rect m_position;
     int m_numImage;
 
 public:
-    Cartes(std::string name, std::string type, int value, int rarity,int numImage,int posX,int posY);
+    Cartes(std::string name, int type, int value, int rarity,int numImage,int posX,int posY);
     ~Cartes() {};
 
     int getImage();
+    int getType ();
     SDL_Rect getPosition()const;
     void setPosition(int posX, int posY);
     virtual int getElem() const = 0;
@@ -40,6 +42,8 @@ public:
     virtual void setVie(int deg)  = 0;
     virtual void definirAttaque(int numAtt, int degat, int ID, int prix, int typeEnergie) = 0;
     virtual Attaque getAttaque(int numAtt) = 0;
+    virtual int getTypeT() const = 0;
+    virtual int getValeurT() const = 0;
 
 };
 
@@ -53,9 +57,11 @@ private:
 
 public :
 
-    CharacterCards(std::string name, std::string type, int value, int rarity,int numImage,int posX,int posY,int atk, int hp, int critique);
+    CharacterCards(std::string name, int type, int value, int rarity,int numImage,int posX,int posY,int atk, int hp, int critique);
     ~CharacterCards() {};
 
+    virtual int getTypeT() const{}
+    virtual int getValeurT() const{}
     virtual int getVie() const;
     virtual void setVie(int deg);
     virtual void definirAttaque(int numAtt, int degat, int ID, int prix, int typeEnergie);
@@ -72,15 +78,38 @@ private:
     int m_elem;
 
 public :
-    EnergyCards(std::string name, std::string type, int value, int rarity,int numImage,int posX,int posY,int elem);
+    EnergyCards(std::string name, int type, int value, int rarity,int numImage,int posX,int posY,int elem);
     ~EnergyCards() {};
 
+    virtual int getTypeT() const{}
+    virtual int getValeurT() const{}
     virtual int getElem() const;
     virtual int getVie() const {}
     virtual void setVie(int deg){}
     virtual void definirAttaque(int numAtt, int degat, int ID, int prix, int typeEnergie){}
     virtual Attaque getAttaque(int numAtt) {}
 
+
+
+};
+
+class TrainerCards: public Cartes
+{
+private:
+    int m_typeT;
+    int m_valeurT;
+
+public :
+    TrainerCards(std::string name, int type, int value, int rarity,int numImage,int posX,int posY,int typeT, int valeurT);
+    ~TrainerCards() {};
+
+    virtual int getTypeT() const;
+    virtual int getValeurT() const;
+    virtual int getElem() const {}
+    virtual int getVie() const {}
+    virtual void setVie(int deg){}
+    virtual void definirAttaque(int numAtt, int degat, int ID, int prix, int typeEnergie){}
+    virtual Attaque getAttaque(int numAtt) {}
 
 
 };
@@ -105,5 +134,11 @@ void actualiserDegats(int & ID, int & degats, std::vector< std::vector<Cartes*> 
 void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,int carteAdverse,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface);
 void jeu(int port);
 void get_text_and_rect(SDL_Renderer *renderer, int x, int y, char *text, TTF_Font *font, SDL_Texture **texture, SDL_Rect *rect);
+
+void testSiCarteMorte(std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> > & cimetiere );
+void afficherCimetiere(std::vector< std::vector<Cartes*> > & cimetiere,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface);
+
+void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur,int vieJoueur[2]);
+void afficherPV(int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface);
 
 #endif // PROTOTYPES_H_INCLUDED

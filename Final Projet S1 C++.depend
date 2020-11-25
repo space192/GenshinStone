@@ -24,3 +24,28 @@
 1606264836 source:c:\users\arthur\documents\ece\ing 2\s1\informatique\projet\final projet s1 c++\main.cpp
 	"prototypes.h"
 
+1606308958 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\auxiliairepartie.cpp
+	"prototypes.h"
+
+1606309032 c:\users\plpai\onedrive\documents\github\projet-s1-ing2\prototypes.h
+	<string>
+	<vector>
+	<iostream>
+	<sstream>
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	<SDL2/SDL_ttf.h>
+	<SFML/Network.hpp>
+	<functional>
+
+1606309074 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\cartes.cpp
+	"prototypes.h"
+
+1606302093 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\deck.cpp
+
+1606308958 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\jeu.cpp
+	"prototypes.h"
+
+1606302093 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\main.cpp
+	"prototypes.h"
+

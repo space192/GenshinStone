@@ -1,6 +1,6 @@
 #include "prototypes.h"
 
-Cartes::Cartes(std::string name, std::string type, int value, int rarity,int numImage,int posX,int posY)
+Cartes::Cartes(std::string name, int type, int value, int rarity,int numImage,int posX,int posY)
 {
     m_name=name;
     m_type=type;
@@ -11,12 +11,17 @@ Cartes::Cartes(std::string name, std::string type, int value, int rarity,int num
     m_position.y = posY;
 }
 
-CharacterCards::CharacterCards(std::string name, std::string type, int value, int rarity,int numImage,int posX,int posY,int atk, int hp, int critique):Cartes(name,type,value,rarity,numImage,posX,posY),m_atk(atk),m_hp(hp),m_critique(critique)
+CharacterCards::CharacterCards(std::string name, int type, int value, int rarity,int numImage,int posX,int posY,int atk, int hp, int critique):Cartes(name,type,value,rarity,numImage,posX,posY),m_atk(atk),m_hp(hp),m_critique(critique)
 {
 
 }
 
-EnergyCards::EnergyCards(std::string name, std::string type, int value, int rarity,int numImage,int posX,int posY,int elem):Cartes(name,type,value,rarity,numImage,posX,posY),m_elem(elem)
+EnergyCards::EnergyCards(std::string name, int type, int value, int rarity,int numImage,int posX,int posY,int elem):Cartes(name,type,value,rarity,numImage,posX,posY),m_elem(elem)
+{
+
+}
+
+TrainerCards::TrainerCards(std::string name, int type, int value, int rarity,int numImage,int posX,int posY,int typeT,int valeurT):Cartes(name,type,value,rarity,numImage,posX,posY),m_typeT(typeT),m_valeurT(valeurT)
 {
 
 }
@@ -26,6 +31,10 @@ int Cartes::getImage()
     return m_numImage;
 }
 
+int Cartes::getType()
+{
+    return m_type;
+}
 
 
 SDL_Rect Cartes::getPosition() const
@@ -68,4 +77,15 @@ void CharacterCards::setVie(int deg)
 int EnergyCards::getElem() const
 {
     return m_elem;
+}
+
+
+int TrainerCards::getTypeT() const
+{
+    return m_typeT;
+}
+
+int TrainerCards::getValeurT() const
+{
+    return m_valeurT;
 }

@@ -22,7 +22,7 @@ void jeu(int port)
         paquet >> actuJoueur;
         paquet.clear();
         TTF_Font *police = NULL;
-        /* Création de la fenêtre */
+        /* CrÃ©ation de la fenÃªtre */
         SDL_Window* pWindow = NULL;
         SDL_Event event;
         int condition = 1;
@@ -41,7 +41,9 @@ void jeu(int port)
         SDL_Surface *selec = IMG_Load("selec.png");
 
 
-        //varianles pour réceptions
+        int vieJoueur[2] = {150,150};
+
+        //varianles pour rÃ©ceptions
         int ID1 = -1;
         int ID2= -1;
         int degats= -1;
@@ -56,19 +58,27 @@ void jeu(int port)
         std::vector< std::vector<Cartes*> > cartesJoueur;
         std::vector<Cartes*> TEMP;
         std::vector<Cartes*> TEMP4;
-        TEMP.push_back( new CharacterCards("Carte1","feu",10,1,1,797,0,10,30,2));
-        TEMP.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
-        TEMP.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
-        TEMP.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
-        TEMP.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
-        TEMP.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP.push_back( new CharacterCards("Carte1",1,10,1,1,797,0,10,30,2));
+        TEMP.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
+        TEMP.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
+        TEMP.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
+        TEMP.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
+        TEMP.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
+        TEMP.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,1,-10));
+        TEMP.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,2,30));
+        TEMP.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,3,10));
+        TEMP.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,4,10));
 
-        TEMP4.push_back( new CharacterCards("Carte1","feu",10,1,1,797,0,10,30,2));
-        TEMP4.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
-        TEMP4.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
-        TEMP4.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
-        TEMP4.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
-        TEMP4.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP4.push_back( new CharacterCards("Carte1",1,10,1,1,797,0,10,30,2));
+        TEMP4.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
+        TEMP4.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
+        TEMP4.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
+        TEMP4.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
+        TEMP4.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
+        TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,1,-10));
+        TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,2,30));
+        TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,3,10));
+        TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,4,10));
 
 
         if(numJoueur == 1)
@@ -77,10 +87,11 @@ void jeu(int port)
             cartesJoueur.push_back(TEMP4);
             cartesJoueur.push_back(TEMP);
         }
-        else{
+        else
+        {
 
-         cartesJoueur.push_back(TEMP);
-         cartesJoueur.push_back(TEMP4);
+            cartesJoueur.push_back(TEMP);
+            cartesJoueur.push_back(TEMP4);
         }
 
 
@@ -104,12 +115,19 @@ void jeu(int port)
 
 
         std::vector<EnergyCards> energiesJoueur;
-        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,1));
-        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,1));
-        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,1));
-        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,2));
-        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,3));
-        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,4));
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,1));
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,1));
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,1));
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,2));
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,3));
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,4));
+
+        std::vector< std::vector<Cartes*> > cimetiere;
+        std::vector<Cartes*> TEMP5;
+        std::vector<Cartes*> TEMP6;
+
+        cimetiere.push_back(TEMP5);
+        cimetiere.push_back(TEMP6);
 
 
 
@@ -128,12 +146,12 @@ void jeu(int port)
         if(numJoueur == 1)
         {
             cartesJoueurTerrain.push_back(TEMP2);
-        cartesJoueurTerrain.push_back(TEMP3);
+            cartesJoueurTerrain.push_back(TEMP3);
         }
         else if(numJoueur == 2)
         {
-           cartesJoueurTerrain.push_back(TEMP3);
-           cartesJoueurTerrain.push_back(TEMP2);
+            cartesJoueurTerrain.push_back(TEMP3);
+            cartesJoueurTerrain.push_back(TEMP2);
 
         }
 
@@ -204,20 +222,20 @@ void jeu(int port)
 
                             if(event.button.x >1725 && event.button.x < 1908 && event.button.y > 499 && event.button.y < 595)
                             {
-                                    paquet.clear();
-                                    paquet << 7; //envoie nombre de carte
-                                    socket.send(paquet);
-                                    paquet.clear();
-                                    if(actuJoueur == 1)
-                                    {
-                                        paquet << 2;
-                                    }
-                                    else if(actuJoueur == 2)
-                                    {
-                                        paquet << 1;
-                                    }
-                                    socket.send(paquet);
-                                    paquet.clear();
+                                paquet.clear();
+                                paquet << 7; //envoie nombre de carte
+                                socket.send(paquet);
+                                paquet.clear();
+                                if(actuJoueur == 1)
+                                {
+                                    paquet << 2;
+                                }
+                                else if(actuJoueur == 2)
+                                {
+                                    paquet << 1;
+                                }
+                                socket.send(paquet);
+                                paquet.clear();
                             }
 
                             break;
@@ -263,7 +281,7 @@ void jeu(int port)
                             break;
                         case SDL_MOUSEBUTTONUP:
 
-                            if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 600 && event.button.y < 750 )&&(conditionSouris == 1))
+                            if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 600 && event.button.y < 750 )&&(conditionSouris == 1)&&(cartesJoueur[0][carteSelec]->getType()==1))
                             {
                                 placerCarte(cartesJoueur[0], cartesJoueurTerrain[0],carteSelec);
                                 actualiserPositionCartes(cartesJoueur);
@@ -281,6 +299,12 @@ void jeu(int port)
                                 paquet << carteSelec;
                                 socket.send(paquet);
                                 paquet.clear();
+                            }
+                            else if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 600 && event.button.y < 750 )&&(conditionSouris == 1)&&(cartesJoueur[0][carteSelec]->getType()==2))
+                            {
+                                actionTrainer(carteSelec,cartesJoueurTerrain,cartesJoueur,energiesJoueur,vieJoueur);
+                                cartesJoueur[0].erase(cartesJoueur[0].begin() + carteSelec);
+                                actualiserPositionCartes(cartesJoueur);
                             }
                             else if(((event.button.x > 360 && event.button.x < 1450 && event.button.y > 350 && event.button.y < 500)&&(conditionSouris == 3)))
                             {
@@ -310,8 +334,29 @@ void jeu(int port)
                                         paquet << carteDetail << carteAttaque << attaqueActive.degat;
                                         socket.send(paquet);
                                         paquet.clear();
-                                    }//            attaqué                          attaque de l'attaquant
+                                    }//            attaquÃ©                          attaque de l'attaquant
 
+
+                                }
+                                else if(cartesJoueurTerrain[1].size() == 0)
+                                {
+
+
+                                    if((event.button.button == SDL_BUTTON_LEFT))
+                                    {
+                                        attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(0);
+                                    }
+                                    else
+                                    {
+                                        attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(1);
+                                    }
+
+                                    if(testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain) == 1)
+                                    {
+                                        vieJoueur[0] -= attaqueActive.degat;
+
+                                        std::cout << vieJoueur[0] << std::endl;
+                                    }
 
                                 }
 
@@ -340,7 +385,7 @@ void jeu(int port)
                         actualiserDegats(ID2,degats,cartesJoueurTerrain);
                         ID2 = -1;
                     }
-                     if(placeID != -1)
+                    if(placeID != -1)
                     {
 
                         placerCarte(cartesJoueur[1], cartesJoueurTerrain[1],placeID);
@@ -372,6 +417,9 @@ void jeu(int port)
                 }
                 afficherDetails(condDetail,carteDetail,cartesJoueurTerrain,cartesJoueur,windowSurface,imageCache,texte,police, &socket);
                 afficherCartesAdverses(cartesJoueur,selecC,imageCache,windowSurface);
+                afficherPV(vieJoueur,texte,police,windowSurface);
+                testSiCarteMorte(cartesJoueurTerrain,cimetiere);
+                afficherCimetiere(cimetiere,imageCache,windowSurface);
                 if(conditionRect == 1)
                 {
                     SDL_BlitSurface(selec,NULL,windowSurface,&position);
@@ -382,7 +430,7 @@ void jeu(int port)
         }
         else
         {
-            fprintf(stderr,"Erreur de création de la fenêtre: %s\n",SDL_GetError());
+            fprintf(stderr,"Erreur de crÃ©ation de la fenÃªtre: %s\n",SDL_GetError());
         }
 
 
