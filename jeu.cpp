@@ -6,7 +6,7 @@ void jeu(int port)
 
     int numJoueur, actuJoueur;
     sf::TcpSocket socket;
-    sf::Socket::Status status = socket.connect("192.168.1.34", 53000 + port);
+    sf::Socket::Status status = socket.connect("fournierfamily.ovh", 53000 + port);
     if(status != sf::Socket::Done)
     {
         std::cout << "erreur lors de la connexion" << std::endl;

@@ -57,7 +57,7 @@ int main(int argc, char **argv)
     TTF_Init();
     TTF_Font *font = TTF_OpenFont(font_path, 24);
     sf::TcpSocket socket;
-    sf::Socket::Status status = socket.connect("192.168.1.34", 53000);
+    sf::Socket::Status status = socket.connect("fournierfamily.ovh", 53000);
     if(status != sf::Socket::Done)
     {
         std::cout << "erreur lors de la connexion" << std::endl;
