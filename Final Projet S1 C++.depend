@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1606246861 source:c:\users\arthur\documents\ece\ing 2\s1\informatique\projet\final projet s1 c++\auxiliairepartie.cpp
+	"prototypes.h"
+
+1606246861 c:\users\arthur\documents\ece\ing 2\s1\informatique\projet\final projet s1 c++\prototypes.h
+	<string>
+	<vector>
+	<iostream>
+	<sstream>
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	<SDL2/SDL_ttf.h>
+	<SFML/Network.hpp>
+	<functional>
+
+1606137944 source:c:\users\arthur\documents\ece\ing 2\s1\informatique\projet\final projet s1 c++\cartes.cpp
+	"prototypes.h"
+
+1604940050 source:c:\users\arthur\documents\ece\ing 2\s1\informatique\projet\final projet s1 c++\deck.cpp
+
+1606264690 source:c:\users\arthur\documents\ece\ing 2\s1\informatique\projet\final projet s1 c++\jeu.cpp
+	"prototypes.h"
+
+1606264836 source:c:\users\arthur\documents\ece\ing 2\s1\informatique\projet\final projet s1 c++\main.cpp
+	"prototypes.h"
+

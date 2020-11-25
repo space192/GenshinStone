@@ -1,0 +1,402 @@
+#include "prototypes.h"
+
+
+void jeu(int port)
+{
+
+    int numJoueur, actuJoueur;
+    sf::TcpSocket socket;
+    sf::Socket::Status status = socket.connect("192.168.1.34", 53000 + port);
+    if(status != sf::Socket::Done)
+    {
+        std::cout << "erreur lors de la connexion" << std::endl;
+        exit(1);
+    }
+    else
+    {
+        sf::Packet paquet;
+        socket.receive(paquet);
+        paquet >> numJoueur;
+        paquet.clear();
+        socket.receive(paquet);
+        paquet >> actuJoueur;
+        paquet.clear();
+        TTF_Font *police = NULL;
+        /* Création de la fenêtre */
+        SDL_Window* pWindow = NULL;
+        SDL_Event event;
+        int condition = 1;
+        int conditionSouris = 0;
+        int conditionRect = 0;
+        int carteSelec = -1;
+        int condDetail = 0;
+        int carteDetail;
+        int carteAttaque = 0;
+        Attaque attaqueActive;
+        pWindow = SDL_CreateWindow("Mon application SDL2",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,1920,1080,SDL_WINDOW_SHOWN);
+        SDL_Surface *windowSurface = NULL;
+        windowSurface = SDL_GetWindowSurface( pWindow );
+        SDL_Surface *fond = IMG_Load("Fond.png");
+        SDL_Surface *texte = NULL;
+        SDL_Surface *selec = IMG_Load("selec.png");
+
+
+        //varianles pour réceptions
+        int ID1 = -1;
+        int ID2= -1;
+        int degats= -1;
+        int nbrCarte= -1;
+        int selecC= -1;
+        int placeID= -1;
+
+        std::vector<SDL_Surface*> imageCache;
+        imageCache.push_back(IMG_Load("carte.png"));
+        imageCache.push_back(IMG_Load("carteP.png"));
+
+        std::vector< std::vector<Cartes*> > cartesJoueur;
+        std::vector<Cartes*> TEMP;
+        std::vector<Cartes*> TEMP4;
+        TEMP.push_back( new CharacterCards("Carte1","feu",10,1,1,797,0,10,30,2));
+        TEMP.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+
+        TEMP4.push_back( new CharacterCards("Carte1","feu",10,1,1,797,0,10,30,2));
+        TEMP4.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP4.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP4.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP4.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP4.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+
+
+        if(numJoueur == 1)
+        {
+
+            cartesJoueur.push_back(TEMP4);
+            cartesJoueur.push_back(TEMP);
+        }
+        else{
+
+         cartesJoueur.push_back(TEMP);
+         cartesJoueur.push_back(TEMP4);
+        }
+
+
+
+        std::vector< std::vector<Cartes*> > cartesJoueurTerrain;
+        std::vector<Cartes*> TEMP2;
+        std::vector<Cartes*> TEMP3;
+        /*TEMP2.push_back( new CharacterCards("Carte1","feu",10,1,1,797,0,10,30,2));
+        TEMP2.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP2.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP2.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP2.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP2.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+
+        TEMP3.push_back( new CharacterCards("Carte1","feu",10,1,1,797,0,10,30,2));
+        TEMP3.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP3.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP3.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP3.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));
+        TEMP3.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));*/
+
+
+        std::vector<EnergyCards> energiesJoueur;
+        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,1));
+        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,1));
+        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,1));
+        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,2));
+        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,3));
+        energiesJoueur.push_back( EnergyCards("Carte1","feu",10,1,1,797,0,4));
+
+
+
+
+
+        for(size_t i= 0; i < cartesJoueur[0].size(); i++)
+        {
+            cartesJoueur[0][i]->definirAttaque(0,5,1,1,1);
+            cartesJoueur[0][i]->definirAttaque(1,10,1,2,1);
+        }
+
+
+
+        SDL_Rect position;
+
+        if(numJoueur == 1)
+        {
+            cartesJoueurTerrain.push_back(TEMP2);
+        cartesJoueurTerrain.push_back(TEMP3);
+        }
+        else if(numJoueur == 2)
+        {
+           cartesJoueurTerrain.push_back(TEMP3);
+           cartesJoueurTerrain.push_back(TEMP2);
+
+        }
+
+
+
+        actualiserPositionCartesT(cartesJoueurTerrain);
+        actualiserPositionCartes(cartesJoueur);
+        actualiserEnergies(energiesJoueur);
+
+
+
+        /*paquet << 3;
+        socket.send(paquet);
+        paquet.clear();
+        paquet << cartesJoueur[0].size();
+        socket.send(paquet);
+        paquet.clear();*/
+
+        //launching thread
+        //void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbCarte, int *selec,int *placeID)
+        sf::Thread thread(std::bind(&receiveData, &actuJoueur,&socket, numJoueur, &condition, &ID1,&ID2,&degats, &nbrCarte, &selecC, &placeID));
+        thread.launch();
+        if( pWindow )
+        {
+            while(condition == 1)
+            {
+                SDL_BlitSurface(fond, NULL, windowSurface, NULL);
+                actualiserImage(cartesJoueur[0],cartesJoueurTerrain,imageCache,windowSurface,texte,police);
+                afficherEnergies(energiesJoueur,imageCache,windowSurface);
+                if(numJoueur == actuJoueur)
+                {
+                    if(SDL_PollEvent( &event ))
+                    {
+
+
+                        switch(event.type)
+                        {
+                        case SDL_KEYDOWN:
+                            switch(event.key.keysym.sym)
+                            {
+                            case SDLK_ESCAPE:
+                                condition = 0;
+                                paquet.clear();
+                                paquet << 9;
+                                socket.send(paquet);
+                                paquet.clear();
+                                break;
+                            }
+                            break;
+                        case SDL_MOUSEBUTTONDOWN:
+                            if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 990 && event.button.y < 1080))
+                            {
+                                conditionSouris = 1;
+                                condDetail = 0;
+                                carteSelec = selectionCarte(cartesJoueur[0],event.button.x,event.button.y); //clique sur une carte dans ta main
+                            }
+                            else if(event.button.x > 360 && event.button.x < 1450 && event.button.y > 600 && event.button.y < 750)
+                            {
+                                conditionSouris = 3;
+                                carteSelec = selectionCarte(cartesJoueurTerrain[0],event.button.x,event.button.y);
+                                condDetail=1;
+                                carteDetail = carteSelec; //clique sur une carte sur le terrain
+                            }
+                            else
+                            {
+                                conditionSouris = 0;
+                            }
+
+                            if(event.button.x >1725 && event.button.x < 1908 && event.button.y > 499 && event.button.y < 595)
+                            {
+                                    paquet.clear();
+                                    paquet << 7; //envoie nombre de carte
+                                    socket.send(paquet);
+                                    paquet.clear();
+                                    if(actuJoueur == 1)
+                                    {
+                                        paquet << 2;
+                                    }
+                                    else if(actuJoueur == 2)
+                                    {
+                                        paquet << 1;
+                                    }
+                                    socket.send(paquet);
+                                    paquet.clear();
+                            }
+
+                            break;
+                        case SDL_MOUSEMOTION:
+
+                            if(conditionSouris == 1)
+                            {
+                                cartesJoueur[0][carteSelec]->setPosition(event.motion.x,event.motion.y);
+                            }
+                            else if(conditionSouris == 3)
+                            {
+                                cartesJoueurTerrain[0][carteSelec]->setPosition(event.motion.x,event.motion.y);
+                            }
+                            else if(conditionSouris == 0)
+                            {
+                                if(event.button.x > 360 && event.button.x < 1450 && event.button.y > 600 && event.button.y < 750)
+                                {
+                                    carteSelec = selectionCarte(cartesJoueurTerrain[0],event.button.x,event.button.y);
+                                    condDetail=1;
+                                    carteDetail = carteSelec;
+
+                                }
+                                else if(event.button.x > 360 && event.button.x < 1450 && event.button.y > 350 && event.button.y < 500)
+                                {
+                                    carteSelec = selectionCarte(cartesJoueurTerrain[1],event.button.x,event.button.y);
+                                    condDetail=3;
+                                    carteDetail = carteSelec;
+
+                                }
+                                else if(event.button.x > 360 && event.button.x < 1450 && event.button.y > 990 && event.button.y < 1080)
+                                {
+                                    carteSelec = selectionCarte(cartesJoueur[0],event.button.x,event.button.y);
+                                    condDetail=2;
+                                    carteDetail = carteSelec;
+
+                                }
+                                else
+                                {
+                                    condDetail = 0;
+                                }
+                            }
+
+                            break;
+                        case SDL_MOUSEBUTTONUP:
+
+                            if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 600 && event.button.y < 750 )&&(conditionSouris == 1))
+                            {
+                                placerCarte(cartesJoueur[0], cartesJoueurTerrain[0],carteSelec);
+                                actualiserPositionCartes(cartesJoueur);
+                                actualiserPositionCartesT(cartesJoueurTerrain);//poser une carte sur le terrain //ENVOIE SERVEUR
+                                paquet.clear();
+                                paquet << 3; //envoie nombre de carte
+                                socket.send(paquet);
+                                paquet.clear();
+                                paquet << cartesJoueur[0].size();
+                                socket.send(paquet);
+                                paquet.clear();
+                                paquet << 5; //envoie carte place
+                                socket.send(paquet);
+                                paquet.clear();
+                                paquet << carteSelec;
+                                socket.send(paquet);
+                                paquet.clear();
+                            }
+                            else if(((event.button.x > 360 && event.button.x < 1450 && event.button.y > 350 && event.button.y < 500)&&(conditionSouris == 3)))
+                            {
+
+
+                                carteAttaque = -1;
+                                carteAttaque =selectionCarte(cartesJoueurTerrain[1],event.button.x,event.button.y); //numero de la carte qui va se faire attaquer
+
+                                if(carteAttaque != -1)
+                                {
+                                    if((event.button.button == SDL_BUTTON_LEFT))
+                                    {
+                                        attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(0); //TOUT CA C'EST ATTAQUE
+                                    }                                         //ID Attaquant
+                                    else
+                                    {
+                                        attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(1); //TYPE d'attaque en fonction du bouton
+                                    }
+
+                                    if(testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain) == 1) //gerer les energies
+                                    {
+                                        cartesJoueurTerrain[1][carteAttaque]->setVie(attaqueActive.degat); //recevoir les degats sur la carte adverse
+                                        paquet.clear();
+                                        paquet << 2;
+                                        socket.send(paquet);
+                                        paquet.clear();
+                                        paquet << carteDetail << carteAttaque << attaqueActive.degat;
+                                        socket.send(paquet);
+                                        paquet.clear();
+                                    }//            attaqué                          attaque de l'attaquant
+
+
+                                }
+
+                                actualiserPositionCartesT(cartesJoueurTerrain);
+                            }
+                            else if(conditionSouris == 1)
+                            {
+                                actualiserPositionCartes(cartesJoueur);
+                            }
+
+
+                            conditionSouris = 0;
+
+
+                            carteSelec = -1;
+                            break;
+                        }
+                    }
+
+                }
+                else
+                {
+
+                    if(ID2 != -1)
+                    {
+                        actualiserDegats(ID2,degats,cartesJoueurTerrain);
+                        ID2 = -1;
+                    }
+                     if(placeID != -1)
+                    {
+
+                        placerCarte(cartesJoueur[1], cartesJoueurTerrain[1],placeID);
+                        actualiserPositionCartesT(cartesJoueurTerrain);
+                        placeID = -1;
+                    }
+
+
+
+
+                    if(SDL_PollEvent(&event))
+                    {
+                        if(event.type == SDL_KEYDOWN)
+                        {
+                            if(event.key.keysym.sym == SDLK_ESCAPE)
+                            {
+                                condition = 0;
+                                paquet.clear();
+                                paquet << 9;
+                                socket.send(paquet);
+                                paquet.clear();
+                            }
+                        }
+                    }
+                }
+                if(actuJoueur == 9)
+                {
+                    condition = 0;
+                }
+                afficherDetails(condDetail,carteDetail,cartesJoueurTerrain,cartesJoueur,windowSurface,imageCache,texte,police, &socket);
+                afficherCartesAdverses(cartesJoueur,selecC,imageCache,windowSurface);
+                if(conditionRect == 1)
+                {
+                    SDL_BlitSurface(selec,NULL,windowSurface,&position);
+                }
+                SDL_UpdateWindowSurface(pWindow);
+
+            }
+        }
+        else
+        {
+            fprintf(stderr,"Erreur de création de la fenêtre: %s\n",SDL_GetError());
+        }
+
+
+        for(size_t i = 0; i<imageCache.size(); i++)
+        {
+            SDL_FreeSurface(imageCache[i]);
+        }
+
+        SDL_FreeSurface(fond);
+        SDL_FreeSurface(texte);
+        SDL_FreeSurface(selec);
+
+        SDL_DestroyWindow(pWindow);
+        SDL_Quit();
+        TTF_Quit();
+    }
+}
