@@ -7,6 +7,8 @@ void receptionT(int *port, sf::TcpSocket *socket);
 int main(int argc, char **argv)
 {
 
+    srand((unsigned int)time(0));
+
     //case start
     std::stringstream test;
     test<<"What is your name";
@@ -373,7 +375,6 @@ int main(int argc, char **argv)
                 }
                 break;
             }
-
 
 
         }

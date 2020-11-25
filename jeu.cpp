@@ -4,6 +4,7 @@
 void jeu(int port)
 {
 
+
     int numJoueur, actuJoueur;
     sf::TcpSocket socket;
     sf::Socket::Status status = socket.connect("fournierfamily.ovh", 53000 + port);
@@ -353,9 +354,7 @@ void jeu(int port)
 
                                     if(testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain) == 1)
                                     {
-                                        vieJoueur[0] -= attaqueActive.degat;
-
-                                        std::cout << vieJoueur[0] << std::endl;
+                                        vieJoueur[1] -= attaqueActive.degat;
                                     }
 
                                 }
@@ -444,7 +443,6 @@ void jeu(int port)
         SDL_FreeSurface(selec);
 
         SDL_DestroyWindow(pWindow);
-        SDL_Quit();
-        TTF_Quit();
+
     }
 }
