@@ -307,12 +307,12 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
         }
         else if(ID1 == 40)
         {
-            vieJoueur[0]+=degats;
+            vieJoueur[0]-=degats;
             ID1 = -1;
         }
         else if(ID1 == 41)
         {
-            vieJoueur[0]+=degats;
+            vieJoueur[0]-=degats;
             ID1 = -1;
         }
         else if(ID1 >= 20 && ID1 != 40 && ID1 != 41)

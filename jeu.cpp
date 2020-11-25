@@ -369,6 +369,14 @@ void jeu(int port)
                                     if(testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain) == 1)
                                     {
                                         vieJoueur[1] -= attaqueActive.degat;
+                                        paquet.clear();
+                                        paquet << 10;
+                                        socket.send(paquet);
+                                        paquet.clear();
+                                        paquet << 41 << attaqueActive.degat;
+                                        socket.send(paquet);
+                                        paquet.clear();
+
                                     }
 
                                 }
