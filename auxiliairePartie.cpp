@@ -303,6 +303,16 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
         ID2 = -1;
         ID1 = -1;
     }
+    else if(ID1 ==40)
+    {
+        vieJoueur[0]+=degats;
+        ID1 = -1;
+    }
+    else if(ID1 == 41)
+    {
+        vieJoueur[0]+=degats;
+        ID1 = -1;
+    }
     temp = TID1.size();
     for(int i =0 ; i < temp;i++)
     {
@@ -315,6 +325,11 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
         {
             cartesJoueurTerrain[0][TID2[i]]->setVie(Tdegats[i]);
         }
+        else if(TID1[i] >= 20)
+        {
+            cartesJoueurTerrain[0][TID1[i] - 20]->setVie(Tdegats[i]);
+            cartesJoueurTerrain[0][TID2[i]]->setVie(Tdegats[i]);
+        }
     }
     for(int i = 0; i < temp; i++)
     {
@@ -322,19 +337,6 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
         TID2.erase(TID2.begin());
         Tdegats.erase(Tdegats.begin());
     }
-    /*else if( ID1 >=20)
-    {
-        cartesJoueurTerrain[0][ID1 - 20]->setVie(degats);
-        cartesJoueurTerrain[0][ID2]->setVie(degats);
-    }
-    else if(ID1 ==40)
-    {
-        vieJoueur[0]+=degats;
-    }
-    else if(ID1 == 41)
-    {
-        vieJoueur[0]+=degats;
-    }*/
 }
 
 void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,int carteAdverse,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface)
