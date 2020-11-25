@@ -189,15 +189,6 @@ void jeu(int port)
 
 
 
-
-        for(size_t i= 0; i < cartesJoueur[0].size(); i++)
-        {
-            cartesJoueur[0][i]->definirAttaque(0,5,1,1,1);
-            cartesJoueur[0][i]->definirAttaque(1,10,1,2,1);
-        }
-
-
-
         SDL_Rect position;
 
         if(numJoueur == 1)
