@@ -56,18 +56,7 @@ void jeu(int port)
         std::vector<int> Tdegats;
 
         std::vector<SDL_Surface*> imageCache;
-        imageCache.push_back(IMG_Load("Cartes/BarbaraG.png"));
-        imageCache.push_back(IMG_Load("Cartes/SucroseG.png"));
-        imageCache.push_back(IMG_Load("Cartes/ZhongliG.png"));
-        imageCache.push_back(IMG_Load("Cartes/NoelleG.png"));
-        imageCache.push_back(IMG_Load("Cartes/JeanG.png"));
-        imageCache.push_back(IMG_Load("Cartes/MonaG.png"));
-        imageCache.push_back(IMG_Load("Cartes/Klee2G.png"));
-        imageCache.push_back(IMG_Load("Cartes/BennetG.png"));
-        imageCache.push_back(IMG_Load("Cartes/KleeG.png"));
-        imageCache.push_back(IMG_Load("Cartes/NingguangG.png"));
-        imageCache.push_back(IMG_Load("Cartes/TartagliaG.png"));
-        imageCache.push_back(IMG_Load("Cartes/VentiG.png"));
+
 
         imageCache.push_back(IMG_Load("Cartes/BarbaraP.png"));
         imageCache.push_back(IMG_Load("Cartes/SucroseP.png"));
@@ -81,6 +70,19 @@ void jeu(int port)
         imageCache.push_back(IMG_Load("Cartes/NingguangP.png"));
         imageCache.push_back(IMG_Load("Cartes/TartagliaP.png"));
         imageCache.push_back(IMG_Load("Cartes/VentiP.png"));
+
+        imageCache.push_back(IMG_Load("Cartes/BarbaraG.png"));
+        imageCache.push_back(IMG_Load("Cartes/SucroseG.png"));
+        imageCache.push_back(IMG_Load("Cartes/ZhongliG.png"));
+        imageCache.push_back(IMG_Load("Cartes/NoelleG.png"));
+        imageCache.push_back(IMG_Load("Cartes/JeanG.png"));
+        imageCache.push_back(IMG_Load("Cartes/MonaG.png"));
+        imageCache.push_back(IMG_Load("Cartes/Klee2G.png"));
+        imageCache.push_back(IMG_Load("Cartes/BennetG.png"));
+        imageCache.push_back(IMG_Load("Cartes/KleeG.png"));
+        imageCache.push_back(IMG_Load("Cartes/NingguangG.png"));
+        imageCache.push_back(IMG_Load("Cartes/TartagliaG.png"));
+        imageCache.push_back(IMG_Load("Cartes/VentiG.png"));
 
 
 
