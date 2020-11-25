@@ -483,7 +483,7 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
     {
         for(size_t i = 0; i < cartesJoueurTerrain[0].size() ; i ++)
         {
-            cartesJoueurTerrain[0][i]->setVie(valeur);
+            cartesJoueurTerrain[0][i]->setVie(valeur); // envoie de ID ET DEGATS
         }
     }
     else if( type == 2)
@@ -491,20 +491,20 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
 
         for(size_t i = 0; i < cartesJoueurTerrain[1].size() ; i ++)
         {
-            cartesJoueurTerrain[1][i]->setVie(valeur);
+            cartesJoueurTerrain[1][i]->setVie(valeur); // envoie de ID et DEGATS
         }
     }
     else if (type == 3)
     {
         if(cartesJoueurTerrain[1].size() != 0)
         {
-            carteAlea =rand()%(cartesJoueurTerrain[1].size() ) + 0;
+            carteAlea =rand()%(cartesJoueurTerrain[1].size() ) + 0; // envoie de ID et DEGATS
             cartesJoueurTerrain[1][carteAlea]->setVie(valeur);
         }
 
         if(cartesJoueurTerrain[1].size() != 0)
         {
-            carteAlea =rand()%(cartesJoueurTerrain[1].size() )  + 0;
+            carteAlea =rand()%(cartesJoueurTerrain[1].size() )  + 0; // envoie de ID et DEGATS
             cartesJoueurTerrain[1][carteAlea]->setVie(valeur);
         }
 
@@ -524,7 +524,7 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
     }
     else if(type ==5)
     {
-        vieJoueur[0]+= valeur;
+        vieJoueur[0]+= valeur; // ENVOIE DE DEGATS
     }
     else if(type ==6)
     {
