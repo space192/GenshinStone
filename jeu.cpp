@@ -393,15 +393,10 @@ void jeu(int port)
                 else
                 {
 
-                    if(ID2 != -1 || ID1 !=-1)
-                    {
-                        actualiserDegats(ID1,ID2,degats,cartesJoueurTerrain,vieJoueur);
-                        ID2 = -1;
-                        ID1 = -1;
-                    }
+                    actualiserDegats(ID1,ID2,degats,cartesJoueurTerrain,vieJoueur, TID1, TID2, Tdegats);
+
                     if(placeID != -1)
                     {
-
                         placerCarte(cartesJoueur[1], cartesJoueurTerrain[1],placeID);
                         actualiserPositionCartesT(cartesJoueurTerrain);
                         placeID = -1;

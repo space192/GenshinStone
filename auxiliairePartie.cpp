@@ -288,17 +288,40 @@ int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energ
 
 }
 
-void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain, int vieJoueur[2] )
+void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain, int vieJoueur[2], std::vector<int> &TID1, std::vector<int> &TID2, std::vector<int> &Tdegats)
 {
+    int temp;
     if( ID1 == 2)
     {
         cartesJoueurTerrain[0][ID2]->setVie(degats);
+        ID2 = -1;
+        ID1 = -1;
     }
     else if( ID1 == 1)
     {
         cartesJoueurTerrain[1][ID2]->setVie(degats);
+        ID2 = -1;
+        ID1 = -1;
     }
-    else if( ID1 >=20)
+    temp = TID1.size();
+    for(int i =0 ; i < temp;i++)
+    {
+        if(TID1[i] == 1)
+        {
+            cartesJoueurTerrain[1][TID2[i]]->setVie(Tdegats[i]);
+        }
+        else if(TID1[i] == 2)
+        {
+            cartesJoueurTerrain[0][TID2[i]]->setVie(Tdegats[i]);
+        }
+    }
+    for(int i = 0; i < temp; i++)
+    {
+        TID1.erase(TID1.begin());
+        TID2.erase(TID2.begin());
+        Tdegats.erase(Tdegats.begin());
+    }
+    /*else if( ID1 >=20)
     {
         cartesJoueurTerrain[0][ID1 - 20]->setVie(degats);
         cartesJoueurTerrain[0][ID2]->setVie(degats);
@@ -310,7 +333,7 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
     else if(ID1 == 41)
     {
         vieJoueur[0]+=degats;
-    }
+    }*/
 }
 
 void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,int carteAdverse,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface)
@@ -417,6 +440,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
                     TID2.push_back(temp2);
                     Tdegats.push_back(temp3);
                 }
+                break;
             }
             default:
             {
