@@ -51,6 +51,9 @@ void jeu(int port)
         int nbrCarte= -1;
         int selecC= -1;
         int placeID= -1;
+        std::vector<int> TID1;
+        std::vector<int> TID2;
+        std::vector<int> Tdegats;
 
         std::vector<SDL_Surface*> imageCache;
         imageCache.push_back(IMG_Load("carte.png"));
@@ -184,7 +187,7 @@ void jeu(int port)
 
         //launching thread
         //void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbCarte, int *selec,int *placeID)
-        sf::Thread thread(std::bind(&receiveData, &actuJoueur,&socket, numJoueur, &condition, &ID1,&ID2,&degats, &nbrCarte, &selecC, &placeID));
+        sf::Thread thread(std::bind(&receiveData, &actuJoueur,&socket, numJoueur, &condition, &ID1,&ID2,&degats, &nbrCarte, &selecC, &placeID, TID1, TID2, Tdegats));
         thread.launch();
         if( pWindow )
         {

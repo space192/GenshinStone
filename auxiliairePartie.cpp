@@ -335,12 +335,14 @@ void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,
     }
 }
 
-void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbrCarte, int *selec,int *placeID)
+void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbrCarte, int *selec,int *placeID, std::vector<int> &TID1, std::vector<int> &TID2, std::vector<int> &Tdegats)
 {
     sf::Packet tempReceive;
     int receive = 0;
     sf::Packet paquet;
     sf::Packet realOne;
+    int boucle;
+    int temp, temp2, temp3;
     std::string chaine;
     int continuer = 1;
     while(continuer != 9)
@@ -363,7 +365,6 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
             {
                 realOne >> *ID1 >> *ID2 >> *degats; //recevoir une attaque
                 std::cout << "ID1: " << *ID1 << std::endl << "ID2: " << *ID2 << std::endl << "degats: " << *degats << std::endl;
-                Sleep(10);
                 break;
             }
             case 3:
@@ -405,6 +406,17 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
             {
                 realOne >> *ID1 >> *degats;
                 break;
+            }
+            case 11:
+            {
+                realOne >> boucle;
+                for(int i = 0 ; i < boucle ;i++)
+                {
+                    realOne >> temp >> temp2 >> temp3;
+                    TID1.push_back(temp);
+                    TID2.push_back(temp2);
+                    Tdegats.push_back(temp3);
+                }
             }
             default:
             {
@@ -508,40 +520,31 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
 
     if( type == 1)
     {
-        for(size_t i = cartesJoueurTerrain[0].size()-1; i >= 0; i --)
+        paquet << 11;
+        socket->send(paquet);
+        paquet.clear();
+        paquet << cartesJoueurTerrain[0].size();
+        for(size_t i = 0; i < cartesJoueurTerrain[0].size(); i++)
         {
             cartesJoueurTerrain[0][i]->setVie(valeur); // envoie de ID ET DEGATS HEAL
-            paquet.clear();
-            paquet << 2;
-            socket->send(paquet);
-            paquet.clear();
             paquet << 1 << i << valeur; //indique que a la reception on doit changer la valeur de l'ennemie du point de vue du joueur qui receptionne
-            socket->send(paquet);
-            paquet.clear();
-            if(i==0)
-            {
-                break;
-            }
         }
+        socket->send(paquet);
+        paquet.clear();
     }
     else if( type == 2)
     {
-
-        for(size_t i = cartesJoueurTerrain[1].size()-1; i >= 0 ; i--)
+        paquet << 11;
+        socket->send(paquet);
+        paquet.clear();
+        paquet << cartesJoueurTerrain[1].size();
+        for(size_t i = 0; i < cartesJoueurTerrain[1].size() ; i++)
         {
             cartesJoueurTerrain[1][i]->setVie(valeur); // envoie de ID et DEGATS
-            paquet.clear();
-            paquet << 2;
-            socket->send(paquet);
-            paquet.clear();
             paquet << 2 << i << valeur; //nous inflige des dégats a nos cartes en reception
-            socket->send(paquet);
-            paquet.clear();
-            if(i==0)
-            {
-                break;
-            }
         }
+        socket->send(paquet);
+        paquet.clear();
     }
     else if (type == 3)
     {
