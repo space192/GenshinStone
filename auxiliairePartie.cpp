@@ -315,12 +315,12 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
     }
     if(ID1 == 40)
     {
-        vieJoueur[0]-=degats;
+        vieJoueur[1]+=degats;
         ID1 = -1;
     }
     else if(ID1 == 41)
     {
-        vieJoueur[0]-=degats;
+        vieJoueur[0]+=degats;
         ID1 = -1;
     }
     temp = TID1.size();
@@ -328,7 +328,6 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
     {
         if(TID1[i] == 1)
         {
-            std::cout << TID1[i] << " " << TID2[i] << " " << Tdegats[i] << std::endl;
             cartesJoueurTerrain[1][TID2[i]]->setVie(Tdegats[i]);
         }
         else if(TID1[i] == 2)
@@ -395,25 +394,21 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         case 2:
         {
             realOne >> *ID1 >> *ID2 >> *degats; //recevoir une attaque
-            std::cout << "ID1: " << *ID1 << std::endl << "ID2: " << *ID2 << std::endl << "degats: " << *degats << std::endl;
             break;
         }
         case 3:
         {
             realOne >> *nbrCarte;//nombre carte adversaire
-            std::cout << "nbrCarte" << *nbrCarte << std::endl;
             break;
         }
         case 4:
         {
             realOne >> *selec;//carte selectionnee
-            std::cout << "carte selec: " << *selec << std::endl;
             break;
         }
         case 5: //placer une carte
         {
             realOne >> *placeID;
-            std::cout << "place ID: " << *placeID << std::endl;
             break;
         }
         case 6:
@@ -424,7 +419,6 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         case 7:
         {
             realOne >> *activePlayer;
-            std::cout << *activePlayer << std::endl;
             break;
         }
         case 9:
@@ -436,7 +430,6 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         case 10:
         {
             realOne >> *ID1 >> *degats;
-            std::cout << *ID1 << *degats;
             break;
         }
         case 11:
@@ -448,10 +441,6 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
                 TID1->push_back(temp);
                 TID2->push_back(temp2);
                 Tdegats->push_back(temp3);
-            }
-            for(int i = 0 ; i < TID1->size(); i++)
-            {
-                std::cout << TID1->at(i) << " " << TID2->at(i) << " " << Tdegats->at(i) << std::endl;
             }
             break;
         }
