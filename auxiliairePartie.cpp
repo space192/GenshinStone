@@ -43,11 +43,11 @@ void actualiserImage(std::vector<Cartes*> & cartesJoueur,std::vector< std::vecto
         SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()], NULL, windowSurface, &position);
         if(cartesJoueur[i]->getType() ==1 )
         {
-        machaine << cartesJoueur[i]->getVie();
-        texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
-        SDL_BlitSurface(texte, NULL, windowSurface, &position);
-        machaine.str(" ");
-        SDL_FreeSurface(texte);
+            machaine << cartesJoueur[i]->getVie();
+            texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
+            SDL_BlitSurface(texte, NULL, windowSurface, &position);
+            machaine.str(" ");
+            SDL_FreeSurface(texte);
         }
     }
 
@@ -110,69 +110,69 @@ void afficherDetails(int & condDetail, int & carteDetail,std::vector< std::vecto
 
     police = TTF_OpenFont("ARLRDBD.TTF", 60);
 
-            if(condDetail == 1)
-            {
-                if(carteDetail != -1)
-                {
-                    position = cartesJoueurTerrain[0][carteDetail ]->getPosition();
-                    position.x -= 42;
-                    position.y -= 59;
-                    SDL_BlitSurface(imageCache[cartesJoueurTerrain[0][carteDetail ]->getImage()-1], NULL, windowSurface, &position);
-                    machaine << cartesJoueurTerrain[0][carteDetail ]->getVie();
-                    texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
-                    SDL_BlitSurface(texte, NULL, windowSurface, &position);
-                    machaine.str(" ");
-                    SDL_FreeSurface(texte);
-                }
-            }
-            else if(condDetail == 3)
-            {
-                if(carteDetail != -1)
-                {
-                    position = cartesJoueurTerrain[1][carteDetail ]->getPosition();
-                    position.x -= 42;
-                    position.y -= 59;
-                    SDL_BlitSurface(imageCache[cartesJoueurTerrain[1][carteDetail ]->getImage()-1], NULL, windowSurface, &position);
-                    machaine << cartesJoueurTerrain[1][carteDetail ]->getVie();
-                    texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
-                    SDL_BlitSurface(texte, NULL, windowSurface, &position);
-                    machaine.str(" ");
-                    SDL_FreeSurface(texte);
-                }
-            }
-            else if(condDetail == 2)
-            {
-                if(carteDetail != -1)
-                {
-                    position = cartesJoueur[0][carteDetail ]->getPosition();
-                    position.x -= 100;
-                    position.y -= 300;
-                    SDL_BlitSurface(imageCache[cartesJoueur[0][carteDetail ]->getImage()-1], NULL, windowSurface, &position);
+    if(condDetail == 1)
+    {
+        if(carteDetail != -1)
+        {
+            position = cartesJoueurTerrain[0][carteDetail ]->getPosition();
+            position.x -= 42;
+            position.y -= 59;
+            SDL_BlitSurface(imageCache[cartesJoueurTerrain[0][carteDetail ]->getImage()-1], NULL, windowSurface, &position);
+            machaine << cartesJoueurTerrain[0][carteDetail ]->getVie();
+            texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
+            SDL_BlitSurface(texte, NULL, windowSurface, &position);
+            machaine.str(" ");
+            SDL_FreeSurface(texte);
+        }
+    }
+    else if(condDetail == 3)
+    {
+        if(carteDetail != -1)
+        {
+            position = cartesJoueurTerrain[1][carteDetail ]->getPosition();
+            position.x -= 42;
+            position.y -= 59;
+            SDL_BlitSurface(imageCache[cartesJoueurTerrain[1][carteDetail ]->getImage()-1], NULL, windowSurface, &position);
+            machaine << cartesJoueurTerrain[1][carteDetail ]->getVie();
+            texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
+            SDL_BlitSurface(texte, NULL, windowSurface, &position);
+            machaine.str(" ");
+            SDL_FreeSurface(texte);
+        }
+    }
+    else if(condDetail == 2)
+    {
+        if(carteDetail != -1)
+        {
+            position = cartesJoueur[0][carteDetail ]->getPosition();
+            position.x -= 100;
+            position.y -= 300;
+            SDL_BlitSurface(imageCache[cartesJoueur[0][carteDetail ]->getImage()-1], NULL, windowSurface, &position);
 
-                    if(cartesJoueur[0][carteDetail ]->getType() ==1 )
-                    {
-                    machaine << cartesJoueur[0][carteDetail ]->getVie() ;
-                    texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
-                    SDL_BlitSurface(texte, NULL, windowSurface, &position);
-                    machaine.str(" ");
-                    SDL_FreeSurface(texte);
-                    }
-                }
-                newV = carteDetail;
-                if(old != newV)
-                {
-                    paquet.clear();
-                    paquet << 4;
-                    client->send(paquet);
-                    paquet.clear();
-                    old = newV;
-                    paquet << carteDetail;
-                    client->send(paquet);
-                    paquet.clear();
-                }
-
+            if(cartesJoueur[0][carteDetail ]->getType() ==1 )
+            {
+                machaine << cartesJoueur[0][carteDetail ]->getVie() ;
+                texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
+                SDL_BlitSurface(texte, NULL, windowSurface, &position);
+                machaine.str(" ");
+                SDL_FreeSurface(texte);
             }
-            TTF_CloseFont(police);
+        }
+        newV = carteDetail;
+        if(old != newV)
+        {
+            paquet.clear();
+            paquet << 4;
+            client->send(paquet);
+            paquet.clear();
+            old = newV;
+            paquet << carteDetail;
+            client->send(paquet);
+            paquet.clear();
+        }
+
+    }
+    TTF_CloseFont(police);
 }
 
 
@@ -180,7 +180,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
 {
     int cond = 0;
 
-    for(size_t i =0; i<energiesJoueur.size();i++)
+    for(size_t i =0; i<energiesJoueur.size(); i++)
     {
         if(energiesJoueur[i].getElem() == 1)
         {
@@ -192,7 +192,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     }
     cond = 0;
 
-    for(size_t i =0; i<energiesJoueur.size();i++)
+    for(size_t i =0; i<energiesJoueur.size(); i++)
     {
         if(energiesJoueur[i].getElem() == 2)
         {
@@ -204,7 +204,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     }
     cond = 0;
 
-    for(size_t i =0; i<energiesJoueur.size();i++)
+    for(size_t i =0; i<energiesJoueur.size(); i++)
     {
         if(energiesJoueur[i].getElem() == 3)
         {
@@ -216,7 +216,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     }
     cond = 0;
 
-    for(size_t i =0; i<energiesJoueur.size();i++)
+    for(size_t i =0; i<energiesJoueur.size(); i++)
     {
         if(energiesJoueur[i].getElem() == 4)
         {
@@ -234,7 +234,7 @@ void afficherEnergies(std::vector<EnergyCards> & energiesJoueur,std::vector<SDL_
 {
     SDL_Rect position;
 
-    for(size_t i =0; i<energiesJoueur.size();i++)
+    for(size_t i =0; i<energiesJoueur.size(); i++)
     {
         position = energiesJoueur[i].getPosition();
         SDL_BlitSurface(imageCache[energiesJoueur[i].getElem() - 1], NULL, windowSurface, &position);
@@ -243,14 +243,14 @@ void afficherEnergies(std::vector<EnergyCards> & energiesJoueur,std::vector<SDL_
 
 int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energiesJoueur, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain )
 {
-   // Attaque attaqueActive
+    // Attaque attaqueActive
 
     int resultat = 0;
     int typeCond = 0;
     int numCond = 0 ;
     int eraseCond = 0;
 
-    for(size_t i = 0; i<energiesJoueur.size();i++)
+    for(size_t i = 0; i<energiesJoueur.size(); i++)
     {
         if(energiesJoueur[i].getElem() == attaqueActive.typeEnergie)
         {
@@ -291,35 +291,40 @@ int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energ
 void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain, int vieJoueur[2], std::vector<int> &TID1, std::vector<int> &TID2, std::vector<int> &Tdegats)
 {
     int temp;
-    if( ID1 == 2)
+    if(ID2 != -1)
     {
-        cartesJoueurTerrain[0][ID2]->setVie(degats);
-        ID2 = -1;
-        ID1 = -1;
-    }
-    else if( ID1 == 1)
-    {
-        cartesJoueurTerrain[1][ID2]->setVie(degats);
-        ID2 = -1;
-        ID1 = -1;
-    }
-    else if(ID1 == 40)
-    {
-        vieJoueur[0]+=degats;
-        ID1 = -1;
-    }
-    else if(ID1 == 41)
-    {
-        vieJoueur[0]+=degats;
-        ID1 = -1;
-    }
-    else if(ID1 >= 20 && ID1 != 40 && ID1 != 41)
-    {
-        cartesJoueurTerrain[0][ID1 - 20]->setVie(degats);
-        cartesJoueurTerrain[0][ID2]->setVie(degats);
+        if( ID1 == 2)
+        {
+            cartesJoueurTerrain[0][ID2]->setVie(degats);
+            ID2 = -1;
+            ID1 = -1;
+        }
+        else if( ID1 == 1)
+        {
+            cartesJoueurTerrain[1][ID2]->setVie(degats);
+            ID2 = -1;
+            ID1 = -1;
+        }
+        else if(ID1 == 40)
+        {
+            vieJoueur[0]+=degats;
+            ID1 = -1;
+        }
+        else if(ID1 == 41)
+        {
+            vieJoueur[0]+=degats;
+            ID1 = -1;
+        }
+        else if(ID1 >= 20 && ID1 != 40 && ID1 != 41)
+        {
+            cartesJoueurTerrain[0][ID1 - 20]->setVie(degats);
+            cartesJoueurTerrain[0][ID2]->setVie(degats);
+            ID1 = -1;
+            ID2 = -1;
+        }
     }
     temp = TID1.size();
-    for(int i =0 ; i < temp;i++)
+    for(int i =0 ; i < temp; i++)
     {
         if(TID1[i] == 1)
         {
@@ -373,88 +378,88 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
     int continuer = 1;
     while(continuer != 9)
     {
-            socket->receive(tempReceive);
-            tempReceive >> receive;
-            if(receive != 9)
+        socket->receive(tempReceive);
+        tempReceive >> receive;
+        if(receive != 9)
+        {
+            socket->receive(realOne);
+        }
+        switch(receive)
+        {
+        case 1:
+        {
+            realOne >> chaine; //recevoir un texte
+            std::cout << chaine << std::endl;
+            break;
+        }
+        case 2:
+        {
+            realOne >> *ID1 >> *ID2 >> *degats; //recevoir une attaque
+            std::cout << "ID1: " << *ID1 << std::endl << "ID2: " << *ID2 << std::endl << "degats: " << *degats << std::endl;
+            break;
+        }
+        case 3:
+        {
+            realOne >> *nbrCarte;//nombre carte adversaire
+            std::cout << "nbrCarte" << *nbrCarte << std::endl;
+            break;
+        }
+        case 4:
+        {
+            realOne >> *selec;//carte selectionnee
+            std::cout << "carte selec: " << *selec << std::endl;
+            break;
+        }
+        case 5: //placer une carte
+        {
+            realOne >> *placeID;
+            std::cout << "place ID: " << *placeID << std::endl;
+            break;
+        }
+        case 6:
+        {
+            //décés d'une carte
+            break;
+        }
+        case 7:
+        {
+            realOne >> *activePlayer;
+            std::cout << *activePlayer << std::endl;
+            break;
+        }
+        case 9:
+        {
+            continuer = 9;
+            *condition = 0;
+            break;
+        }
+        case 10:
+        {
+            realOne >> *ID1 >> *degats;
+            break;
+        }
+        case 11:
+        {
+            realOne >> boucle;
+            for(int i = 0 ; i < boucle ; i++)
             {
-                socket->receive(realOne);
+                realOne >> temp >> temp2 >> temp3;
+                TID1->push_back(temp);
+                TID2->push_back(temp2);
+                Tdegats->push_back(temp3);
             }
-            switch(receive)
+            for(int i = 0 ; i < TID1->size(); i++)
             {
-            case 1:
-            {
-                realOne >> chaine; //recevoir un texte
-                std::cout << chaine << std::endl;
-                break;
+                std::cout << TID1->at(i) << " " << TID2->at(i) << " " << Tdegats->at(i) << std::endl;
             }
-            case 2:
-            {
-                realOne >> *ID1 >> *ID2 >> *degats; //recevoir une attaque
-                std::cout << "ID1: " << *ID1 << std::endl << "ID2: " << *ID2 << std::endl << "degats: " << *degats << std::endl;
-                break;
-            }
-            case 3:
-            {
-                realOne >> *nbrCarte;//nombre carte adversaire
-                std::cout << "nbrCarte" << *nbrCarte << std::endl;
-                break;
-            }
-            case 4:
-            {
-                realOne >> *selec;//carte selectionnee
-                std::cout << "carte selec: " << *selec << std::endl;
-                break;
-            }
-            case 5: //placer une carte
-            {
-                realOne >> *placeID;
-                std::cout << "place ID: " << *placeID << std::endl;
-                break;
-            }
-            case 6:
-            {
-                //décés d'une carte
-                break;
-            }
-            case 7:
-            {
-                realOne >> *activePlayer;
-                std::cout << *activePlayer << std::endl;
-                break;
-            }
-            case 9:
-            {
-                continuer = 9;
-                *condition = 0;
-                break;
-            }
-            case 10:
-            {
-                realOne >> *ID1 >> *degats;
-                break;
-            }
-            case 11:
-            {
-                realOne >> boucle;
-                for(int i = 0 ; i < boucle ;i++)
-                {
-                    realOne >> temp >> temp2 >> temp3;
-                    TID1->push_back(temp);
-                    TID2->push_back(temp2);
-                    Tdegats->push_back(temp3);
-                }
-                for(int i = 0 ; i < TID1->size();i++)
-                {
-                    std::cout << TID1->at(i) << " " << TID2->at(i) << " " << Tdegats->at(i) << std::endl;
-                }
-                break;
-            }
-            default:
-            {
-                std::cout << "erreur lors du choix de la reception" << std::endl;
-                break;
-            }
-            }
+            break;
+        }
+        default:
+        {
+            std::cout << "erreur lors du choix de la reception" << std::endl;
+            break;
+        }
+        }
         tempReceive.clear();
         paquet.clear();
         realOne.clear();
@@ -483,7 +488,7 @@ void get_text_and_rect(SDL_Renderer *renderer, int x, int y, char *text, TTF_Fon
 
 void testSiCarteMorte(std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> > & cimetiere )
 {
-    for(size_t i = 0; i<cartesJoueurTerrain[0].size();i++)
+    for(size_t i = 0; i<cartesJoueurTerrain[0].size(); i++)
     {
         if(cartesJoueurTerrain[0][i]->getVie() <=0 )
         {
@@ -495,7 +500,7 @@ void testSiCarteMorte(std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain
         }
     }
 
-    for(size_t i = 0; i<cartesJoueurTerrain[1].size();i++)
+    for(size_t i = 0; i<cartesJoueurTerrain[1].size(); i++)
     {
         if(cartesJoueurTerrain[1][i]->getVie() <=0 )
         {
@@ -524,13 +529,13 @@ void afficherCimetiere(std::vector< std::vector<Cartes*> > & cimetiere,std::vect
         SDL_BlitSurface(imageCache[cimetiere[0][0]->getImage()], NULL, windowSurface, &position);
     }
 
-   if(cimetiere[1].size() != NULL)
-   {
+    if(cimetiere[1].size() != NULL)
+    {
 
-       position.x = 0;
-    position.y = 100;
-    SDL_BlitSurface(imageCache[cimetiere[1][0]->getImage()], NULL, windowSurface, &position);
-   }
+        position.x = 0;
+        position.y = 100;
+        SDL_BlitSurface(imageCache[cimetiere[1][0]->getImage()], NULL, windowSurface, &position);
+    }
 
 
 
