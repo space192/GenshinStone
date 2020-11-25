@@ -369,7 +369,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
 {
     sf::Packet tempReceive;
     int receive = 0;
-    int old, news, compteur;
+    int old, news, compteur, compteur2, compteur3, old2, news2;
     sf::Packet paquet;
     sf::Packet realOne;
     int boucle;
@@ -380,42 +380,42 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
     {
         socket->receive(tempReceive);
         tempReceive >> receive;
-        old = news;
-        news = receive;
         if(receive != 9)
         {
             socket->receive(realOne);
+        }
+        if(receive != 4)
+        {
+            old = news;
+            news = receive;
         }
         switch(receive)
         {
         case 1:
         {
             realOne >> chaine; //recevoir un texte
-            std::cout << chaine << std::endl;
             break;
         }
         case 2:
         {
             realOne >> *ID1 >> *ID2 >> *degats; //recevoir une attaque
-            std::cout << *ID1 << *ID2 << *degats << std::endl;
             break;
         }
         case 3:
         {
             realOne >> *nbrCarte;//nombre carte adversaire
-            std::cout << *nbrCarte << std::endl;
             break;
         }
         case 4:
         {
+            old2 = news2;
             realOne >> *selec;//carte selectionnee
-            std::cout << *selec << std::endl;
+            news2 = *selec;
             break;
         }
         case 5: //placer une carte
         {
             realOne >> *placeID;
-            std::cout << *placeID << std::endl;
             break;
         }
         case 6:
@@ -426,7 +426,6 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         case 7:
         {
             realOne >> *activePlayer;
-            std::cout << *placeID << std::endl;
             break;
         }
         case 9:
@@ -438,7 +437,6 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         case 10:
         {
             realOne >> *ID1 >> *degats;
-            std::cout << *ID1 << *degats;
             break;
         }
         case 11:
@@ -456,7 +454,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         default:
         {
             std::cout << "erreur lors du choix de la reception" << std::endl;
-            compteur++;
+            compteur2++;
             break;
         }
         }
@@ -468,7 +466,15 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         {
             compteur = 0;
         }
-        if(compteur == 15)
+        if(old2 == news2)
+        {
+            compteur3++;
+        }
+        else
+        {
+            compteur3 = 0;
+        }
+        if(compteur == 15 || compteur2 == 15 || compteur3 == 15)
         {
             continuer = 9;
             *condition = 0;
