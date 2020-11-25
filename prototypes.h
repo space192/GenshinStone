@@ -1,5 +1,10 @@
 #ifndef PROTOTYPES_H_INCLUDED
 #define PROTOTYPES_H_INCLUDED
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 #include <string>
 #include <vector>
 #include <iostream>

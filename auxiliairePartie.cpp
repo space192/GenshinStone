@@ -311,7 +311,6 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
     {
         vieJoueur[0]+=degats;
     }
-
 }
 
 void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,int carteAdverse,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface)
@@ -364,6 +363,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
             {
                 realOne >> *ID1 >> *ID2 >> *degats; //recevoir une attaque
                 std::cout << "ID1: " << *ID1 << std::endl << "ID2: " << *ID2 << std::endl << "degats: " << *degats << std::endl;
+                Sleep(10);
                 break;
             }
             case 3:

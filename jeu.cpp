@@ -390,10 +390,11 @@ void jeu(int port)
                 else
                 {
 
-                    if(ID2 != -1)
+                    if(ID2 != -1 || ID1 !=-1)
                     {
                         actualiserDegats(ID1,ID2,degats,cartesJoueurTerrain,vieJoueur);
                         ID2 = -1;
+                        ID1 = -1;
                     }
                     if(placeID != -1)
                     {
