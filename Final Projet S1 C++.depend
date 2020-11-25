@@ -51,3 +51,30 @@
 1606310863 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\main.cpp
 	"prototypes.h"
 
+1606326757 source:c:\users\arthur\documents\github\projet-s1-ing2\auxiliairepartie.cpp
+	"prototypes.h"
+
+1606326360 c:\users\arthur\documents\github\projet-s1-ing2\prototypes.h
+	<string>
+	<vector>
+	<iostream>
+	<sstream>
+	<cstdlib>
+	<time.h>
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	<SDL2/SDL_ttf.h>
+	<SFML/Network.hpp>
+	<functional>
+
+1606309978 source:c:\users\arthur\documents\github\projet-s1-ing2\cartes.cpp
+	"prototypes.h"
+
+1604940050 source:c:\users\arthur\documents\github\projet-s1-ing2\deck.cpp
+
+1606326294 source:c:\users\arthur\documents\github\projet-s1-ing2\jeu.cpp
+	"prototypes.h"
+
+1606310903 source:c:\users\arthur\documents\github\projet-s1-ing2\main.cpp
+	"prototypes.h"
+

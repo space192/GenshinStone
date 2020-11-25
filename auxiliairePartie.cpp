@@ -508,7 +508,7 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
 
     if( type == 1)
     {
-        for(size_t i = cartesJoueurTerrain[0].size(); i > 0; i --)
+        for(size_t i = cartesJoueurTerrain[0].size()-1; i >= 0; i --)
         {
             cartesJoueurTerrain[0][i]->setVie(valeur); // envoie de ID ET DEGATS HEAL
             paquet.clear();
@@ -518,12 +518,16 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
             paquet << 1 << i << valeur; //indique que a la reception on doit changer la valeur de l'ennemie du point de vue du joueur qui receptionne
             socket->send(paquet);
             paquet.clear();
+            if(i==0)
+            {
+                break;
+            }
         }
     }
     else if( type == 2)
     {
 
-        for(size_t i = cartesJoueurTerrain[1].size(); i > 0 ; i --)
+        for(size_t i = cartesJoueurTerrain[1].size()-1; i >= 0 ; i--)
         {
             cartesJoueurTerrain[1][i]->setVie(valeur); // envoie de ID et DEGATS
             paquet.clear();
@@ -533,6 +537,10 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
             paquet << 2 << i << valeur; //nous inflige des dégats a nos cartes en reception
             socket->send(paquet);
             paquet.clear();
+            if(i==0)
+            {
+                break;
+            }
         }
     }
     else if (type == 3)
