@@ -288,7 +288,7 @@ int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energ
 
 }
 
-void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain, int vieJoueur[2], std::vector<int> &TID1, std::vector<int> &TID2, std::vector<int> &Tdegats)
+void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain, int vieJoueur[], std::vector<int> &TID1, std::vector<int> &TID2, std::vector<int> &Tdegats)
 {
     int temp;
     if(ID2 != -1)
@@ -305,16 +305,6 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
             ID2 = -1;
             ID1 = -1;
         }
-        else if(ID1 == 40)
-        {
-            vieJoueur[0]-=degats;
-            ID1 = -1;
-        }
-        else if(ID1 == 41)
-        {
-            vieJoueur[0]-=degats;
-            ID1 = -1;
-        }
         else if(ID1 >= 20 && ID1 != 40 && ID1 != 41)
         {
             cartesJoueurTerrain[0][ID1 - 20]->setVie(degats);
@@ -322,6 +312,16 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
             ID1 = -1;
             ID2 = -1;
         }
+    }
+    if(ID1 == 40)
+    {
+        vieJoueur[0]-=degats;
+        ID1 = -1;
+    }
+    else if(ID1 == 41)
+    {
+        vieJoueur[0]-=degats;
+        ID1 = -1;
     }
     temp = TID1.size();
     for(int i =0 ; i < temp; i++)
@@ -436,6 +436,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         case 10:
         {
             realOne >> *ID1 >> *degats;
+            std::cout << *ID1 << *degats;
             break;
         }
         case 11:

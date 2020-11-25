@@ -83,6 +83,8 @@ void jeu(int port)
         TEMP.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,2,30));
         TEMP.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,3,10));
         TEMP.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,4,10));
+        TEMP.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,5,10));
+        TEMP.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,6,-10));
 
         TEMP4.push_back( new CharacterCards("Carte1",1,10,1,1,797,0,10,30,2));
         TEMP4.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
@@ -94,6 +96,8 @@ void jeu(int port)
         TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,2,30));
         TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,3,10));
         TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,4,10));
+        TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,5,10));
+        TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,6,-10));
 
 
         if(numJoueur == 1)
