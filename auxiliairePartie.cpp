@@ -237,7 +237,7 @@ void afficherEnergies(std::vector<EnergyCards> & energiesJoueur,std::vector<SDL_
     for(size_t i =0; i<energiesJoueur.size();i++)
     {
         position = energiesJoueur[i].getPosition();
-        SDL_BlitSurface(imageCache[energiesJoueur[i].getImage()], NULL, windowSurface, &position);
+        SDL_BlitSurface(imageCache[energiesJoueur[i].getElem() - 1], NULL, windowSurface, &position);
     }
 }
 

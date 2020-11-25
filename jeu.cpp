@@ -56,6 +56,17 @@ void jeu(int port)
         imageCache.push_back(IMG_Load("carte.png"));
         imageCache.push_back(IMG_Load("carteP.png"));
 
+        std::vector<SDL_Surface*> imageCacheE;
+        imageCacheE.push_back(IMG_Load("feuP.png"));
+        imageCacheE.push_back(IMG_Load("airP.png"));
+        imageCacheE.push_back(IMG_Load("terreP.png"));
+        imageCacheE.push_back(IMG_Load("eauP.png"));
+        imageCacheE.push_back(IMG_Load("eauG.png"));
+        imageCacheE.push_back(IMG_Load("feuG.png"));
+        imageCacheE.push_back(IMG_Load("airG.png"));
+        imageCacheE.push_back(IMG_Load("terreG.png"));
+
+
         std::vector< std::vector<Cartes*> > cartesJoueur;
         std::vector<Cartes*> TEMP;
         std::vector<Cartes*> TEMP4;
@@ -181,7 +192,7 @@ void jeu(int port)
             {
                 SDL_BlitSurface(fond, NULL, windowSurface, NULL);
                 actualiserImage(cartesJoueur[0],cartesJoueurTerrain,imageCache,windowSurface,texte,police);
-                afficherEnergies(energiesJoueur,imageCache,windowSurface);
+                afficherEnergies(energiesJoueur,imageCacheE,windowSurface);
                 if(numJoueur == actuJoueur)
                 {
                     if(SDL_PollEvent( &event ))

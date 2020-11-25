@@ -24,14 +24,16 @@
 1606264836 source:c:\users\arthur\documents\ece\ing 2\s1\informatique\projet\final projet s1 c++\main.cpp
 	"prototypes.h"
 
-1606308958 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\auxiliairepartie.cpp
+1606312683 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\auxiliairepartie.cpp
 	"prototypes.h"
 
-1606309032 c:\users\plpai\onedrive\documents\github\projet-s1-ing2\prototypes.h
+1606312683 c:\users\plpai\onedrive\documents\github\projet-s1-ing2\prototypes.h
 	<string>
 	<vector>
 	<iostream>
 	<sstream>
+	<cstdlib>
+	<time.h>
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
 	<SDL2/SDL_ttf.h>
@@ -43,7 +45,7 @@
 
 1606302093 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\deck.cpp
 
-1606310863 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\jeu.cpp
+1606312683 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\jeu.cpp
 	"prototypes.h"
 
 1606310863 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\main.cpp
