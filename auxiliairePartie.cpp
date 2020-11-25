@@ -288,9 +288,30 @@ int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energ
 
 }
 
-void actualiserDegats(int & ID, int & degats, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain )
+void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain, int vieJoueur[2] )
 {
-    cartesJoueurTerrain[0][ID]->setVie(degats);
+    if( ID1 == 2)
+    {
+        cartesJoueurTerrain[0][ID2]->setVie(degats);
+    }
+    else if( ID1 == 1)
+    {
+        cartesJoueurTerrain[1][ID2]->setVie(degats);
+    }
+    else if( ID1 >=20)
+    {
+        cartesJoueurTerrain[0][ID1 - 20]->setVie(degats);
+        cartesJoueurTerrain[0][ID2]->setVie(degats);
+    }
+    else if(ID1 ==40)
+    {
+        vieJoueur[0]+=degats;
+    }
+    else if(ID1 == 41)
+    {
+        vieJoueur[0]+=degats;
+    }
+
 }
 
 void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,int carteAdverse,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface)
@@ -380,6 +401,11 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
                 *condition = 0;
                 break;
             }
+            case 10:
+            {
+                realOne >> *ID1 >> *degats;
+                break;
+            }
             default:
             {
                 std::cout << "erreur lors du choix de la reception" << std::endl;
@@ -467,31 +493,46 @@ void afficherCimetiere(std::vector< std::vector<Cartes*> > & cimetiere,std::vect
 
 }
 
-void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur,int vieJoueur[2])
+void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur,int vieJoueur[2], sf::TcpSocket *socket)
 {
 
 
     int valeur = cartesJoueur[0][selec]->getValeurT();
     int type = cartesJoueur[0][selec]->getTypeT();
     int carteAlea;
-
+    int temp;
+    sf::Packet paquet;
 
 
 
 
     if( type == 1)
     {
-        for(size_t i = 0; i < cartesJoueurTerrain[0].size() ; i ++)
+        for(size_t i = cartesJoueurTerrain[0].size(); i > 0; i --)
         {
-            cartesJoueurTerrain[0][i]->setVie(valeur); // envoie de ID ET DEGATS
+            cartesJoueurTerrain[0][i]->setVie(valeur); // envoie de ID ET DEGATS HEAL
+            paquet.clear();
+            paquet << 2;
+            socket->send(paquet);
+            paquet.clear();
+            paquet << 1 << i << valeur; //indique que a la reception on doit changer la valeur de l'ennemie du point de vue du joueur qui receptionne
+            socket->send(paquet);
+            paquet.clear();
         }
     }
     else if( type == 2)
     {
 
-        for(size_t i = 0; i < cartesJoueurTerrain[1].size() ; i ++)
+        for(size_t i = cartesJoueurTerrain[1].size(); i > 0 ; i --)
         {
             cartesJoueurTerrain[1][i]->setVie(valeur); // envoie de ID et DEGATS
+            paquet.clear();
+            paquet << 2;
+            socket->send(paquet);
+            paquet.clear();
+            paquet << 2 << i << valeur; //nous inflige des dégats a nos cartes en reception
+            socket->send(paquet);
+            paquet.clear();
         }
     }
     else if (type == 3)
@@ -500,6 +541,7 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
         {
             carteAlea =rand()%(cartesJoueurTerrain[1].size() ) + 0; // envoie de ID et DEGATS
             cartesJoueurTerrain[1][carteAlea]->setVie(valeur);
+            temp = carteAlea;
         }
 
         if(cartesJoueurTerrain[1].size() != 0)
@@ -507,6 +549,13 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
             carteAlea =rand()%(cartesJoueurTerrain[1].size() )  + 0; // envoie de ID et DEGATS
             cartesJoueurTerrain[1][carteAlea]->setVie(valeur);
         }
+        paquet.clear();
+        paquet << 2;
+        socket->send(paquet);
+        paquet.clear();
+        paquet << temp+20 << carteAlea << valeur;
+        socket->send(paquet);
+        paquet.clear();
 
     }
     else if(type ==4)
@@ -525,10 +574,24 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
     else if(type ==5)
     {
         vieJoueur[0]+= valeur; // ENVOIE DE DEGATS
+        paquet.clear();
+        paquet << 10;
+        socket->send(paquet);
+        paquet.clear();
+        paquet << 40 << valeur;
+        socket->send(paquet);
+        paquet.clear();
     }
     else if(type ==6)
     {
         vieJoueur[1]+= valeur;
+        paquet.clear();
+        paquet << 10;
+        socket->send(paquet);
+        paquet.clear();
+        paquet << 41 << valeur;
+        socket->send(paquet);
+        paquet.clear();
     }
 }
 

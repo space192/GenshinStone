@@ -314,7 +314,7 @@ void jeu(int port)
                             }
                             else if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 600 && event.button.y < 750 )&&(conditionSouris == 1)&&(cartesJoueur[0][carteSelec]->getType()==2))
                             {
-                                actionTrainer(carteSelec,cartesJoueurTerrain,cartesJoueur,energiesJoueur,vieJoueur);
+                                actionTrainer(carteSelec,cartesJoueurTerrain,cartesJoueur,energiesJoueur,vieJoueur, &socket);
                                 cartesJoueur[0].erase(cartesJoueur[0].begin() + carteSelec);
                                 actualiserPositionCartes(cartesJoueur);
                             }
@@ -323,7 +323,7 @@ void jeu(int port)
 
 
                                 carteAttaque = -1;
-                                carteAttaque =selectionCarte(cartesJoueurTerrain[1],event.button.x,event.button.y); //numero de la carte qui va se faire attaquer
+                                carteAttaque =selectionCarte(cartesJoueurTerrain[1],event.button.x,event.button.y ); //numero de la carte qui va se faire attaquer
 
                                 if(carteAttaque != -1)
                                 {
@@ -343,7 +343,7 @@ void jeu(int port)
                                         paquet << 2;
                                         socket.send(paquet);
                                         paquet.clear();
-                                        paquet << carteDetail << carteAttaque << attaqueActive.degat;
+                                        paquet << 2 << carteAttaque << attaqueActive.degat;
                                         socket.send(paquet);
                                         paquet.clear();
                                     }//            attaqué                          attaque de l'attaquant
@@ -392,7 +392,7 @@ void jeu(int port)
 
                     if(ID2 != -1)
                     {
-                        actualiserDegats(ID2,degats,cartesJoueurTerrain);
+                        actualiserDegats(ID1,ID2,degats,cartesJoueurTerrain,vieJoueur);
                         ID2 = -1;
                     }
                     if(placeID != -1)
