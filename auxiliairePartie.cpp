@@ -308,6 +308,7 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
     {
         if(TID1[i] == 1)
         {
+            std::cout << TID1[i] << " " << TID2[i] << " " << Tdegats[i] << std::endl;
             cartesJoueurTerrain[1][TID2[i]]->setVie(Tdegats[i]);
         }
         else if(TID1[i] == 2)
@@ -358,7 +359,7 @@ void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,
     }
 }
 
-void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbrCarte, int *selec,int *placeID, std::vector<int> &TID1, std::vector<int> &TID2, std::vector<int> &Tdegats)
+void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbrCarte, int *selec,int *placeID, std::vector<int> *TID1, std::vector<int> *TID2, std::vector<int> *Tdegats)
 {
     sf::Packet tempReceive;
     int receive = 0;
@@ -436,9 +437,13 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
                 for(int i = 0 ; i < boucle ;i++)
                 {
                     realOne >> temp >> temp2 >> temp3;
-                    TID1.push_back(temp);
-                    TID2.push_back(temp2);
-                    Tdegats.push_back(temp3);
+                    TID1->push_back(temp);
+                    TID2->push_back(temp2);
+                    Tdegats->push_back(temp3);
+                }
+                for(int i = 0 ; i < TID1->size();i++)
+                {
+                    std::cout << TID1->at(i) << " " << TID2->at(i) << " " << Tdegats->at(i) << std::endl;
                 }
                 break;
             }
