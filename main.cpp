@@ -75,6 +75,7 @@ int main(int argc, char **argv)
     int reception;
     int jour,mois,annee, LOGIN = 0, action;
     int port = -1;
+    int inQUEUE;
     sf::Thread thread(std::bind(&receptionT, &port, &socket));
     SDL_Surface *windowSurface = NULL;
     windowSurface = SDL_GetWindowSurface( window );
@@ -96,6 +97,7 @@ int main(int argc, char **argv)
             std::cout << "COUCOU" << std::endl;
             jeu(port);
             port = -1;
+            inQUEUE = 0;
         }
         while (SDL_PollEvent(&event) == 1)
         {
@@ -334,7 +336,21 @@ int main(int argc, char **argv)
                     switch(event.key.keysym.sym)
                     {
                     case SDLK_ESCAPE:
-                        quit = 1;
+                        if(inQUEUE == 1)
+                        {
+                            thread.terminate();
+                            paquet.clear();
+                            action = 4;
+                            paquet << action << LOGIN;
+                            socket.send(paquet);
+                            paquet.clear();
+                            inQUEUE = 0;
+                            SDL_Delay(100);
+                        }
+                        else
+                        {
+                            quit = 1;
+                        }
                         break;
                     }
                     break;
@@ -351,6 +367,7 @@ int main(int argc, char **argv)
                         socket.send(paquet);
                         paquet.clear();
                         thread.launch();
+                        inQUEUE = 1;
                         page = 4;
                     }
                     else if(event.button.x >400 && event.button.x <539 && event.button.y >432 && event.button.y <456)
