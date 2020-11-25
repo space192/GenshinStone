@@ -56,8 +56,34 @@ void jeu(int port)
         std::vector<int> Tdegats;
 
         std::vector<SDL_Surface*> imageCache;
-        imageCache.push_back(IMG_Load("carte.png"));
-        imageCache.push_back(IMG_Load("carteP.png"));
+        imageCache.push_back(IMG_Load("Cartes/BarbaraG.png"));
+        imageCache.push_back(IMG_Load("Cartes/SucroseG.png"));
+        imageCache.push_back(IMG_Load("Cartes/ZhongliG.png"));
+        imageCache.push_back(IMG_Load("Cartes/NoelleG.png"));
+        imageCache.push_back(IMG_Load("Cartes/JeanG.png"));
+        imageCache.push_back(IMG_Load("Cartes/MonaG.png"));
+        imageCache.push_back(IMG_Load("Cartes/Klee2G.png"));
+        imageCache.push_back(IMG_Load("Cartes/BennetG.png"));
+        imageCache.push_back(IMG_Load("Cartes/KleeG.png"));
+        imageCache.push_back(IMG_Load("Cartes/NingguangG.png"));
+        imageCache.push_back(IMG_Load("Cartes/TartagliaG.png"));
+        imageCache.push_back(IMG_Load("Cartes/VentiG.png"));
+
+        imageCache.push_back(IMG_Load("Cartes/BarbaraP.png"));
+        imageCache.push_back(IMG_Load("Cartes/SucroseP.png"));
+        imageCache.push_back(IMG_Load("Cartes/ZhongliP.png"));
+        imageCache.push_back(IMG_Load("Cartes/NoelleP.png"));
+        imageCache.push_back(IMG_Load("Cartes/JeanP.png"));
+        imageCache.push_back(IMG_Load("Cartes/MonaP.png"));
+        imageCache.push_back(IMG_Load("Cartes/Klee2P.png"));
+        imageCache.push_back(IMG_Load("Cartes/BennetP.png"));
+        imageCache.push_back(IMG_Load("Cartes/KleeP.png"));
+        imageCache.push_back(IMG_Load("Cartes/NingguangP.png"));
+        imageCache.push_back(IMG_Load("Cartes/TartagliaP.png"));
+        imageCache.push_back(IMG_Load("Cartes/VentiP.png"));
+
+
+
 
         std::vector<SDL_Surface*> imageCacheE;
         imageCacheE.push_back(IMG_Load("feuP.png"));
@@ -73,7 +99,7 @@ void jeu(int port)
         std::vector< std::vector<Cartes*> > cartesJoueur;
         std::vector<Cartes*> TEMP;
         std::vector<Cartes*> TEMP4;
-        TEMP.push_back( new CharacterCards("Carte1",1,10,1,1,797,0,10,30,2));
+        /*TEMP.push_back( new CharacterCards("Carte1",1,10,1,1,797,0,10,30,2));
         TEMP.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
         TEMP.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
         TEMP.push_back( new CharacterCards("Carte2",1,10,1,1,897,0,10,30,2));
@@ -97,7 +123,17 @@ void jeu(int port)
         TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,3,10));
         TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,4,10));
         TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,5,10));
-        TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,6,-10));
+        TEMP4.push_back( new TrainerCards("Carte2",2,10,1,1,897,0,6,-10));*/
+
+        for(int i = 0; i<6 ; i++)
+        {
+            lierCarteEtId(i,i,TEMP);
+        }
+
+        for(int i = 0; i<6 ; i++)
+        {
+            lierCarteEtId(i,i,TEMP4);
+        }
 
 
         if(numJoueur == 1)

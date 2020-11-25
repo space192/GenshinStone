@@ -147,5 +147,6 @@ void afficherCimetiere(std::vector< std::vector<Cartes*> > & cimetiere,std::vect
 
 void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur,int vieJoueur[2], sf::TcpSocket *socket);
 void afficherPV(int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface);
+void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & carteJoueur );
 
 #endif // PROTOTYPES_H_INCLUDED

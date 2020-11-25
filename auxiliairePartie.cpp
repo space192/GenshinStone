@@ -117,7 +117,7 @@ void afficherDetails(int & condDetail, int & carteDetail,std::vector< std::vecto
             position = cartesJoueurTerrain[0][carteDetail ]->getPosition();
             position.x -= 42;
             position.y -= 59;
-            SDL_BlitSurface(imageCache[cartesJoueurTerrain[0][carteDetail ]->getImage()-1], NULL, windowSurface, &position);
+            SDL_BlitSurface(imageCache[cartesJoueurTerrain[0][carteDetail ]->getImage()+12], NULL, windowSurface, &position);
             machaine << cartesJoueurTerrain[0][carteDetail ]->getVie();
             texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
             SDL_BlitSurface(texte, NULL, windowSurface, &position);
@@ -132,7 +132,7 @@ void afficherDetails(int & condDetail, int & carteDetail,std::vector< std::vecto
             position = cartesJoueurTerrain[1][carteDetail ]->getPosition();
             position.x -= 42;
             position.y -= 59;
-            SDL_BlitSurface(imageCache[cartesJoueurTerrain[1][carteDetail ]->getImage()-1], NULL, windowSurface, &position);
+            SDL_BlitSurface(imageCache[cartesJoueurTerrain[1][carteDetail ]->getImage()+12], NULL, windowSurface, &position);
             machaine << cartesJoueurTerrain[1][carteDetail ]->getVie();
             texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
             SDL_BlitSurface(texte, NULL, windowSurface, &position);
@@ -147,7 +147,7 @@ void afficherDetails(int & condDetail, int & carteDetail,std::vector< std::vecto
             position = cartesJoueur[0][carteDetail ]->getPosition();
             position.x -= 100;
             position.y -= 300;
-            SDL_BlitSurface(imageCache[cartesJoueur[0][carteDetail ]->getImage()-1], NULL, windowSurface, &position);
+            SDL_BlitSurface(imageCache[cartesJoueur[0][carteDetail ]->getImage()+12], NULL, windowSurface, &position);
 
             if(cartesJoueur[0][carteDetail ]->getType() ==1 )
             {
@@ -683,4 +683,84 @@ void afficherPV(int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface
 
 
     TTF_CloseFont(police);
+}
+
+
+void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
+{
+
+
+    if(imageID == 0)
+    {
+        cartesJoueur.push_back( new CharacterCards("Venti",1,10,10,0,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,2,1,1,3);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,8,1,3,3);
+
+    }
+    else if(imageID == 1)
+    {
+        cartesJoueur.push_back( new CharacterCards("Tartaglia",1,10,10,1,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,1,1,1,1);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,5,1,3,1);
+    }
+    else if(imageID == 2)
+    {
+        cartesJoueur.push_back( new CharacterCards("Ningguang",1,10,10,2,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,1,1,1,2);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,3,1,2,2);
+    }
+    else if(imageID == 3)
+    {
+        cartesJoueur.push_back( new CharacterCards("Klee",1,10,10,3,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,1,1,1,4);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,5,1,3,4);
+    }
+    else if(imageID == 4)
+    {
+        cartesJoueur.push_back( new CharacterCards("Bennett",1,10,10,4,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,2,1,1,4);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,5,1,2,4);
+    }
+    else if(imageID == 5)
+    {
+        cartesJoueur.push_back( new CharacterCards("Klee",1,10,10,5,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,1,1,1,4);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,8,1,3,4);
+    }
+    else if(imageID == 6)
+    {
+        cartesJoueur.push_back( new CharacterCards("Mona",1,10,10,6,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,2,1,1,1);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,10,1,4,1);
+    }
+    else if(imageID == 7)
+    {
+        cartesJoueur.push_back( new CharacterCards("Jean",1,10,10,7,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,3,1,1,3);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,10,1,4,3);
+    }
+    else if(imageID == 8)
+    {
+        cartesJoueur.push_back( new CharacterCards("Noelle",1,10,10,8,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,2,1,1,2);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,6,1,3,2);
+    }
+    else if(imageID == 9)
+    {
+        cartesJoueur.push_back( new CharacterCards("Zhongli",1,10,10,9,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,2,1,1,2);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,10,1,4,2);
+    }
+    else if(imageID == 10)
+    {
+        cartesJoueur.push_back( new CharacterCards("Sucrose",1,10,10,10,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,1,1,1,3);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,3,1,2,3);
+    }
+    else if(imageID == 11)
+    {
+        cartesJoueur.push_back( new CharacterCards("Barbara",1,10,10,11,797,0,10,10,2));
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,2,1,1,1);
+        cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,4,1,2,1);
+    }
 }
