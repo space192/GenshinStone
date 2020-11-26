@@ -86,6 +86,9 @@ void jeu(int port)
         imageCache.push_back(IMG_Load("Cartes/SucroseG.png"));
         imageCache.push_back(IMG_Load("Cartes/BarbaraG.png"));
 
+        imageCache.push_back(IMG_Load("back card small.png"));
+        imageCache.push_back(IMG_Load("back card big.png"));
+
 
 
 

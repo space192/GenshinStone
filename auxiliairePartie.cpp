@@ -373,7 +373,7 @@ void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,
         }
 
         position = cartesJoueur[1][i]->getPosition();
-        SDL_BlitSurface(imageCache[cartesJoueur[1][i]->getImage()], NULL, windowSurface, &position);
+        SDL_BlitSurface(imageCache[24], NULL, windowSurface, &position);
 
     }
 }
