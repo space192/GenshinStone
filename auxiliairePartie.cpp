@@ -698,7 +698,7 @@ void afficherPV(int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface
 
 void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
 {
-
+    int temp;
 
     if(imageID == 0)
     {
@@ -772,5 +772,84 @@ void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
         cartesJoueur.push_back( new CharacterCards("Barbara",1,10,10,11,797,0,10,10,2));
         cartesJoueur[cartesJoueur.size()-1]->definirAttaque(0,2,1,1,1);
         cartesJoueur[cartesJoueur.size()-1]->definirAttaque(1,4,1,2,1);
+    }
+
+    for(size_t i = 0; i < cartesJoueur.size(); i ++)
+    {
+        temp = cartesJoueur[i]->getImage();
+        if(temp== 0)
+        {
+
+            cartesJoueur[i]->definirAttaque(0,2,1,1,3);
+            cartesJoueur[i]->definirAttaque(1,8,1,3,3);
+
+        }
+        else if(temp == 1)
+        {
+
+            cartesJoueur[i]->definirAttaque(0,1,1,1,1);
+            cartesJoueur[i]->definirAttaque(1,5,1,3,1);
+        }
+        else if(temp == 2)
+        {
+
+            cartesJoueur[i]->definirAttaque(0,1,1,1,2);
+            cartesJoueur[i]->definirAttaque(1,3,1,2,2);
+        }
+        else if(temp == 3)
+        {
+
+            cartesJoueur[i]->definirAttaque(0,1,1,1,4);
+            cartesJoueur[i]->definirAttaque(1,5,1,3,4);
+        }
+        else if(temp == 4)
+        {
+
+            cartesJoueur[i]->definirAttaque(0,2,1,1,4);
+            cartesJoueur[i]->definirAttaque(1,5,1,2,4);
+        }
+        else if(temp == 5)
+        {
+
+            cartesJoueur[i]->definirAttaque(0,1,1,1,4);
+            cartesJoueur[i]->definirAttaque(1,8,1,3,4);
+        }
+        else if(temp == 6)
+        {
+
+           cartesJoueur[i]->definirAttaque(0,2,1,1,1);
+            cartesJoueur[i]->definirAttaque(1,10,1,4,1);
+        }
+        else if(temp == 7)
+        {
+
+            cartesJoueur[i]->definirAttaque(0,3,1,1,3);
+            cartesJoueur[i]->definirAttaque(1,10,1,4,3);
+        }
+        else if(temp == 8)
+        {
+
+            cartesJoueur[i]->definirAttaque(0,2,1,1,2);
+            cartesJoueur[i]->definirAttaque(1,6,1,3,2);
+        }
+        else if(temp == 9)
+        {
+
+            cartesJoueur[i]->definirAttaque(0,2,1,1,2);
+            cartesJoueur[i]->definirAttaque(1,10,1,4,2);
+        }
+        else if(temp== 10)
+        {
+
+            cartesJoueur[i]->definirAttaque(0,1,1,1,3);
+            cartesJoueur[i]->definirAttaque(1,3,1,2,3);
+        }
+        else if(temp == 11)
+        {
+
+            cartesJoueur[i]->definirAttaque(0,2,1,1,1);
+            cartesJoueur[i]->definirAttaque(1,4,1,2,1);
+        }
+
     }
 }
