@@ -264,7 +264,7 @@ int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energ
     {
         resultat=1;
 
-        for (auto it = energiesJoueur.begin(); it != energiesJoueur.end(); )
+        /*for (auto it = energiesJoueur.begin(); it != energiesJoueur.end(); )
         {
             if(it->getElem() == attaqueActive.typeEnergie && eraseCond < attaqueActive.prix)
             {
@@ -273,6 +273,19 @@ int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energ
             }
 
             it++;
+        }*/
+
+        if(energiesJoueur.empty() == false)
+        {
+            for(int i = energiesJoueur.size() - 1; i >= 0; i--)
+            {
+                if(energiesJoueur.at(i).getElem() == attaqueActive.typeEnergie && eraseCond < attaqueActive.prix)
+
+                {
+                    energiesJoueur.erase( energiesJoueur.begin() + i );
+                    eraseCond++;
+                }
+            }
         }
 
     }
