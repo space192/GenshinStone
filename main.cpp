@@ -95,7 +95,7 @@ int main(int argc, char **argv)
         if(port != -1)
         {
             std::cout << "COUCOU" << std::endl;
-            jeu(port);
+            jeu(port, name);
             thread.terminate();
             port = -1;
             inQUEUE = 0;

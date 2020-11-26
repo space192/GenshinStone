@@ -1,10 +1,8 @@
 #include "prototypes.h"
 
 
-void jeu(int port)
+void jeu(int port, std::string nomJoueur)
 {
-
-
     int numJoueur, actuJoueur;
     sf::TcpSocket socket;
     sf::Socket::Status status = socket.connect("fournierfamily.ovh", 53000 + port);
@@ -15,13 +13,25 @@ void jeu(int port)
     }
     else
     {
+        std::string name1;
+        std::string name2;
+        std::string oponnent;
         sf::Packet paquet;
         socket.receive(paquet);
         paquet >> numJoueur;
         paquet.clear();
         socket.receive(paquet);
-        paquet >> actuJoueur;
+        paquet >> actuJoueur >> name1 >> name2;
         paquet.clear();
+        if(nomJoueur == name1)
+        {
+            oponnent = name2;
+        }
+        else if(nomJoueur == name2)
+        {
+            oponnent = name1;
+        }
+        std::cout << oponnent << std::endl;
         TTF_Font *police = NULL;
         /* Création de la fenêtre */
         SDL_Window* pWindow = NULL;
