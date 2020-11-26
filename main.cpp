@@ -83,7 +83,7 @@ int main(int argc, char **argv)
 
     std::string name;
     std::string mdp;
-
+    std::string temp;
     std::string cname;
     std::string cmdp;
     std::string cdate;
@@ -232,18 +232,16 @@ int main(int argc, char **argv)
                             LOGIN = 1;
                         }
                         break;
-                    default:
-                        int a = event.key.keysym.sym;
-                        char w = static_cast<char>(a);
-                        if(state == 0)
-                        {
-                            test<<w;
-                        }
-                        else
-                        {
-                            test2<<w;
-                        }
-                        break;
+                    }
+                    break;
+                case SDL_TEXTINPUT:
+                    if(state == 0)
+                    {
+                        test<<event.text.text;
+                    }
+                    else
+                    {
+                        test2<<event.text.text;
                     }
                     break;
 
@@ -306,30 +304,23 @@ int main(int argc, char **argv)
                             LOGIN = 0;
                         }
                         break;
-                    default:
-                        //le c devant c'est au cas ou tu veux 2 types de variable dependant de
-                        //si ils essaient de se co ou si il essaient de cree un compte genre si
-                        //name = vide donc cree compte parce cname entier
-
-                        int a = event.key.keysym.sym;
-                        char w = static_cast<char>(a);
-                        if(state == 0)
-                        {
-                            createName<<w;
-                        }
-                        else if(state == 1)
-                        {
-                            createPassword<<w;
-                        }
-                        else
-                        {
-                            createDate<<w;
-                        }
-                        break;
                     }
                     break;
+                case SDL_TEXTINPUT:
+                if(state == 0)
+                {
+                    createName<<event.text.text;
+                }
+                else if(state == 1)
+                {
+                    createPassword<<event.text.text;
+                }
+                else
+                {
+                    createDate<<event.text.text;
                 }
                 break;
+                }
             case 4:
                 switch(event.type)
                 {
