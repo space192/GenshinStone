@@ -245,6 +245,7 @@ void jeu(int port)
                                 paquet.clear();
                                 paquet << 9;
                                 socket.send(paquet);
+                                thread.terminate();
                                 paquet.clear();
                                 break;
                             }
@@ -456,6 +457,7 @@ void jeu(int port)
                                 paquet.clear();
                                 paquet << 9;
                                 socket.send(paquet);
+                                thread.terminate();
                                 paquet.clear();
                             }
                         }
@@ -475,7 +477,6 @@ void jeu(int port)
                     SDL_BlitSurface(selec,NULL,windowSurface,&position);
                 }
                 SDL_UpdateWindowSurface(pWindow);
-
             }
         }
         else
@@ -494,6 +495,6 @@ void jeu(int port)
         SDL_FreeSurface(selec);
 
         SDL_DestroyWindow(pWindow);
-
+        std::cout << "HELLO" << std::endl;
     }
 }

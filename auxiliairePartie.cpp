@@ -380,7 +380,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
     {
         socket->receive(tempReceive);
         tempReceive >> receive;
-        if(receive != 9)
+        if(receive != 9 && receive != 15)
         {
             socket->receive(realOne);
         }
@@ -450,6 +450,10 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
                 Tdegats->push_back(temp3);
             }
             break;
+        }
+        case 15:
+        {
+             break;
         }
         default:
         {
