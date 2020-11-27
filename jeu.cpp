@@ -43,6 +43,7 @@ void jeu(int port, std::string nomJoueur)
         int condDetail = 0;
         int carteDetail;
         int carteAttaque = 0;
+        int affTour;
         Attaque attaqueActive;
         pWindow = SDL_CreateWindow("Mon application SDL2",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,1920,1080,SDL_WINDOW_SHOWN);
         SDL_Surface *windowSurface = NULL;
@@ -50,6 +51,8 @@ void jeu(int port, std::string nomJoueur)
         SDL_Surface *fond = IMG_Load("Fond.png");
         SDL_Surface *texte = NULL;
         SDL_Surface *selec = IMG_Load("selec.png");
+
+        SDL_Surface* tour = IMG_Load("your turn.png");
 
 
         int vieJoueur[2] = {150,150};
@@ -249,6 +252,11 @@ void jeu(int port, std::string nomJoueur)
         thread.launch();
         if( pWindow )
         {
+            if(numJoueur == actuJoueur)
+            {
+                affTour = 1;
+            }
+
             while(condition == 1)
             {
                 SDL_BlitSurface(fond, NULL, windowSurface, NULL);
@@ -497,6 +505,8 @@ void jeu(int port, std::string nomJoueur)
                             break;
                         }
                     }
+
+                    afficherTour(affTour,tour,windowSurface);
 
                 }
                 else
