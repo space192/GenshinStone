@@ -154,4 +154,6 @@ void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Sur
 void actualiserCarteDeck(std::vector<Cartes*>  &cartesPioche);
 void initDeckCartes(std::vector<SDL_Surface*> &imageCache);
 
+void afficherTour(int & affTour, SDL_Surface* tour,SDL_Surface  *windowSurface);
+
 #endif // PROTOTYPES_H_INCLUDED

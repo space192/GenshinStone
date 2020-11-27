@@ -890,3 +890,21 @@ void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
 
     }*/
 }
+
+void afficherTour(int & affTour, SDL_Surface* tour,SDL_Surface  *windowSurface)
+{
+    SDL_Rect position;
+
+    position.x = 500;
+    position.y = 500;
+
+    if(affTour != 0)
+    {
+            SDL_BlitSurface(tour, NULL, windowSurface, &position);
+            affTour++;
+            if(affTour == 700)
+            {
+                affTour = 0;
+            }
+    }
+}
