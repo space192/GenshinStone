@@ -792,7 +792,7 @@ void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
     }
     else if(imageID == 13)
     {
-        cartesJoueur.push_back( new TrainerCards("benediction",2,10,10,13,0,0,1,4));
+        cartesJoueur.push_back( new TrainerCards("benediction",2,10,10,13,0,0,1,-4));
     }
     else if(imageID == 14)
     {
