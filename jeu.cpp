@@ -383,6 +383,19 @@ void jeu(int port, std::string nomJoueur)
                                 actionTrainer(carteSelec,cartesJoueurTerrain,cartesJoueur,energiesJoueur,vieJoueur, &socket);
                                 cartesJoueur[0].erase(cartesJoueur[0].begin() + carteSelec);
                                 actualiserPositionCartes(cartesJoueur);
+                                paquet.clear();
+                                paquet << 3; //envoie nombre de carte
+                                socket.send(paquet);
+                                paquet.clear();
+                                paquet << cartesJoueur[0].size();
+                                socket.send(paquet);
+                                paquet.clear();
+                                paquet << 5; //envoie carte place
+                                socket.send(paquet);
+                                paquet.clear();
+                                paquet << carteSelec;
+                                socket.send(paquet);
+                                paquet.clear();
                             }
                             else if(((event.button.x > 360 && event.button.x < 1450 && event.button.y > 350 && event.button.y < 500)&&(conditionSouris == 3)))
                             {
@@ -493,8 +506,16 @@ void jeu(int port, std::string nomJoueur)
 
                     if(placeID != -1)
                     {
-                        placerCarte(cartesJoueur[1], cartesJoueurTerrain[1],placeID);
-                        actualiserPositionCartesT(cartesJoueurTerrain);
+                        if(cartesJoueurTerrain[1][placeID]->getType()==1)
+                        {
+                            placerCarte(cartesJoueur[1], cartesJoueurTerrain[1],placeID);
+                            actualiserPositionCartesT(cartesJoueurTerrain);
+                        }
+                        else if(cartesJoueurTerrain[1][placeID]->getType()==2)
+                        {
+                            cartesJoueurTerrain[1].erase(cartesJoueurTerrain[1].begin() + placeID);
+                        }
+
                         placeID = -1;
                     }
 
