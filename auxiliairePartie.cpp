@@ -712,7 +712,7 @@ void afficherPV(std::string nomsJoueur[2],int vieJoueur[2],SDL_Surface *texte,TT
 
     position.x = 880;
     position.y = 170;
-    machaine2 << nomsJoueur[0];
+    machaine2 << nomsJoueur[1];
     texte = TTF_RenderText_Solid(police, machaine2.str().c_str(), couleur);
     machaine.str(" ");
     SDL_FreeSurface(texte);
