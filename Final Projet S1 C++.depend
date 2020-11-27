@@ -84,10 +84,10 @@
 1606493829 source:c:\users\arthur\documents\github\projet-s1-ing2\main.cpp
 	"prototypes.h"
 
-1606462787 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\auxiliairepartie.cpp
+1606494216 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\auxiliairepartie.cpp
 	"prototypes.h"
 
-1606472363 c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\prototypes.h
+1606494456 c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\prototypes.h
 	<Windows.h>
 	<unistd.h>
 	<string>
@@ -105,12 +105,12 @@
 1606470043 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\cartes.cpp
 	"prototypes.h"
 
-1606473159 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\deck.cpp
+1606494663 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\deck.cpp
 	"prototypes.h"
 
-1606462787 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\jeu.cpp
+1606494216 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\jeu.cpp
 	"prototypes.h"
 
-1606473242 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\main.cpp
+1606494663 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\main.cpp
 	"prototypes.h"
 

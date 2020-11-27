@@ -152,5 +152,6 @@ void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & carteJoueur );
 
 void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface,std::vector<int> selected);
 void actualiserCarteDeck(std::vector<Cartes*>  &cartesPioche);
+void initDeckCartes(std::vector<SDL_Surface*> &imageCache);
 
 #endif // PROTOTYPES_H_INCLUDED

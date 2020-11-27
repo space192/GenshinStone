@@ -75,34 +75,10 @@ int main(int argc, char **argv)
 
     //putting all the cards need to put this as a function later;
     std::vector<SDL_Surface*> imageCache;
-    imageCache.push_back(IMG_Load("Cartes/VentiP.png"));
-    imageCache.push_back(IMG_Load("Cartes/TartagliaP.png"));
-    imageCache.push_back(IMG_Load("Cartes/NingguangP.png"));
-    imageCache.push_back(IMG_Load("Cartes/KleeP.png"));
-    imageCache.push_back(IMG_Load("Cartes/BennetP.png"));
-    imageCache.push_back(IMG_Load("Cartes/Klee2P.png"));
-    imageCache.push_back(IMG_Load("Cartes/MonaP.png"));
-    imageCache.push_back(IMG_Load("Cartes/JeanP.png"));
-    imageCache.push_back(IMG_Load("Cartes/NoelleP.png"));
-    imageCache.push_back(IMG_Load("Cartes/ZhongliP.png"));
-    imageCache.push_back(IMG_Load("Cartes/SucroseP.png"));
-    imageCache.push_back(IMG_Load("Cartes/BarbaraP.png"));
+    initDeckCartes(imageCache);
 
 
-
-    imageCache.push_back(IMG_Load("Cartes/VentiG.png"));
-    imageCache.push_back(IMG_Load("Cartes/TartagliaG.png"));
-    imageCache.push_back(IMG_Load("Cartes/NingguangG.png"));
-    imageCache.push_back(IMG_Load("Cartes/KleeG.png"));
-    imageCache.push_back(IMG_Load("Cartes/BennetG.png"));
-    imageCache.push_back(IMG_Load("Cartes/Klee2G.png"));
-    imageCache.push_back(IMG_Load("Cartes/MonaG.png"));
-    imageCache.push_back(IMG_Load("Cartes/JeanG.png"));
-    imageCache.push_back(IMG_Load("Cartes/NoelleG.png"));
-    imageCache.push_back(IMG_Load("Cartes/ZhongliG.png"));
-    imageCache.push_back(IMG_Load("Cartes/SucroseG.png"));
-    imageCache.push_back(IMG_Load("Cartes/BarbaraG.png"));
-    for(int i = 0; i < 12; i++)
+    for(int i = 0; i < 18; i++)
     {
         lierCarteEtId(i,0,toutesCartes);
         selected.push_back(false);
@@ -263,40 +239,29 @@ int main(int argc, char **argv)
 
                 if(reset)
                 {
-                    switch(alldecks.size())
+
+                    if(alldecks[3].size() != 0)
                     {
-                    case 4:
-
-                        if(alldecks[3].size() != 0)
-                        {
-                            deck4.str(" ");
-                            deck4<<"Deck 4";
-                        }
-
-                    case 3:
-                        if(alldecks[2].size() != 0)
-                        {
-                            deck3.str(" ");
-                            deck3<<"Deck 3";
-                        }
-
-                    case 2:
-                        if(alldecks[1].size()!=0)
-                        {
-                            deck2.str(" ");
-                            deck2<<"Deck 2";
-                        }
-
-                    case 1:
-                        if(alldecks[0].size()!=0)
-                        {
-                            deck1.str(" ");
-                            deck1<<"Deck 1";
-                        }
-
-                    case 0:
-                        reset = false;
+                        deck4.str(" ");
+                        deck4<<"Deck 4";
                     }
+                    if(alldecks[2].size() != 0)
+                    {
+                        deck3.str(" ");
+                        deck3<<"Deck 3";
+                    }
+                    if(alldecks[1].size()!=0)
+                    {
+                        deck2.str(" ");
+                        deck2<<"Deck 2";
+                    }
+                    if(alldecks[0].size()!=0)
+                    {
+                        deck1.str(" ");
+                        deck1<<"Deck 1";
+                    }
+                    reset = false;
+
                 }
 
 
@@ -534,7 +499,7 @@ int main(int argc, char **argv)
                     }
                     break;
                 case SDL_MOUSEBUTTONDOWN:
-                   // std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
+                    // std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
                     if(event.button.x >400 && event.button.x <611 && event.button.y >400 && event.button.y <424)
                     {
                         state = 0;

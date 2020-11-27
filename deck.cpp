@@ -14,7 +14,7 @@ void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Sur
             position = cartesJoueur[i]->getPosition();
             position.x -= 42;
             position.y -= 59;
-            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+12], NULL, windowSurface, &position);
+            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position);
         }
         else if(selected[i]==2)
         {
@@ -24,8 +24,8 @@ void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Sur
             position2 = position;
             position.x += 20;
             position.y +=27;
-            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+12], NULL, windowSurface, &position);
-            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+12], NULL, windowSurface, &position2);
+            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position);
+            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position2);
         }
         else if(selected[i]==3)
         {
@@ -38,12 +38,58 @@ void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Sur
             position3 = position;
             position3.x += 20;
             position3.y += 27;
-            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+12], NULL, windowSurface, &position);
-            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+12], NULL, windowSurface, &position2);
-            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+12], NULL, windowSurface, &position3);
+            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position);
+            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position2);
+            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position3);
         }
 
     }
+}
+
+void initDeckCartes(std::vector<SDL_Surface*> &imageCache)
+{
+    imageCache.push_back(IMG_Load("Cartes/VentiP.png"));
+    imageCache.push_back(IMG_Load("Cartes/TartagliaP.png"));
+    imageCache.push_back(IMG_Load("Cartes/NingguangP.png"));
+    imageCache.push_back(IMG_Load("Cartes/KleeP.png"));
+    imageCache.push_back(IMG_Load("Cartes/BennetP.png"));
+    imageCache.push_back(IMG_Load("Cartes/Klee2P.png"));
+    imageCache.push_back(IMG_Load("Cartes/MonaP.png"));
+    imageCache.push_back(IMG_Load("Cartes/JeanP.png"));
+    imageCache.push_back(IMG_Load("Cartes/NoelleP.png"));
+    imageCache.push_back(IMG_Load("Cartes/ZhongliP.png"));
+    imageCache.push_back(IMG_Load("Cartes/SucroseP.png"));
+    imageCache.push_back(IMG_Load("Cartes/BarbaraP.png"));
+
+            imageCache.push_back(IMG_Load("Cartes/abondanceP.png"));
+        imageCache.push_back(IMG_Load("Cartes/benedictionP.png"));
+        imageCache.push_back(IMG_Load("Cartes/flechesP.png"));
+        imageCache.push_back(IMG_Load("Cartes/maledictionP.png"));
+        imageCache.push_back(IMG_Load("Cartes/poisonP.png"));
+        imageCache.push_back(IMG_Load("Cartes/potionP.png"));
+
+
+
+
+    imageCache.push_back(IMG_Load("Cartes/VentiG.png"));
+    imageCache.push_back(IMG_Load("Cartes/TartagliaG.png"));
+    imageCache.push_back(IMG_Load("Cartes/NingguangG.png"));
+    imageCache.push_back(IMG_Load("Cartes/KleeG.png"));
+    imageCache.push_back(IMG_Load("Cartes/BennetG.png"));
+    imageCache.push_back(IMG_Load("Cartes/Klee2G.png"));
+    imageCache.push_back(IMG_Load("Cartes/MonaG.png"));
+    imageCache.push_back(IMG_Load("Cartes/JeanG.png"));
+    imageCache.push_back(IMG_Load("Cartes/NoelleG.png"));
+    imageCache.push_back(IMG_Load("Cartes/ZhongliG.png"));
+    imageCache.push_back(IMG_Load("Cartes/SucroseG.png"));
+    imageCache.push_back(IMG_Load("Cartes/BarbaraG.png"));
+
+            imageCache.push_back(IMG_Load("Cartes/abondanceG.png"));
+        imageCache.push_back(IMG_Load("Cartes/benedictionG.png"));
+        imageCache.push_back(IMG_Load("Cartes/flechesG.png"));
+        imageCache.push_back(IMG_Load("Cartes/maledictionG.png"));
+        imageCache.push_back(IMG_Load("Cartes/poisonG.png"));
+        imageCache.push_back(IMG_Load("Cartes/potionG.png"));
 }
 
 void actualiserCarteDeck(std::vector<Cartes*>  &cartesPioche)
