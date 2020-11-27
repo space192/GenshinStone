@@ -90,12 +90,12 @@ void actualiserPositionCartesT(std::vector< std::vector<Cartes*> >  & cartesJoue
 {
     for(size_t i = 0; i < cartesJoueurTerrain[0].size(); i++)
     {
-        cartesJoueurTerrain[0][i]->setPosition(900 - ((cartesJoueurTerrain[0].size()-1)*70) + i*140, 600);
+        cartesJoueurTerrain[0][i]->setPosition(900 - ((cartesJoueurTerrain[0].size()-1)*70) + i*140, 520);
 
     }
     for(size_t i = 0; i < cartesJoueurTerrain[1].size(); i++)
     {
-        cartesJoueurTerrain[1][i]->setPosition(900 - ((cartesJoueurTerrain[1].size()-1)*70) + i*140, 350);
+        cartesJoueurTerrain[1][i]->setPosition(900 - ((cartesJoueurTerrain[1].size()-1)*70) + i*140, 325);
 
     }
 }
@@ -365,7 +365,7 @@ void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,
     {
         if(i == carteAdverse)
         {
-            cartesJoueur[1][i]->setPosition(900 - ((cartesJoueur[1].size()-1)*50) + i*100, 50);
+            cartesJoueur[1][i]->setPosition(900 - ((cartesJoueur[1].size()-1)*50) + i*100, 0);
         }
         else
         {
@@ -686,8 +686,8 @@ void afficherPV(int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface
 
     police = TTF_OpenFont("ARLRDBD.TTF", 30);
 
-    position.x = 800;
-    position.y = 900;
+    position.x = 880;
+    position.y = 850;
 
     machaine << "PV joueur: " <<vieJoueur[0];
     texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
@@ -695,7 +695,7 @@ void afficherPV(int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface
     machaine.str(" ");
     SDL_FreeSurface(texte);
 
-    position.x = 800;
+    position.x = 880;
     position.y = 200;
 
     machaine << "PV joueur: " <<vieJoueur[1];
