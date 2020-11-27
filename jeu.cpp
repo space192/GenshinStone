@@ -80,12 +80,17 @@ void jeu(int port, std::string nomJoueur)
         imageCache.push_back(IMG_Load("Cartes/ZhongliP.png"));
         imageCache.push_back(IMG_Load("Cartes/SucroseP.png"));
         imageCache.push_back(IMG_Load("Cartes/BarbaraP.png"));
-        imageCache.push_back(IMG_Load("Cartes/abondanceP.png"));
-        imageCache.push_back(IMG_Load("Cartes/benedictionP.png"));
-        imageCache.push_back(IMG_Load("Cartes/flechesP.png"));
-        imageCache.push_back(IMG_Load("Cartes/maledictionP.png"));
-        imageCache.push_back(IMG_Load("Cartes/poisonP.png"));
         imageCache.push_back(IMG_Load("Cartes/potionP.png"));
+        imageCache.push_back(IMG_Load("Cartes/poisonP.png"));
+        imageCache.push_back(IMG_Load("Cartes/maledictionP.png"));
+        imageCache.push_back(IMG_Load("Cartes/flechesP.png"));
+        imageCache.push_back(IMG_Load("Cartes/benedictionP.png"));
+        imageCache.push_back(IMG_Load("Cartes/abondanceP.png"));
+
+
+
+
+
 
 
 
@@ -102,12 +107,15 @@ void jeu(int port, std::string nomJoueur)
         imageCache.push_back(IMG_Load("Cartes/ZhongliG.png"));
         imageCache.push_back(IMG_Load("Cartes/SucroseG.png"));
         imageCache.push_back(IMG_Load("Cartes/BarbaraG.png"));
-        imageCache.push_back(IMG_Load("Cartes/abondanceG.png"));
-        imageCache.push_back(IMG_Load("Cartes/benedictionG.png"));
-        imageCache.push_back(IMG_Load("Cartes/flechesG.png"));
-        imageCache.push_back(IMG_Load("Cartes/maledictionG.png"));
-        imageCache.push_back(IMG_Load("Cartes/poisonG.png"));
         imageCache.push_back(IMG_Load("Cartes/potionG.png"));
+        imageCache.push_back(IMG_Load("Cartes/poisonG.png"));
+        imageCache.push_back(IMG_Load("Cartes/maledictionG.png"));
+        imageCache.push_back(IMG_Load("Cartes/flechesG.png"));
+        imageCache.push_back(IMG_Load("Cartes/benedictionG.png"));
+        imageCache.push_back(IMG_Load("Cartes/abondanceG.png"));
+
+
+
 
         imageCache.push_back(IMG_Load("back card small.png"));
         imageCache.push_back(IMG_Load("back card big.png"));
