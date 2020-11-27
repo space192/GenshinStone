@@ -277,8 +277,8 @@ void jeu(int port, std::string nomJoueur)
                             break;
                         case SDL_MOUSEBUTTONDOWN:
 
-                            std::cout << "Coordonnes x :" << event.button.x << std::endl;
-                            std::cout << "Coordonnes y :" << event.button.y << std::endl;
+                            //std::cout << "Coordonnes x :" << event.button.x << std::endl;
+                           // std::cout << "Coordonnes y :" << event.button.y << std::endl;
 
                             if((event.button.x > 360 && event.button.x < 1549 && event.button.y > 990 && event.button.y < 1080))
                             {

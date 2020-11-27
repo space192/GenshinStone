@@ -446,7 +446,7 @@ int main(int argc, char **argv)
                     break;
 
                 case SDL_MOUSEBUTTONDOWN:
-                    std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
+                    //std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
                     if(event.button.x >400 && event.button.x <614 && event.button.y >400 && event.button.y <424)
                     {
                         state = 0;
@@ -534,7 +534,7 @@ int main(int argc, char **argv)
                     }
                     break;
                 case SDL_MOUSEBUTTONDOWN:
-                    std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
+                   // std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
                     if(event.button.x >400 && event.button.x <611 && event.button.y >400 && event.button.y <424)
                     {
                         state = 0;
