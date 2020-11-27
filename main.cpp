@@ -141,6 +141,7 @@ int main(int argc, char **argv)
     int jour,mois,annee, LOGIN = 0, action;
     int port = -1;
     int inQUEUE;
+    int deck0S = 0,deck1S = 0,deck2S= 0,deck3S=0;
     sf::Thread thread(std::bind(&receptionT, &port, &socket, &CARTERECUSERVEUR));
     SDL_Surface *windowSurface = NULL;
     windowSurface = SDL_GetWindowSurface( window );
@@ -159,8 +160,7 @@ int main(int argc, char **argv)
     {
         if(port != -1)
         {
-            std::cout << "COUCOU" << std::endl;
-            jeu(port, name);
+            jeu(port, name, CARTERECUSERVEUR);
             thread.terminate();
             port = -1;
             inQUEUE = 0;
@@ -242,22 +242,22 @@ int main(int argc, char **argv)
                 if(reset)
                 {
 
-                    if(alldecks[3].size() != 0)
+                    if(alldecks[3].size() != 0 || deck3S == 1)
                     {
                         deck4.str(" ");
                         deck4<<"Deck 4";
                     }
-                    if(alldecks[2].size() != 0)
+                    if(alldecks[2].size() != 0|| deck2S == 1)
                     {
                         deck3.str(" ");
                         deck3<<"Deck 3";
                     }
-                    if(alldecks[1].size()!=0)
+                    if(alldecks[1].size()!=0|| deck1S == 1)
                     {
                         deck2.str(" ");
                         deck2<<"Deck 2";
                     }
-                    if(alldecks[0].size()!=0)
+                    if(alldecks[0].size()!=0|| deck0S == 1)
                     {
                         deck1.str(" ");
                         deck1<<"Deck 1";
@@ -576,6 +576,16 @@ int main(int argc, char **argv)
                         inQUEUE = 1;
                         page = 4;
                         */
+                        paquet.clear();
+                        paquet << 2 << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        paquet << 2;
+                        socket.send(paquet);
+                        paquet.clear();
+                        socket.receive(paquet);
+                        paquet >> deck0S >> deck1S >> deck2S >> deck3S;
+                        paquet.clear();
                         page = 6;
                     }
                     else if(event.button.x >400 && event.button.x <539 && event.button.y >432 && event.button.y <456)

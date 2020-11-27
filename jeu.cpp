@@ -1,7 +1,7 @@
 #include "prototypes.h"
 
 
-void jeu(int port, std::string nomJoueur)
+void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
 {
     int numJoueur, actuJoueur;
     sf::TcpSocket socket;
