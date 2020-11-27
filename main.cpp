@@ -34,11 +34,98 @@ int main(int argc, char **argv)
     std::stringstream quitterJeu;
     quitterJeu<<"Quitter";
 
+    //Menu ami
+    std::stringstream textbox;
+    textbox<<"Search for a friend";
+    std::string searchfriend;
+    std::stringstream friendRequest;
+    friendRequest<<"Friend request Yes No";
+    bool select = false;
+
+    //deck
+    std::stringstream deck1;
+    std::stringstream deck2;
+    std::stringstream deck3;
+    std::stringstream deck4;
+    deck1<<"DECK 1 ";
+    deck2<<"DECK 2 ";
+    deck3<<"DECK 3 ";
+    deck4<<"DECK 4 ";
+    std::string Empty = "* VIDE *";
+
+    //mettre ici le code pour chequer si les decks sont vide ou non
+    deck1<<Empty;
+    deck2<<Empty;
+    deck3<<Empty;
+    deck4<<Empty;
+
+    //Deck
+    bool open = false, reset = true;
+    SDL_Surface *black = IMG_Load("fond.jpg");
+    SDL_Surface *black1 = IMG_Load("fond.jpg");
+    SDL_Surface *black2 = IMG_Load("fond2.jpg");
+    SDL_Surface *black3 = IMG_Load("fond3.jpg");
+    SDL_Surface *black4 = IMG_Load("fond4.jpg");
+    SDL_Window *deckWindow = NULL;
+    SDL_Surface *deckWindowSurface = NULL;
+    std::vector<Cartes*> toutesCartes;
+    std::vector<int> deckJoueur;
+    std::vector<int> selected;
+
+
+    //putting all the cards need to put this as a function later;
+    std::vector<SDL_Surface*> imageCache;
+    imageCache.push_back(IMG_Load("Cartes/VentiP.png"));
+    imageCache.push_back(IMG_Load("Cartes/TartagliaP.png"));
+    imageCache.push_back(IMG_Load("Cartes/NingguangP.png"));
+    imageCache.push_back(IMG_Load("Cartes/KleeP.png"));
+    imageCache.push_back(IMG_Load("Cartes/BennetP.png"));
+    imageCache.push_back(IMG_Load("Cartes/Klee2P.png"));
+    imageCache.push_back(IMG_Load("Cartes/MonaP.png"));
+    imageCache.push_back(IMG_Load("Cartes/JeanP.png"));
+    imageCache.push_back(IMG_Load("Cartes/NoelleP.png"));
+    imageCache.push_back(IMG_Load("Cartes/ZhongliP.png"));
+    imageCache.push_back(IMG_Load("Cartes/SucroseP.png"));
+    imageCache.push_back(IMG_Load("Cartes/BarbaraP.png"));
+
+
+
+    imageCache.push_back(IMG_Load("Cartes/VentiG.png"));
+    imageCache.push_back(IMG_Load("Cartes/TartagliaG.png"));
+    imageCache.push_back(IMG_Load("Cartes/NingguangG.png"));
+    imageCache.push_back(IMG_Load("Cartes/KleeG.png"));
+    imageCache.push_back(IMG_Load("Cartes/BennetG.png"));
+    imageCache.push_back(IMG_Load("Cartes/Klee2G.png"));
+    imageCache.push_back(IMG_Load("Cartes/MonaG.png"));
+    imageCache.push_back(IMG_Load("Cartes/JeanG.png"));
+    imageCache.push_back(IMG_Load("Cartes/NoelleG.png"));
+    imageCache.push_back(IMG_Load("Cartes/ZhongliG.png"));
+    imageCache.push_back(IMG_Load("Cartes/SucroseG.png"));
+    imageCache.push_back(IMG_Load("Cartes/BarbaraG.png"));
+    for(int i = 0; i < 12; i++)
+    {
+        lierCarteEtId(i,0,toutesCartes);
+        selected.push_back(false);
+    }
+    int cardnmb = 0, cardpage = 1, carteSelec = -1;
+    std::vector<std::vector<int> > alldecks;
+    actualiserCarteDeck(toutesCartes);
+    for(int i = 0; i<4; i++)
+    {
+        alldecks.push_back(deckJoueur);
+    }
+
+
+
+
+
+
+
 
     SDL_Event event;
-    SDL_Rect rect1, rect2, rect3, rect4;
+    SDL_Rect rect1, rect2, rect3, rect4, rect5, position;
     SDL_Renderer *renderer;
-    SDL_Texture *texture1, *texture2, *texture3, *texture4;
+    SDL_Texture *texture1, *texture2, *texture3, *texture4, *texture5;
     SDL_Window *window;
     char *font_path;
     int quit;
@@ -154,12 +241,124 @@ int main(int argc, char **argv)
 
                 SDL_RenderPresent(renderer);
                 break;
+            case 5:
+                get_text_and_rect(renderer, 200, 400, (char*)startGame.str().c_str(), font, &texture1, &rect1);
+                get_text_and_rect(renderer, 200, rect1.y + rect1.h, (char*)deckOption.str().c_str(), font, &texture2, &rect2);
+                get_text_and_rect(renderer, 200, rect2.y + rect2.h, (char*)quitterJeu.str().c_str(), font, &texture3, &rect3);
+                get_text_and_rect(renderer, 400, 200, (char*)friends.str().c_str(), font, &texture4, &rect4);
+                get_text_and_rect(renderer, 600, 200, (char*)textbox.str().c_str(), font, &texture5, &rect5);
+                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+                SDL_RenderClear(renderer);
+
+                /* Use TTF textures. */
+                SDL_RenderCopy(renderer, texture1, NULL, &rect1);
+                SDL_RenderCopy(renderer, texture2, NULL, &rect2);
+                SDL_RenderCopy(renderer, texture3, NULL, &rect3);
+                SDL_RenderCopy(renderer,texture4, NULL, &rect4);
+                SDL_RenderCopy(renderer,texture5, NULL, &rect5);
+
+                SDL_RenderPresent(renderer);
+                break;
+            case 6:
+
+                if(reset)
+                {
+                    switch(alldecks.size())
+                    {
+                    case 4:
+
+                        if(alldecks[3].size() != 0)
+                        {
+                            deck4.str(" ");
+                            deck4<<"Deck 4";
+                        }
+
+                    case 3:
+                        if(alldecks[2].size() != 0)
+                        {
+                            deck3.str(" ");
+                            deck3<<"Deck 3";
+                        }
+
+                    case 2:
+                        if(alldecks[1].size()!=0)
+                        {
+                            deck2.str(" ");
+                            deck2<<"Deck 2";
+                        }
+
+                    case 1:
+                        if(alldecks[0].size()!=0)
+                        {
+                            deck1.str(" ");
+                            deck1<<"Deck 1";
+                        }
+
+                    case 0:
+                        reset = false;
+                    }
+                }
+
+
+                get_text_and_rect(renderer, 400, 400, (char*)deck1.str().c_str(), font, &texture1, &rect1);
+                get_text_and_rect(renderer, 400, rect1.y + rect1.h, (char*)deck2.str().c_str(), font, &texture2, &rect2);
+                get_text_and_rect(renderer, 400, rect2.y + rect2.h, (char*)deck3.str().c_str(), font, &texture3, &rect3);
+                get_text_and_rect(renderer, 400, rect3.y + rect3.h, (char*)deck4.str().c_str(), font, &texture4, &rect4);
+                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+                SDL_RenderClear(renderer);
+
+                /* Use TTF textures. */
+                SDL_RenderCopy(renderer, texture1, NULL, &rect1);
+                SDL_RenderCopy(renderer, texture2, NULL, &rect2);
+                SDL_RenderCopy(renderer, texture3, NULL, &rect3);
+                SDL_RenderCopy(renderer,texture4, NULL, &rect4);
+
+                SDL_RenderPresent(renderer);
+                break;
+            case 7:
+                if(!open)
+                {
+                    deckWindow = SDL_CreateWindow("Deck",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,1920,1080,SDL_WINDOW_SHOWN);
+                    deckWindowSurface = SDL_GetWindowSurface( deckWindow );
+                    SDL_BlitSurface(black, NULL, deckWindowSurface, NULL);
+                    SDL_UpdateWindowSurface(deckWindow);
+                    open = true;
+
+                }
+                else
+                {
+                    //pwindowSurface = SDL_GetWindowSurface( pWindow );
+                    SDL_BlitSurface(black, NULL, deckWindowSurface, NULL);
+                    actualiserImageDeck(toutesCartes,imageCache,deckWindowSurface,selected);
+                    SDL_UpdateWindowSurface(deckWindow);
+                }
+                if(cardnmb==10 )
+                {
+                    std::cout<<"test";
+                    open = false;
+                    page = 4;
+                    SDL_DestroyWindow(deckWindow);
+                    alldecks[cardpage-1]=deckJoueur;
+                    deckJoueur.erase(deckJoueur.begin(),deckJoueur.end());
+                    for(int i = 0; i<20; i++)
+                    {
+                        selected[i] = 0;
+                    }
+                    cardnmb = 0;
+                    black = black1;
+                    cardpage = 1;
+                    reset = true;
+                    break;
+                }
+
+                break;
             }
 
 
 
             switch(page)
             {
+            //page boutton
             case 1:
                 switch(event.type)
                 {
@@ -183,6 +382,7 @@ int main(int argc, char **argv)
                     break;
                 }
                 break;
+            //page start commencer jeu
             case 2:
                 switch(event.type)
                 {
@@ -245,10 +445,22 @@ int main(int argc, char **argv)
                     }
                     break;
 
+                case SDL_MOUSEBUTTONDOWN:
+                    std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
+                    if(event.button.x >400 && event.button.x <614 && event.button.y >400 && event.button.y <424)
+                    {
+                        state = 0;
+                    }
 
+                    else if(event.button.x >377 && event.button.x <641 && event.button.y >432 && event.button.y <456)
+                    {
+                        state = 1;
+                    }
+                    break;
 
                 }
                 break;
+            //case cree compte
             case 3:
                 switch(event.type)
                 {
@@ -304,23 +516,40 @@ int main(int argc, char **argv)
                             LOGIN = 0;
                         }
                         break;
+
                     }
                     break;
                 case SDL_TEXTINPUT:
-                if(state == 0)
-                {
-                    createName<<event.text.text;
+                    if(state == 0)
+                    {
+                        createName<<event.text.text;
+                    }
+                    else if(state == 1)
+                    {
+                        createPassword<<event.text.text;
+                    }
+                    else
+                    {
+                        createDate<<event.text.text;
+                    }
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
+                    if(event.button.x >400 && event.button.x <611 && event.button.y >400 && event.button.y <424)
+                    {
+                        state = 0;
+                    }
+                    else if(event.button.x >400 && event.button.x <664 && event.button.y >434 && event.button.y <458)
+                    {
+                        state = 1;
+                    }
+                    else if(event.button.x >400 && event.button.x <800 && event.button.y >462 && event.button.y <486)
+                    {
+                        state = 2;
+                    }
+                    break;
                 }
-                else if(state == 1)
-                {
-                    createPassword<<event.text.text;
-                }
-                else
-                {
-                    createDate<<event.text.text;
-                }
-                break;
-                }
+
             case 4:
                 switch(event.type)
                 {
@@ -352,6 +581,7 @@ int main(int argc, char **argv)
                     if(event.button.x >400 && event.button.x <548 && event.button.y >400 && event.button.y <424)
                     {
                         //ici mettre le debut du jeu avec serv
+                        /*
                         std::cout<<"Start";
                         paquet.clear();
                         action = 1;
@@ -361,12 +591,14 @@ int main(int argc, char **argv)
                         thread.launch();
                         inQUEUE = 1;
                         page = 4;
+                        */
+                        page = 6;
                     }
                     else if(event.button.x >400 && event.button.x <539 && event.button.y >432 && event.button.y <456)
                     {
                         //aller au deck
                         std::cout<<"Deck";
-                        quit = 1;
+                        page = 7;
                     }
                     else if(event.button.x >400 && event.button.x <488 && event.button.y >461 && event.button.y <485)
                     {
@@ -377,12 +609,211 @@ int main(int argc, char **argv)
                     else if(event.button.x >600 && event.button.x <670 && event.button.y >205 && event.button.y <229)
                     {
                         std::cout<<"amies";
-                        quit =1;
+                        page = 5;
                     }
                     break;
 
                 }
                 break;
+            case 5:
+                switch(event.type)
+                {
+                case SDL_KEYDOWN:
+                    switch(event.key.keysym.sym)
+                    {
+                    case SDLK_ESCAPE:
+                        quit = 1;
+                        break;
+                    case SDLK_BACKSPACE:
+                        if(select == true)
+                        {
+                            textbox.str(" ");
+                        }
+                        break;
+                    case SDLK_RETURN:
+                        if(select == true)
+                        {
+                            //system de recherche d'amies
+                            searchfriend = textbox.str();
+                            std::cout<<searchfriend<<std::endl;
+                        }
+                        break;
+
+                    default:
+                        int a = event.key.keysym.sym;
+                        char w = static_cast<char>(a);
+                        if(select == true)
+                        {
+                            textbox<<w;
+                        }
+                        break;
+                    }
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    //std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
+                    if(event.button.x >600 && event.button.x <816 && event.button.y >200 && event.button.y <224 && select == false)
+                    {
+                        //ici mettre le debut du jeu avec serv
+                        std::cout<<"Start";
+                        select = true;
+                    }
+                    else if(event.button.x <500)
+                    {
+                        page = 4;
+                    }
+                    break;
+                }
+                break;
+            case 6:
+                switch(event.type)
+                {
+                case SDL_KEYDOWN:
+                    switch(event.key.keysym.sym)
+                    {
+                    case SDLK_ESCAPE:
+                        page = 4;
+                        break;
+                    }
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    if(event.button.x >400 && event.button.x <590 && event.button.y >400 && event.button.y <424 && alldecks[0].size()!=0)
+                    {
+                        /*alldecks[0] dois etre envoyer au serv*/
+                        std::cout<<"Start";
+                        paquet.clear();
+                        action = 1;
+                        paquet << action << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        thread.launch();
+                        inQUEUE = 1;
+                        page = 4;
+                    }
+                    else if(event.button.x >400 && event.button.x <590 && event.button.y >430 && event.button.y <454 && alldecks[1].size()!=0)
+                    {
+                        /*alldecks[0] dois etre envoyer au serv*/
+                        std::cout<<"Start";
+                        paquet.clear();
+                        action = 1;
+                        paquet << action << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        thread.launch();
+                        inQUEUE = 1;
+                        page = 4;
+                    }
+                    else if(event.button.x >400 && event.button.x <590 && event.button.y >462 && event.button.y <478 && alldecks[2].size()!=0)
+                    {
+                        /*alldecks[0] dois etre envoyer au serv*/
+                        std::cout<<"Start";
+                        paquet.clear();
+                        action = 1;
+                        paquet << action << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        thread.launch();
+                        inQUEUE = 1;
+                        page = 4;
+                    }
+                    else if(event.button.x >400 && event.button.x <590 && event.button.y >489 && event.button.y <507 && alldecks[3].size()!=0)
+                    {
+                        /*alldecks[0] dois etre envoyer au serv*/
+                        std::cout<<"Start";
+                        paquet.clear();
+                        action = 1;
+                        paquet << action << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        thread.launch();
+                        inQUEUE = 1;
+                        page = 4;
+                    }
+                    break;
+                }
+                break;
+            case 7:
+                switch(event.type)
+                {
+                case SDL_KEYDOWN:
+                    switch(event.key.keysym.sym)
+                    {
+                    case SDLK_ESCAPE:
+                        open = false;
+                        page = 4;
+                        SDL_DestroyWindow(deckWindow);
+                        reset = true;
+                        black = black1;
+                        cardpage = 1;
+                        break;
+                    }
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    carteSelec = selectionCarte(toutesCartes, event.button.x, event.button.y);
+                    if(event.button.x >833 && event.button.x <842 && event.button.y >980 && event.button.y <1004)
+                    {
+                        cardpage = 1;
+                        black = black1;
+                        for(int i = 0; i<20; i++)
+                        {
+                            selected[i] = 0;
+                        }
+                        cardnmb = 0;
+                    }
+                    else if(event.button.x >877 && event.button.x <888 && event.button.y >980 && event.button.y <1004)
+                    {
+                        cardpage = 2;
+                        black = black2;
+                        for(int i = 0; i<20; i++)
+                        {
+                            selected[i] = 0;
+                        }
+                        cardnmb = 0;
+                    }
+                    else if(event.button.x >921 && event.button.x <931 && event.button.y >980 && event.button.y <1004)
+                    {
+                        cardpage = 3;
+                        black = black3;
+                        for(int i = 0; i<20; i++)
+                        {
+                            selected[i] = 0;
+                        }
+                        cardnmb = 0;
+                    }
+                    else if(event.button.x >963 && event.button.x <975 && event.button.y >980 && event.button.y <1004)
+                    {
+                        cardpage = 4;
+                        black = black4;
+                        for(int i = 0; i<20; i++)
+                        {
+                            selected[i] = 0;
+                        }
+                        cardnmb = 0;
+                    }
+                    if(carteSelec != -1 )
+                    {
+                        if(selected[carteSelec] <2)
+                        {
+                            deckJoueur.push_back(toutesCartes[carteSelec]->getImage());
+                            selected[carteSelec]++;
+                            position = toutesCartes[carteSelec]->getPosition();
+                            std::cout<<"Cartes " << carteSelec <<" was added "<<std::endl;
+                            cardnmb++;
+                        }
+                        else
+                        {
+                            cardnmb--;
+                            cardnmb--;
+                            deckJoueur.erase(deckJoueur.begin()+cardnmb);
+                            selected[carteSelec] = 0;
+
+
+                            std::cout<<"Cartes " <<carteSelec << " was deleted "<<toutesCartes[carteSelec]->getImage()<<std::endl;
+                        }
+                    }
+                    break;
+                }
+                break;
+
             }
 
 
@@ -395,6 +826,7 @@ int main(int argc, char **argv)
     SDL_DestroyTexture(texture2);
     SDL_DestroyTexture(texture3);
     SDL_DestroyTexture(texture4);
+    SDL_DestroyTexture(texture5);
     TTF_Quit();
 
     SDL_DestroyRenderer(renderer);

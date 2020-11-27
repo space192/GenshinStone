@@ -56,6 +56,11 @@ int CharacterCards::getVie() const
     return m_hp;
 }
 
+void Cartes::getName() const
+{
+    std::cout<<m_name<<std::endl;
+}
+
 void CharacterCards::definirAttaque(int numAtt, int degat, int ID, int prix, int typeEnergie)
 {
     m_attaque[numAtt].degat = degat;

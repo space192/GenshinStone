@@ -82,3 +82,33 @@
 1606428018 source:c:\users\arthur\documents\github\projet-s1-ing2\main.cpp
 	"prototypes.h"
 
+1606462787 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\auxiliairepartie.cpp
+	"prototypes.h"
+
+1606472363 c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\prototypes.h
+	<Windows.h>
+	<unistd.h>
+	<string>
+	<vector>
+	<iostream>
+	<sstream>
+	<cstdlib>
+	<time.h>
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	<SDL2/SDL_ttf.h>
+	<SFML/Network.hpp>
+	<functional>
+
+1606470043 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\cartes.cpp
+	"prototypes.h"
+
+1606473159 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\deck.cpp
+	"prototypes.h"
+
+1606462787 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\jeu.cpp
+	"prototypes.h"
+
+1606473242 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\main.cpp
+	"prototypes.h"
+

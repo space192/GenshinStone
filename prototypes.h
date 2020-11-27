@@ -40,6 +40,7 @@ public:
     Cartes(std::string name, int type, int value, int rarity,int numImage,int posX,int posY);
     ~Cartes() {};
 
+    void getName()const;
     int getImage();
     int getType ();
     SDL_Rect getPosition()const;
@@ -148,5 +149,8 @@ void afficherCimetiere(std::vector< std::vector<Cartes*> > & cimetiere,std::vect
 void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur,int vieJoueur[2], sf::TcpSocket *socket);
 void afficherPV(int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface);
 void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & carteJoueur );
+
+void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface,std::vector<int> selected);
+void actualiserCarteDeck(std::vector<Cartes*>  &cartesPioche);
 
 #endif // PROTOTYPES_H_INCLUDED
