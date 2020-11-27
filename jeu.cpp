@@ -44,6 +44,7 @@ void jeu(int port, std::string nomJoueur)
         int carteDetail;
         int carteAttaque = 0;
         int affTour;
+        int changeTour= 1;
         Attaque attaqueActive;
         pWindow = SDL_CreateWindow("Mon application SDL2",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,1920,1080,SDL_WINDOW_SHOWN);
         SDL_Surface *windowSurface = NULL;
@@ -252,13 +253,14 @@ void jeu(int port, std::string nomJoueur)
         thread.launch();
         if( pWindow )
         {
-            if(numJoueur == actuJoueur)
-            {
-                affTour = 1;
-            }
 
             while(condition == 1)
             {
+                if(numJoueur == actuJoueur && changeTour == 1)
+                {
+                    affTour = 1;
+                    changeTour = 0;
+                }
                 SDL_BlitSurface(fond, NULL, windowSurface, NULL);
                 actualiserImage(cartesJoueur[0],cartesJoueurTerrain,imageCache,windowSurface,texte,police);
                 afficherEnergies(energiesJoueur,imageCacheE,windowSurface);
@@ -322,6 +324,7 @@ void jeu(int port, std::string nomJoueur)
                                 }
                                 socket.send(paquet);
                                 paquet.clear();
+                                changeTour = 1;
                             }
 
                             break;
@@ -513,7 +516,6 @@ void jeu(int port, std::string nomJoueur)
                 {
 
                     actualiserDegats(ID1,ID2,degats,cartesJoueurTerrain,vieJoueur, TID1, TID2, Tdegats);
-
                     if(placeID != -1)
                     {
                         if(cartesJoueur[1][placeID]->getType()==1)
