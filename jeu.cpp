@@ -506,14 +506,14 @@ void jeu(int port, std::string nomJoueur)
 
                     if(placeID != -1)
                     {
-                        if(cartesJoueurTerrain[1][placeID]->getType()==1)
+                        if(cartesJoueur[1][placeID]->getType()==1)
                         {
                             placerCarte(cartesJoueur[1], cartesJoueurTerrain[1],placeID);
                             actualiserPositionCartesT(cartesJoueurTerrain);
                         }
-                        else if(cartesJoueurTerrain[1][placeID]->getType()==2)
+                        else if(cartesJoueur[1][placeID]->getType()==2)
                         {
-                            cartesJoueurTerrain[1].erase(cartesJoueurTerrain[1].begin() + placeID);
+                            cartesJoueur[1].erase(cartesJoueur[1].begin() + placeID);
                         }
 
                         placeID = -1;
