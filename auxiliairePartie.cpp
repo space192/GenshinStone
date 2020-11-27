@@ -792,7 +792,7 @@ void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
     }
     else if(imageID == 13)
     {
-        cartesJoueur.push_back( new TrainerCards("benediction",2,10,10,13,0,0,5,4));
+        cartesJoueur.push_back( new TrainerCards("benediction",2,10,10,13,0,0,1,4));
     }
     else if(imageID == 14)
     {
@@ -808,7 +808,7 @@ void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
     }
     else if(imageID == 17)
     {
-        cartesJoueur.push_back( new TrainerCards("potion",2,10,10,17,0,0,1,6));
+        cartesJoueur.push_back( new TrainerCards("potion",2,10,10,17,0,0,5,6));
     }
 
     /*for(size_t i = 0; i < cartesJoueur.size(); i ++)
