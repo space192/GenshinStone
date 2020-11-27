@@ -95,7 +95,7 @@ void actualiserPositionCartesT(std::vector< std::vector<Cartes*> >  & cartesJoue
     }
     for(size_t i = 0; i < cartesJoueurTerrain[1].size(); i++)
     {
-        cartesJoueurTerrain[1][i]->setPosition(900 - ((cartesJoueurTerrain[1].size()-1)*70) + i*140, 340);
+        cartesJoueurTerrain[1][i]->setPosition(900 - ((cartesJoueurTerrain[1].size()-1)*70) + i*140, 325);
 
     }
 }

@@ -267,7 +267,7 @@ void jeu(int port, std::string nomJoueur)
                                 conditionSouris = 0;
                             }
 
-                            if(event.button.x >1725 && event.button.x < 1908 && event.button.y > 499 && event.button.y < 595)
+                            if(event.button.x >1568 && event.button.x < 1773 && event.button.y > 445 && event.button.y < 526)
                             {
                                 paquet.clear();
                                 paquet << 7; //envoie nombre de carte
