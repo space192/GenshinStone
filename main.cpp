@@ -164,6 +164,7 @@ int main(int argc, char **argv)
             thread.terminate();
             port = -1;
             inQUEUE = 0;
+            CARTERECUSERVEUR.clear();
         }
         while (SDL_PollEvent(&event) == 1)
         {
@@ -846,4 +847,6 @@ void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck)
         paquet >> temp;
         deck->push_back(temp);
     }
+
+    std::cout << deck->size();
 }

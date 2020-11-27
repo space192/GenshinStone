@@ -678,13 +678,12 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
     }
 }
 
-void afficherPV(std::string nomsJoueur[2],int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface)
+void afficherPV(std::string *nomsJoueur,int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface)
 {
     SDL_Rect position;
     SDL_Color couleur = {255, 255, 255};
     std::stringstream machaine;
     std::stringstream machaine2;
-
 
 
     police = TTF_OpenFont("ARLRDBD.TTF", 30);
@@ -702,6 +701,7 @@ void afficherPV(std::string nomsJoueur[2],int vieJoueur[2],SDL_Surface *texte,TT
     SDL_BlitSurface(texte, NULL, windowSurface, &position);
 
     machaine.str(" ");
+    machaine2.str(" ");
     SDL_FreeSurface(texte);
 
     position.x = 880;
@@ -714,7 +714,9 @@ void afficherPV(std::string nomsJoueur[2],int vieJoueur[2],SDL_Surface *texte,TT
     position.y = 170;
     machaine2 << nomsJoueur[1];
     texte = TTF_RenderText_Solid(police, machaine2.str().c_str(), couleur);
+    SDL_BlitSurface(texte, NULL, windowSurface, &position);
     machaine.str(" ");
+    machaine2.str(" ");
     SDL_FreeSurface(texte);
 
 
