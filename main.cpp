@@ -2,7 +2,7 @@
 #define WINDOW_WIDTH 1100
 #define WINDOW_HEIGHT 900
 
-void receptionT(int *port, sf::TcpSocket *socket);
+void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck);
 
 int main(int argc, char **argv)
 {
@@ -72,6 +72,8 @@ int main(int argc, char **argv)
     std::vector<int> deckJoueur;
     std::vector<int> selected;
 
+    std::vector<int> CARTERECUSERVEUR;
+
 
     //putting all the cards need to put this as a function later;
     std::vector<SDL_Surface*> imageCache;
@@ -139,7 +141,7 @@ int main(int argc, char **argv)
     int jour,mois,annee, LOGIN = 0, action;
     int port = -1;
     int inQUEUE;
-    sf::Thread thread(std::bind(&receptionT, &port, &socket));
+    sf::Thread thread(std::bind(&receptionT, &port, &socket, &CARTERECUSERVEUR));
     SDL_Surface *windowSurface = NULL;
     windowSurface = SDL_GetWindowSurface( window );
     SDL_Surface *fond = IMG_Load("open.png");
@@ -832,10 +834,9 @@ int main(int argc, char **argv)
 
 
 
-void receptionT(int *port, sf::TcpSocket *socket)
+void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck)
 {
     sf::Packet paquet;
-    std::vector<int> deck;
     int taille, temp;
     socket->receive(paquet);
     paquet >> *port;
@@ -843,10 +844,6 @@ void receptionT(int *port, sf::TcpSocket *socket)
     for(int i = 0 ; i < taille ; i++)
     {
         paquet >> temp;
-        deck.push_back(temp);
-    }
-    for(int i = 0 ; i < deck.size();i++)
-    {
-        std::cout << deck[i] << std::endl;
+        deck->push_back(temp);
     }
 }

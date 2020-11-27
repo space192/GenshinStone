@@ -16,7 +16,7 @@ void jeu(int port, std::string nomJoueur)
         std::string name1;
         std::string name2;
         std::string oponnent;
-        std::string nomsJoueur[2] = {nomJoueur,oponnent};
+
         sf::Packet paquet;
         socket.receive(paquet);
         paquet >> numJoueur;
@@ -32,7 +32,7 @@ void jeu(int port, std::string nomJoueur)
         {
             oponnent = name1;
         }
-        std::cout << oponnent << std::endl;
+        std::string nomsJoueur[2] = {nomJoueur,oponnent};
         TTF_Font *police = NULL;
         /* Création de la fenêtre */
         SDL_Window* pWindow = NULL;
