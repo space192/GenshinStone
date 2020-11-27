@@ -804,7 +804,7 @@ void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
     }
     else if(imageID == 16)
     {
-        cartesJoueur.push_back( new TrainerCards("poison",2,10,10,16,0,0,6,8));
+        cartesJoueur.push_back( new TrainerCards("poison",2,10,10,16,0,0,6,-8));
     }
     else if(imageID == 17)
     {
