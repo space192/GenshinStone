@@ -54,10 +54,10 @@
 1606489217 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\main.cpp
 	"prototypes.h"
 
-1606414723 source:c:\users\arthur\documents\github\projet-s1-ing2\auxiliairepartie.cpp
+1606493210 source:c:\users\arthur\documents\github\projet-s1-ing2\auxiliairepartie.cpp
 	"prototypes.h"
 
-1606428018 c:\users\arthur\documents\github\projet-s1-ing2\prototypes.h
+1606475898 c:\users\arthur\documents\github\projet-s1-ing2\prototypes.h
 	<Windows.h>
 	<unistd.h>
 	<string>
@@ -72,15 +72,16 @@
 	<SFML/Network.hpp>
 	<functional>
 
-1606309978 source:c:\users\arthur\documents\github\projet-s1-ing2\cartes.cpp
+1606475898 source:c:\users\arthur\documents\github\projet-s1-ing2\cartes.cpp
 	"prototypes.h"
 
-1604940050 source:c:\users\arthur\documents\github\projet-s1-ing2\deck.cpp
-
-1606428034 source:c:\users\arthur\documents\github\projet-s1-ing2\jeu.cpp
+1606493131 source:c:\users\arthur\documents\github\projet-s1-ing2\deck.cpp
 	"prototypes.h"
 
-1606428018 source:c:\users\arthur\documents\github\projet-s1-ing2\main.cpp
+1606491873 source:c:\users\arthur\documents\github\projet-s1-ing2\jeu.cpp
+	"prototypes.h"
+
+1606493181 source:c:\users\arthur\documents\github\projet-s1-ing2\main.cpp
 	"prototypes.h"
 
 1606462787 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\auxiliairepartie.cpp

@@ -332,7 +332,7 @@ int main(int argc, char **argv)
                     actualiserImageDeck(toutesCartes,imageCache,deckWindowSurface,selected);
                     SDL_UpdateWindowSurface(deckWindow);
                 }
-                if(cardnmb==10 )
+                if(cardnmb==25 )
                 {
                     std::cout<<"test";
                     open = false;
