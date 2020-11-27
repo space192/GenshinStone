@@ -304,8 +304,25 @@ int main(int argc, char **argv)
                     page = 4;
                     SDL_DestroyWindow(deckWindow);
                     alldecks[cardpage-1]=deckJoueur;
+                    paquet.clear();
+                    paquet << 2 << LOGIN;
+                    socket.send(paquet);
+                    paquet.clear();
+                    paquet << 1;
+                    socket.send(paquet);
+                    paquet.clear();
+                    paquet << cardpage-1;
+                    socket.send(paquet);
+                    paquet.clear();
+                    paquet << alldecks[cardpage-1].size();
+                    for(int i = 0 ; i < alldecks[cardpage-1].size();i++)
+                    {
+                        paquet << alldecks[cardpage-1][i];
+                    }
+                    socket.send(paquet);
+                    paquet.clear();
                     deckJoueur.erase(deckJoueur.begin(),deckJoueur.end());
-                    for(int i = 0; i<20; i++)
+                    for(int i = 0; i<25; i++)
                     {
                         selected[i] = 0;
                     }
@@ -650,6 +667,9 @@ int main(int argc, char **argv)
                         paquet << action << LOGIN;
                         socket.send(paquet);
                         paquet.clear();
+                        paquet << 0;
+                        socket.send(paquet);
+                        paquet.clear();
                         thread.launch();
                         inQUEUE = 1;
                         page = 4;
@@ -661,6 +681,9 @@ int main(int argc, char **argv)
                         paquet.clear();
                         action = 1;
                         paquet << action << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        paquet << 1;
                         socket.send(paquet);
                         paquet.clear();
                         thread.launch();
@@ -676,6 +699,9 @@ int main(int argc, char **argv)
                         paquet << action << LOGIN;
                         socket.send(paquet);
                         paquet.clear();
+                        paquet << 2;
+                        socket.send(paquet);
+                        paquet.clear();
                         thread.launch();
                         inQUEUE = 1;
                         page = 4;
@@ -687,6 +713,9 @@ int main(int argc, char **argv)
                         paquet.clear();
                         action = 1;
                         paquet << action << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        paquet << 3;
                         socket.send(paquet);
                         paquet.clear();
                         thread.launch();
