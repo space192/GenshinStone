@@ -103,14 +103,17 @@ void jeu(int port, std::string nomJoueur)
 
 
         std::vector<SDL_Surface*> imageCacheE;
-        imageCacheE.push_back(IMG_Load("feuP.png"));
-        imageCacheE.push_back(IMG_Load("airP.png"));
-        imageCacheE.push_back(IMG_Load("terreP.png"));
         imageCacheE.push_back(IMG_Load("eauP.png"));
+        imageCacheE.push_back(IMG_Load("terreP.png"));
+        imageCacheE.push_back(IMG_Load("airP.png"));
+        imageCacheE.push_back(IMG_Load("feuP.png"));
+
         imageCacheE.push_back(IMG_Load("eauG.png"));
-        imageCacheE.push_back(IMG_Load("feuG.png"));
-        imageCacheE.push_back(IMG_Load("airG.png"));
         imageCacheE.push_back(IMG_Load("terreG.png"));
+        imageCacheE.push_back(IMG_Load("airG.png"));
+        imageCacheE.push_back(IMG_Load("feuG.png"));
+
+
 
 
         std::vector< std::vector<Cartes*> > cartesJoueur;
@@ -242,13 +245,17 @@ void jeu(int port, std::string nomJoueur)
                             }
                             break;
                         case SDL_MOUSEBUTTONDOWN:
-                            if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 990 && event.button.y < 1080))
+
+                            std::cout << "Coordonnes x :" << event.button.x << std::endl;
+                            std::cout << "Coordonnes y :" << event.button.y << std::endl;
+
+                            if((event.button.x > 360 && event.button.x < 1549 && event.button.y > 990 && event.button.y < 1080))
                             {
                                 conditionSouris = 1;
                                 condDetail = 0;
                                 carteSelec = selectionCarte(cartesJoueur[0],event.button.x,event.button.y); //clique sur une carte dans ta main
                             }
-                            else if(event.button.x > 360 && event.button.x < 1450 && event.button.y > 600 && event.button.y < 750)
+                            else if(event.button.x > 322 && event.button.x < 1549 && event.button.y > 500 && event.button.y < 679)
                             {
                                 conditionSouris = 3;
                                 carteSelec = selectionCarte(cartesJoueurTerrain[0],event.button.x,event.button.y);
@@ -291,7 +298,7 @@ void jeu(int port, std::string nomJoueur)
                             }
                             else if(conditionSouris == 0)
                             {
-                                if(event.button.x > 360 && event.button.x < 1450 && event.button.y > 600 && event.button.y < 750)
+                                if(event.button.x > 322 && event.button.x < 1549 && event.button.y > 500 && event.button.y < 679)
                                 {
                                     carteSelec = selectionCarte(cartesJoueurTerrain[0],event.button.x,event.button.y);
                                     condDetail=1;
@@ -321,7 +328,7 @@ void jeu(int port, std::string nomJoueur)
                             break;
                         case SDL_MOUSEBUTTONUP:
 
-                            if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 600 && event.button.y < 750 )&&(conditionSouris == 1)&&(cartesJoueur[0][carteSelec]->getType()==1))
+                            if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 500 && event.button.y < 680 )&&(conditionSouris == 1)&&(cartesJoueur[0][carteSelec]->getType()==1))
                             {
                                 placerCarte(cartesJoueur[0], cartesJoueurTerrain[0],carteSelec);
                                 actualiserPositionCartes(cartesJoueur);
@@ -340,7 +347,7 @@ void jeu(int port, std::string nomJoueur)
                                 socket.send(paquet);
                                 paquet.clear();
                             }
-                            else if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 600 && event.button.y < 750 )&&(conditionSouris == 1)&&(cartesJoueur[0][carteSelec]->getType()==2))
+                            else if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 500 && event.button.y < 680 )&&(conditionSouris == 1)&&(cartesJoueur[0][carteSelec]->getType()==2))
                             {
                                 actionTrainer(carteSelec,cartesJoueurTerrain,cartesJoueur,energiesJoueur,vieJoueur, &socket);
                                 cartesJoueur[0].erase(cartesJoueur[0].begin() + carteSelec);
@@ -378,7 +385,7 @@ void jeu(int port, std::string nomJoueur)
 
 
                                 }
-                                else if(cartesJoueurTerrain[1].size() == 0)
+                                /*else if(cartesJoueurTerrain[1].size() == 0)
                                 {
 
 
@@ -404,9 +411,34 @@ void jeu(int port, std::string nomJoueur)
 
                                     }
 
-                                }
+                                }*/
 
                                 actualiserPositionCartesT(cartesJoueurTerrain);
+                            }
+                            else if(((event.button.x > 873 && event.button.x < 1060 && event.button.y > 132 && event.button.y < 282)&&(conditionSouris == 3)))
+                            {
+                                 if((event.button.button == SDL_BUTTON_LEFT))
+                                    {
+                                        attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(0);
+                                    }
+                                    else
+                                    {
+                                        attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(1);
+                                    }
+
+                                    if(testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain) == 1)
+                                    {
+                                        vieJoueur[1] -= attaqueActive.degat;
+                                        paquet.clear();
+                                        paquet << 10;
+                                        socket.send(paquet);
+                                        paquet.clear();
+                                        paquet << 41 << -attaqueActive.degat;
+                                        socket.send(paquet);
+                                        paquet.clear();
+
+                                    }
+                                    actualiserPositionCartesT(cartesJoueurTerrain);
                             }
                             else if(conditionSouris == 1)
                             {
