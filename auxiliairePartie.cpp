@@ -117,7 +117,7 @@ void afficherDetails(int & condDetail, int & carteDetail,std::vector< std::vecto
             position = cartesJoueurTerrain[0][carteDetail ]->getPosition();
             position.x -= 42;
             position.y -= 59;
-            SDL_BlitSurface(imageCache[cartesJoueurTerrain[0][carteDetail ]->getImage()+16], NULL, windowSurface, &position);
+            SDL_BlitSurface(imageCache[cartesJoueurTerrain[0][carteDetail ]->getImage()+18], NULL, windowSurface, &position);
             machaine << cartesJoueurTerrain[0][carteDetail ]->getVie();
             texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
             SDL_BlitSurface(texte, NULL, windowSurface, &position);
@@ -132,7 +132,7 @@ void afficherDetails(int & condDetail, int & carteDetail,std::vector< std::vecto
             position = cartesJoueurTerrain[1][carteDetail ]->getPosition();
             position.x -= 42;
             position.y -= 59;
-            SDL_BlitSurface(imageCache[cartesJoueurTerrain[1][carteDetail ]->getImage()+16], NULL, windowSurface, &position);
+            SDL_BlitSurface(imageCache[cartesJoueurTerrain[1][carteDetail ]->getImage()+18], NULL, windowSurface, &position);
             machaine << cartesJoueurTerrain[1][carteDetail ]->getVie();
             texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
             SDL_BlitSurface(texte, NULL, windowSurface, &position);
@@ -147,7 +147,7 @@ void afficherDetails(int & condDetail, int & carteDetail,std::vector< std::vecto
             position = cartesJoueur[0][carteDetail ]->getPosition();
             position.x -= 100;
             position.y -= 300;
-            SDL_BlitSurface(imageCache[cartesJoueur[0][carteDetail ]->getImage()+16], NULL, windowSurface, &position);
+            SDL_BlitSurface(imageCache[cartesJoueur[0][carteDetail ]->getImage()+18], NULL, windowSurface, &position);
 
             if(cartesJoueur[0][carteDetail ]->getType() ==1 )
             {
@@ -792,23 +792,23 @@ void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
     }
     else if(imageID == 13)
     {
-        cartesJoueur.push_back( new TrainerCards("benediction",2,10,10,12,0,0,5,4));
+        cartesJoueur.push_back( new TrainerCards("benediction",2,10,10,13,0,0,5,4));
     }
     else if(imageID == 14)
     {
-        cartesJoueur.push_back( new TrainerCards("fleches",2,10,10,12,0,0,3,8));
+        cartesJoueur.push_back( new TrainerCards("fleches",2,10,10,14,0,0,3,8));
     }
     else if(imageID == 15)
     {
-        cartesJoueur.push_back( new TrainerCards("malediction",2,10,10,12,0,0,2,4));
+        cartesJoueur.push_back( new TrainerCards("malediction",2,10,10,15,0,0,2,4));
     }
     else if(imageID == 16)
     {
-        cartesJoueur.push_back( new TrainerCards("poison",2,10,10,12,0,0,4,8));
+        cartesJoueur.push_back( new TrainerCards("poison",2,10,10,16,0,0,4,8));
     }
     else if(imageID == 17)
     {
-        cartesJoueur.push_back( new TrainerCards("potion",2,10,10,12,0,0,4,6));
+        cartesJoueur.push_back( new TrainerCards("potion",2,10,10,17,0,0,4,6));
     }
 
     /*for(size_t i = 0; i < cartesJoueur.size(); i ++)
