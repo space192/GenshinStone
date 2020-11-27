@@ -835,7 +835,18 @@ int main(int argc, char **argv)
 void receptionT(int *port, sf::TcpSocket *socket)
 {
     sf::Packet paquet;
+    std::vector<int> deck;
+    int taille, temp;
     socket->receive(paquet);
     paquet >> *port;
-    std::cout << *port << std::endl;
+    paquet >> taille;
+    for(int i = 0 ; i < taille ; i++)
+    {
+        paquet >> temp;
+        deck.push_back(temp);
+    }
+    for(int i = 0 ; i < deck.size();i++)
+    {
+        std::cout << deck[i] << std::endl;
+    }
 }
