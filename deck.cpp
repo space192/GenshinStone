@@ -24,8 +24,8 @@ void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Sur
             position2 = position;
             position.x += 20;
             position.y +=27;
-            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position);
             SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position2);
+            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position);
         }
         else if(selected[i]==3)
         {
@@ -33,16 +33,15 @@ void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Sur
             position.x -= 42;
             position.y -= 59;
             position2 = position;
-            position.x += 20;
-            position.y +=27;
-            position3 = position;
+            position2.x += 20;
+            position2.y +=27;
+            position3 = position2;
             position3.x += 20;
             position3.y += 27;
             SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position);
             SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position2);
             SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+18], NULL, windowSurface, &position3);
         }
-
     }
 }
 
