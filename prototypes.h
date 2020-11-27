@@ -147,7 +147,7 @@ void testSiCarteMorte(std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain
 void afficherCimetiere(std::vector< std::vector<Cartes*> > & cimetiere,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface);
 
 void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur,int vieJoueur[2], sf::TcpSocket *socket);
-void afficherPV(std::string nomsJoueur[2],int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface);
+void afficherPV(std::string *nomsJoueur,int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface);
 void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & carteJoueur );
 
 void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface,std::vector<int> selected);
