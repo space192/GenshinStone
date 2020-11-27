@@ -16,6 +16,7 @@ void jeu(int port, std::string nomJoueur)
         std::string name1;
         std::string name2;
         std::string oponnent;
+        std::string nomsJoueur[2] = {nomJoueur,oponnent};
         sf::Packet paquet;
         socket.receive(paquet);
         paquet >> numJoueur;
@@ -556,7 +557,7 @@ void jeu(int port, std::string nomJoueur)
                 }
                 afficherDetails(condDetail,carteDetail,cartesJoueurTerrain,cartesJoueur,windowSurface,imageCache,texte,police, &socket);
                 afficherCartesAdverses(cartesJoueur,selecC,imageCache,windowSurface);
-                afficherPV(vieJoueur,texte,police,windowSurface);
+                afficherPV(nomsJoueur,vieJoueur,texte,police,windowSurface);
                 testSiCarteMorte(cartesJoueurTerrain,cimetiere);
                 afficherCimetiere(cimetiere,imageCache,windowSurface);
                 if(conditionRect == 1)
