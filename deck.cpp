@@ -1,7 +1,7 @@
 #include "prototypes.h"
 void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface,std::vector<int> selected)
 {
-    SDL_Rect position, position2;
+    SDL_Rect position, position2, position3;
     for(size_t i = 0; i< cartesJoueur.size(); i++ )
     {
         if(selected[i] == 0)
@@ -26,6 +26,21 @@ void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Sur
             position.y +=27;
             SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+12], NULL, windowSurface, &position);
             SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+12], NULL, windowSurface, &position2);
+        }
+        else if(selected[i]==3)
+        {
+            position = cartesJoueur[i]->getPosition();
+            position.x -= 42;
+            position.y -= 59;
+            position2 = position;
+            position.x += 20;
+            position.y +=27;
+            position3 = position;
+            position3.x += 20;
+            position3.y += 27;
+            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+12], NULL, windowSurface, &position);
+            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+12], NULL, windowSurface, &position2);
+            SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()+12], NULL, windowSurface, &position3);
         }
 
     }

@@ -791,7 +791,7 @@ int main(int argc, char **argv)
                     }
                     if(carteSelec != -1 )
                     {
-                        if(selected[carteSelec] <2)
+                        if(selected[carteSelec] <3)
                         {
                             deckJoueur.push_back(toutesCartes[carteSelec]->getImage());
                             selected[carteSelec]++;
