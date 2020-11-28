@@ -378,7 +378,7 @@ void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,
     }
 }
 
-void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbrCarte, int *selec,int *placeID, std::vector<int> *TID1, std::vector<int> *TID2, std::vector<int> *Tdegats)
+void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbrCarte, int *selec,int *placeID, std::vector<int> *TID1, std::vector<int> *TID2, std::vector<int> *Tdegats, std::string sent, std::string *chaine, bool *notification)
 {
     sf::Packet tempReceive;
     int receive = 0;
@@ -387,7 +387,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
     sf::Packet realOne;
     int boucle;
     int temp, temp2, temp3;
-    std::string chaine;
+    std::string tempChaine;
     int continuer = 1;
     while(continuer != 9)
     {
@@ -406,7 +406,16 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         {
         case 1:
         {
-            realOne >> chaine; //recevoir un texte
+            realOne >> tempChaine; //recevoir un texte
+            if(tempChaine != sent)
+            {
+                *chaine = tempChaine;
+                *notification = true;
+            }
+            else
+            {
+                *notification = false;
+            }
             break;
         }
         case 2:
