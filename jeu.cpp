@@ -17,6 +17,11 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
         std::string name2;
         std::string oponnent;
 
+        std::stringstream message;
+
+
+        message << " ";
+
         sf::Packet paquet;
         socket.receive(paquet);
         paquet >> numJoueur;
@@ -75,7 +80,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
 
         for(size_t i =0; i<11; i++)
         {
-            chat.push_back(" salut ");
+            chat.push_back(" ");
         }
 
         std::vector<SDL_Surface*> imageCache;
@@ -282,6 +287,30 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                                 paquet.clear();
                                 break;
                             }
+
+                            case SDLK_RETURN:
+                            {
+                                if (message.str() != " ")
+                                {
+                                    tempEnvoie = nomJoueur;
+                                    tempEnvoie += ":";
+                                    tempEnvoie += message.str();
+
+                                    ajouterMessage(chat,tempEnvoie);
+
+                                    paquet.clear();
+                                    paquet << 1;
+                                    socket.send(paquet);
+                                    paquet.clear();
+                                    paquet << tempEnvoie;
+                                    socket.send(paquet);
+                                    paquet.clear();
+                                    message << " ";
+                                }
+
+                                break;
+                            }
+
                             break;
                         case SDL_MOUSEBUTTONDOWN:
 
@@ -511,6 +540,16 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
 
                             carteSelec = -1;
                             break;
+                        case SDL_TEXTINPUT:
+
+                            if(conditionSouris == 4)
+                            {
+                                message << event.text.text;
+                            }
+
+
+                            break;
+
                         }
                     }
 
@@ -552,6 +591,25 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                                 thread.terminate();
                                 paquet.clear();
                             }
+                            else if(event.key.keysym.sym == SDLK_RETURN && message.str() != " ")
+                            {
+
+
+                                tempEnvoie = nomJoueur;
+                                tempEnvoie += ":";
+                                tempEnvoie += message.str();
+
+                                ajouterMessage(chat,tempEnvoie);
+
+                                paquet.clear();
+                                paquet << 1;
+                                socket.send(paquet);
+                                paquet.clear();
+                                paquet << tempEnvoie;
+                                socket.send(paquet);
+                                paquet.clear();
+                                message << " ";
+                            }
                         }
                         else if(event.type == SDL_MOUSEBUTTONDOWN)
                         {
@@ -564,7 +622,16 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                                 conditionSouris = 0;
                             }
                         }
+                        else if(event.type == SDL_TEXTINPUT)
+                        {
+                            message << event.text.text;
+                        }
                     }
+                }
+                if(notif == true)
+                {
+                    ajouterMessage(chat, resultatChat);
+                    notif = false;
                 }
                 if(actuJoueur == 9)
                 {

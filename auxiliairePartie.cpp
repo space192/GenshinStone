@@ -973,7 +973,7 @@ void afficherChat(std::vector<std::string> & chat,SDL_Surface *texte,SDL_Surface
     {
         position.x = 600;
         position.y = 220 + i*35;
-        machaine <<chat[10-i];
+        machaine <<chat[i];
         texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
         SDL_BlitSurface(texte, NULL, windowSurface, &position);
         machaine.str(" ");
@@ -982,3 +982,9 @@ void afficherChat(std::vector<std::string> & chat,SDL_Surface *texte,SDL_Surface
 
 }
 
+void ajouterMessage(std::vector<std::string> & chat,std::string tempEnvoie)
+{
+    chat.erase(chat.begin());
+    chat.push_back(tempEnvoie);
+
+}
