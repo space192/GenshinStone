@@ -724,7 +724,7 @@ void afficherPV(std::string *nomsJoueur,int vieJoueur[2],SDL_Surface *texte,TTF_
 }
 
 
-void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
+void lierCarteEtId(int imageID,  std::vector<Cartes*> & cartesJoueur )
 {
     int temp;
 
@@ -905,6 +905,28 @@ void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
 
     }*/
 }
+
+
+void lierEnergiesEtID(int imageID,std::vector<EnergyCards> & energiesJoueur)
+{
+    if(imageID == 1)
+    {
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,1));
+    }
+    else if(imageID == 2)
+    {
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,2));
+    }
+    else if(imageID == 3)
+    {
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,2));
+    }
+    else if(imageID == 4)
+    {
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,2));
+    }
+}
+
 
 void afficherTour(int & affTour, SDL_Surface* tour,SDL_Surface  *windowSurface)
 {

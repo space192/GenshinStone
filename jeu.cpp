@@ -159,12 +159,12 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
 
         for(int i = 8; i<18 ; i++)
         {
-            lierCarteEtId(i,i,TEMP);
+            lierCarteEtId(i,TEMP);
         }
 
         for(int i = 8; i<18 ; i++)
         {
-            lierCarteEtId(i,i,TEMP4);
+            lierCarteEtId(i,TEMP4);
         }
 
 

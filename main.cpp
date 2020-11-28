@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 
     for(int i = 0; i < 18; i++)
     {
-        lierCarteEtId(i,0,toutesCartes);
+        lierCarteEtId(i,toutesCartes);
         selected.push_back(false);
     }
     int cardnmb = 0, cardpage = 1, carteSelec = -1;

@@ -148,7 +148,8 @@ void afficherCimetiere(std::vector< std::vector<Cartes*> > & cimetiere,std::vect
 
 void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur,int vieJoueur[2], sf::TcpSocket *socket);
 void afficherPV(std::string *nomsJoueur,int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface);
-void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & carteJoueur );
+void lierCarteEtId(int imageID,  std::vector<Cartes*> & carteJoueur );
+void lierEnergiesEtID(int imageID,std::vector<EnergyCards> & energiesJoueur);
 
 void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface,std::vector<int> selected);
 void actualiserCarteDeck(std::vector<Cartes*>  &cartesPioche);
