@@ -54,10 +54,10 @@
 1606501941 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\main.cpp
 	"prototypes.h"
 
-1606501039 source:c:\users\arthur\documents\github\projet-s1-ing2\auxiliairepartie.cpp
+1606506265 source:c:\users\arthur\documents\github\projet-s1-ing2\auxiliairepartie.cpp
 	"prototypes.h"
 
-1606506227 c:\users\arthur\documents\github\projet-s1-ing2\prototypes.h
+1606506265 c:\users\arthur\documents\github\projet-s1-ing2\prototypes.h
 	<Windows.h>
 	<unistd.h>
 	<string>
@@ -81,7 +81,7 @@
 1606506227 source:c:\users\arthur\documents\github\projet-s1-ing2\jeu.cpp
 	"prototypes.h"
 
-1606506227 source:c:\users\arthur\documents\github\projet-s1-ing2\main.cpp
+1606506265 source:c:\users\arthur\documents\github\projet-s1-ing2\main.cpp
 	"prototypes.h"
 
 1606494216 source:c:\users\hugoh\onedrive\documents\github\projet-s1-ing2\auxiliairepartie.cpp

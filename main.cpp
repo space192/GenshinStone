@@ -587,6 +587,7 @@ int main(int argc, char **argv)
                         socket.receive(paquet);
                         paquet >> deck0S >> deck1S >> deck2S >> deck3S;
                         paquet.clear();
+                        std::cout << "hello world" << std::endl;
                         page = 6;
                     }
                     else if(event.button.x >400 && event.button.x <539 && event.button.y >432 && event.button.y <456)
