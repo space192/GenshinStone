@@ -156,6 +156,7 @@ int main(int argc, char **argv)
     int state = 0;
     quit = 0;
     int page = 1;
+    bool load = true;
     while (!quit)
     {
         if(port != -1)
@@ -172,12 +173,19 @@ int main(int argc, char **argv)
             switch(page)
             {
             case 1:
+                if(load)
+                {
                 SDL_BlitSurface(fond, NULL, windowSurface, NULL);
                 SDL_UpdateWindowSurface(window);
+                load = false;
+                }
+
                 break;
 
             case 2:
 
+                if(load)
+                {
 
                 get_text_and_rect(renderer, 400, 400, (char*)test.str().c_str(), font, &texture1, &rect1);
                 get_text_and_rect(renderer, 380, rect1.y + rect1.h, (char*)test2.str().c_str(), font, &texture2, &rect2);
@@ -189,8 +197,12 @@ int main(int argc, char **argv)
                 SDL_RenderCopy(renderer, texture2, NULL, &rect2);
 
                 SDL_RenderPresent(renderer);
+                load = false;
+                }
                 break;
             case 3:
+                if(load)
+                {
                 get_text_and_rect(renderer, 400, 400, (char*)createName.str().c_str(), font, &texture1, &rect1);
                 get_text_and_rect(renderer, 400, rect1.y + rect1.h, (char*)createPassword.str().c_str(), font, &texture2, &rect2);
                 get_text_and_rect(renderer, 400, rect2.y + rect2.h, (char*)createDate.str().c_str(), font, &texture3, &rect3);
@@ -203,8 +215,12 @@ int main(int argc, char **argv)
                 SDL_RenderCopy(renderer, texture3, NULL, &rect3);
 
                 SDL_RenderPresent(renderer);
+                load = false;
+                }
                 break;
             case 4:
+                if(load)
+                {
                 get_text_and_rect(renderer, 400, 400, (char*)startGame.str().c_str(), font, &texture1, &rect1);
                 get_text_and_rect(renderer, 400, rect1.y + rect1.h, (char*)deckOption.str().c_str(), font, &texture2, &rect2);
                 get_text_and_rect(renderer, 400, rect2.y + rect2.h, (char*)quitterJeu.str().c_str(), font, &texture3, &rect3);
@@ -219,8 +235,12 @@ int main(int argc, char **argv)
                 SDL_RenderCopy(renderer,texture4, NULL, &rect4);
 
                 SDL_RenderPresent(renderer);
+                load = false;
+                }
                 break;
             case 5:
+                if(load)
+                {
                 get_text_and_rect(renderer, 200, 400, (char*)startGame.str().c_str(), font, &texture1, &rect1);
                 get_text_and_rect(renderer, 200, rect1.y + rect1.h, (char*)deckOption.str().c_str(), font, &texture2, &rect2);
                 get_text_and_rect(renderer, 200, rect2.y + rect2.h, (char*)quitterJeu.str().c_str(), font, &texture3, &rect3);
@@ -237,8 +257,12 @@ int main(int argc, char **argv)
                 SDL_RenderCopy(renderer,texture5, NULL, &rect5);
 
                 SDL_RenderPresent(renderer);
+                load = false;
+                }
                 break;
             case 6:
+if(load)
+{
 
                 if(reset)
                 {
@@ -282,6 +306,8 @@ int main(int argc, char **argv)
                 SDL_RenderCopy(renderer,texture4, NULL, &rect4);
 
                 SDL_RenderPresent(renderer);
+                load = false;
+}
                 break;
             case 7:
                 if(!open)
@@ -359,10 +385,12 @@ int main(int argc, char **argv)
                     if(event.button.x >100 && event.button.x <515 && event.button.y >390 && event.button.y <500)
                     {
                         page++;
+                        load = true;
                     }
                     else if(event.button.x >622 && event.button.x <1030 && event.button.y >400 && event.button.y <500)
                     {
                         page = 3;
+                        load = true;
                     }
                     break;
                 }
@@ -378,6 +406,7 @@ int main(int argc, char **argv)
                         quit = 1;
                         break;
                     case SDLK_BACKSPACE:
+                        load = true;
                         if(state == 0)
                         {
                             test.str(" ");
@@ -415,11 +444,13 @@ int main(int argc, char **argv)
                         {
                             page = 4;
                             LOGIN = 1;
+                            load = true;
                         }
                         break;
                     }
                     break;
                 case SDL_TEXTINPUT:
+                    load= true;
                     if(state == 0)
                     {
                         test<<event.text.text;
@@ -456,6 +487,7 @@ int main(int argc, char **argv)
                         quit = 1;
                         break;
                     case SDLK_BACKSPACE:
+                        load = true;
                         if(state == 0)
                         {
                             createName.str(" ");
@@ -499,12 +531,14 @@ int main(int argc, char **argv)
                         {
                             page = 1;
                             LOGIN = 0;
+                            load = true;
                         }
                         break;
 
                     }
                     break;
                 case SDL_TEXTINPUT:
+                    load= true;
                     if(state == 0)
                     {
                         createName<<event.text.text;
@@ -589,12 +623,14 @@ int main(int argc, char **argv)
                         paquet.clear();
                         std::cout << "hello world" << std::endl;
                         page = 6;
+                        load = true;
                     }
                     else if(event.button.x >400 && event.button.x <539 && event.button.y >432 && event.button.y <456)
                     {
                         //aller au deck
                         std::cout<<"Deck";
                         page = 7;
+                        load = true;
                     }
                     else if(event.button.x >400 && event.button.x <488 && event.button.y >461 && event.button.y <485)
                     {
@@ -606,6 +642,7 @@ int main(int argc, char **argv)
                     {
                         std::cout<<"amies";
                         page = 5;
+                        load = true;
                     }
                     break;
 
@@ -621,6 +658,7 @@ int main(int argc, char **argv)
                         quit = 1;
                         break;
                     case SDLK_BACKSPACE:
+                        load = true;
                         if(select == true)
                         {
                             textbox.str(" ");
@@ -636,6 +674,7 @@ int main(int argc, char **argv)
                         break;
 
                     default:
+                        load = true;
                         int a = event.key.keysym.sym;
                         char w = static_cast<char>(a);
                         if(select == true)
@@ -656,6 +695,7 @@ int main(int argc, char **argv)
                     else if(event.button.x <500)
                     {
                         page = 4;
+                        load = true;
                     }
                     break;
                 }
@@ -668,6 +708,7 @@ int main(int argc, char **argv)
                     {
                     case SDLK_ESCAPE:
                         page = 4;
+                        load = true;
                         break;
                     }
                     break;
@@ -687,6 +728,7 @@ int main(int argc, char **argv)
                         thread.launch();
                         inQUEUE = 1;
                         page = 4;
+                        load = true;
                     }
                     else if(event.button.x >400 && event.button.x <590 && event.button.y >430 && event.button.y <454 && alldecks[1].size()!=0)
                     {
@@ -703,6 +745,7 @@ int main(int argc, char **argv)
                         thread.launch();
                         inQUEUE = 1;
                         page = 4;
+                        load = true;
                     }
                     else if(event.button.x >400 && event.button.x <590 && event.button.y >462 && event.button.y <478 && alldecks[2].size()!=0)
                     {
@@ -719,6 +762,7 @@ int main(int argc, char **argv)
                         thread.launch();
                         inQUEUE = 1;
                         page = 4;
+                        load = true;
                     }
                     else if(event.button.x >400 && event.button.x <590 && event.button.y >489 && event.button.y <507 && alldecks[3].size()!=0)
                     {
@@ -735,6 +779,7 @@ int main(int argc, char **argv)
                         thread.launch();
                         inQUEUE = 1;
                         page = 4;
+                        load = true;
                     }
                     break;
                 }
@@ -752,6 +797,7 @@ int main(int argc, char **argv)
                         reset = true;
                         black = black1;
                         cardpage = 1;
+                        load = true;
                         break;
                     }
                     break;

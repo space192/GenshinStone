@@ -257,6 +257,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
 
             while(condition == 1)
             {
+                //if qui est utliiser quand tu commence le tour
                 if(numJoueur == actuJoueur && changeTour == 1)
                 {
                     affTour = 1;
@@ -265,7 +266,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                 SDL_BlitSurface(fond, NULL, windowSurface, NULL);
                 actualiserImage(cartesJoueur[0],cartesJoueurTerrain,imageCache,windowSurface,texte,police);
                 afficherEnergies(energiesJoueur,imageCacheE,windowSurface);
-                if(numJoueur == actuJoueur)
+                if(numJoueur == actuJoueur) //verification de ton tour
                 {
                     if(SDL_PollEvent( &event ))
                     {
