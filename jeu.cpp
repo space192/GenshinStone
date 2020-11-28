@@ -286,17 +286,15 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                                 thread.terminate();
                                 paquet.clear();
                                 break;
-                            }
 
                             case SDLK_RETURN:
-                            {
                                 if (message.str() != " ")
                                 {
                                     tempEnvoie = nomJoueur;
                                     tempEnvoie += ":";
                                     tempEnvoie += message.str();
 
-                                    ajouterMessage(chat,tempEnvoie);
+                                    //ajouterMessage(chat,tempEnvoie);
 
                                     paquet.clear();
                                     paquet << 1;
@@ -305,10 +303,10 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                                     paquet << tempEnvoie;
                                     socket.send(paquet);
                                     paquet.clear();
-                                    message << " ";
+                                    message.str(" ");
                                 }
-
                                 break;
+
                             }
 
                             break;
@@ -599,7 +597,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                                 tempEnvoie += ":";
                                 tempEnvoie += message.str();
 
-                                ajouterMessage(chat,tempEnvoie);
+                                //ajouterMessage(chat,tempEnvoie);
 
                                 paquet.clear();
                                 paquet << 1;
