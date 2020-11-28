@@ -491,7 +491,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         {
             compteur3 = 0;
         }
-        if(compteur == 40 || compteur2 == 40 || compteur3 == 40)
+        if(compteur == 15 || compteur2 == 15 || compteur3 == 15)
         {
             continuer = 9;
             *condition = 0;
@@ -678,45 +678,30 @@ void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueur
     }
 }
 
-void afficherPV(std::string *nomsJoueur,int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface)
+void afficherPV(int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface)
 {
     SDL_Rect position;
     SDL_Color couleur = {255, 255, 255};
     std::stringstream machaine;
-    std::stringstream machaine2;
-
 
     police = TTF_OpenFont("ARLRDBD.TTF", 30);
 
     position.x = 880;
     position.y = 850;
+
     machaine << "PV joueur: " <<vieJoueur[0];
     texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
     SDL_BlitSurface(texte, NULL, windowSurface, &position);
-
-    position.x = 880;
-    position.y = 820;
-    machaine2 << nomsJoueur[0];
-    texte = TTF_RenderText_Solid(police, machaine2.str().c_str(), couleur);
-    SDL_BlitSurface(texte, NULL, windowSurface, &position);
-
     machaine.str(" ");
-    machaine2.str(" ");
     SDL_FreeSurface(texte);
 
     position.x = 880;
     position.y = 200;
+
     machaine << "PV joueur: " <<vieJoueur[1];
     texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
     SDL_BlitSurface(texte, NULL, windowSurface, &position);
-
-    position.x = 880;
-    position.y = 170;
-    machaine2 << nomsJoueur[1];
-    texte = TTF_RenderText_Solid(police, machaine2.str().c_str(), couleur);
-    SDL_BlitSurface(texte, NULL, windowSurface, &position);
     machaine.str(" ");
-    machaine2.str(" ");
     SDL_FreeSurface(texte);
 
 
@@ -904,22 +889,4 @@ void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & cartesJoueur )
         }
 
     }*/
-}
-
-void afficherTour(int & affTour, SDL_Surface* tour,SDL_Surface  *windowSurface)
-{
-    SDL_Rect position;
-
-    position.x = 750;
-    position.y = 400;
-
-    if(affTour != 0)
-    {
-            SDL_BlitSurface(tour, NULL, windowSurface, &position);
-            affTour++;
-            if(affTour == 45)
-            {
-                affTour = 0;
-            }
-    }
 }

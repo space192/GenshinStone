@@ -1,7 +1,7 @@
 #include "prototypes.h"
 
 
-void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
+void jeu(int port, std::string nomJoueur)
 {
     int numJoueur, actuJoueur;
     sf::TcpSocket socket;
@@ -16,7 +16,6 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
         std::string name1;
         std::string name2;
         std::string oponnent;
-
         sf::Packet paquet;
         socket.receive(paquet);
         paquet >> numJoueur;
@@ -32,7 +31,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
         {
             oponnent = name1;
         }
-        std::string nomsJoueur[2] = {nomJoueur,oponnent};
+        std::cout << oponnent << std::endl;
         TTF_Font *police = NULL;
         /* Création de la fenêtre */
         SDL_Window* pWindow = NULL;
@@ -44,8 +43,6 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
         int condDetail = 0;
         int carteDetail;
         int carteAttaque = 0;
-        int affTour;
-        int changeTour= 1;
         Attaque attaqueActive;
         pWindow = SDL_CreateWindow("Mon application SDL2",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,1920,1080,SDL_WINDOW_SHOWN);
         SDL_Surface *windowSurface = NULL;
@@ -53,8 +50,6 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
         SDL_Surface *fond = IMG_Load("Fond.png");
         SDL_Surface *texte = NULL;
         SDL_Surface *selec = IMG_Load("selec.png");
-
-        SDL_Surface* tour = IMG_Load("your turn.png");
 
 
         int vieJoueur[2] = {150,150};
@@ -254,14 +249,8 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
         thread.launch();
         if( pWindow )
         {
-
             while(condition == 1)
             {
-                if(numJoueur == actuJoueur && changeTour == 1)
-                {
-                    affTour = 1;
-                    changeTour = 0;
-                }
                 SDL_BlitSurface(fond, NULL, windowSurface, NULL);
                 actualiserImage(cartesJoueur[0],cartesJoueurTerrain,imageCache,windowSurface,texte,police);
                 afficherEnergies(energiesJoueur,imageCacheE,windowSurface);
@@ -325,7 +314,6 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                                 }
                                 socket.send(paquet);
                                 paquet.clear();
-                                changeTour = 1;
                             }
 
                             break;
@@ -510,13 +498,12 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                         }
                     }
 
-                    afficherTour(affTour,tour,windowSurface);
-
                 }
                 else
                 {
 
                     actualiserDegats(ID1,ID2,degats,cartesJoueurTerrain,vieJoueur, TID1, TID2, Tdegats);
+
                     if(placeID != -1)
                     {
                         if(cartesJoueur[1][placeID]->getType()==1)
@@ -557,7 +544,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                 }
                 afficherDetails(condDetail,carteDetail,cartesJoueurTerrain,cartesJoueur,windowSurface,imageCache,texte,police, &socket);
                 afficherCartesAdverses(cartesJoueur,selecC,imageCache,windowSurface);
-                afficherPV(nomsJoueur,vieJoueur,texte,police,windowSurface);
+                afficherPV(vieJoueur,texte,police,windowSurface);
                 testSiCarteMorte(cartesJoueurTerrain,cimetiere);
                 afficherCimetiere(cimetiere,imageCache,windowSurface);
                 if(conditionRect == 1)
