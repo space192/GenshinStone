@@ -768,7 +768,7 @@ int main(int argc, char **argv)
                     }
                     break;
                 case SDL_MOUSEBUTTONDOWN:
-                    if(event.button.x >400 && event.button.x <590 && event.button.y >400 && event.button.y <424 && alldecks[0].size()!=0)
+                    if(event.button.x >400 && event.button.x <590 && event.button.y >400 && event.button.y <424 && deck0S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
                         std::cout<<"Start";
@@ -785,7 +785,7 @@ int main(int argc, char **argv)
                         page = 4;
                         load = true;
                     }
-                    else if(event.button.x >400 && event.button.x <590 && event.button.y >430 && event.button.y <454 && alldecks[1].size()!=0)
+                    else if(event.button.x >400 && event.button.x <590 && event.button.y >430 && event.button.y <454 || deck1S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
                         std::cout<<"Start";
@@ -802,7 +802,7 @@ int main(int argc, char **argv)
                         page = 4;
                         load = true;
                     }
-                    else if(event.button.x >400 && event.button.x <590 && event.button.y >462 && event.button.y <478 && alldecks[2].size()!=0)
+                    else if(event.button.x >400 && event.button.x <590 && event.button.y >462 && event.button.y <478 && deck2S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
                         std::cout<<"Start";
@@ -819,7 +819,7 @@ int main(int argc, char **argv)
                         page = 4;
                         load = true;
                     }
-                    else if(event.button.x >400 && event.button.x <590 && event.button.y >489 && event.button.y <507 && alldecks[3].size()!=0)
+                    else if(event.button.x >400 && event.button.x <590 && event.button.y >489 && event.button.y <507 && deck3S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
                         std::cout<<"Start";
