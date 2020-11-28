@@ -140,18 +140,20 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
 void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain, int vieJoueur[], std::vector<int> &TID1, std::vector<int> &TID2, std::vector<int> &Tdegats);
 
 void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,int carteAdverse,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface);
-void jeu(int port, std::string nomJoueur);
+void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT);
 void get_text_and_rect(SDL_Renderer *renderer, int x, int y, char *text, TTF_Font *font, SDL_Texture **texture, SDL_Rect *rect);
 
 void testSiCarteMorte(std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> > & cimetiere );
 void afficherCimetiere(std::vector< std::vector<Cartes*> > & cimetiere,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface);
 
 void actionTrainer(int selec,std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur,int vieJoueur[2], sf::TcpSocket *socket);
-void afficherPV(int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface);
+void afficherPV(std::string *nomsJoueur,int vieJoueur[2],SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface);
 void lierCarteEtId(int imageID,int i,  std::vector<Cartes*> & carteJoueur );
 
 void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface,std::vector<int> selected);
 void actualiserCarteDeck(std::vector<Cartes*>  &cartesPioche);
 void initDeckCartes(std::vector<SDL_Surface*> &imageCache);
+
+void afficherTour(int & affTour, SDL_Surface* tour,SDL_Surface  *windowSurface);
 
 #endif // PROTOTYPES_H_INCLUDED
