@@ -80,6 +80,39 @@ int main(int argc, char **argv)
     initDeckCartes(imageCache);
 
 
+    //Amis
+    //On a 5 amis max vraiment pas envie de re ecrire tout mon code visuel
+    std::stringstream user1, user2, user3, user4, user5, userS;
+    SDL_Rect rUser1, rUser2, rUser3, rUser4, rUser5, rUserS;
+    SDL_Texture *tUser1, *tUser2, *tUser3, *tUser4, *tUser5, *tUserS;
+
+    //Mettre ici la partie ou on recupere les noms des gens ou les laisser vide si on a pas d'amis
+    //aussi mettre si ils sont online ou pas
+    user1<<"bigChungus";
+    user2<<"BigerChungus";
+    user3<<"OmegaChungus";
+    user4<<"ActualChungus";
+    user5<<"MaybeChungus?";
+    userS.str(" ");
+    //online = true;
+    SDL_Color online = {0,255,0,0}, offline = {255,0,0,0};
+    //SDL_Color onlineC;
+    //Ici pour verifier si les amis sont co ou pas
+    /*
+    if(online)
+    {
+        onlineC = {0,255,0,0};
+    }
+    else
+    {
+        onlineC = {255,0,0,0}
+
+    }
+    */
+
+
+
+
     for(int i = 0; i < 18; i++)
     {
         lierCarteEtId(i,toutesCartes);
@@ -101,9 +134,9 @@ int main(int argc, char **argv)
 
 
     SDL_Event event;
-    SDL_Rect rect1, rect2, rect3, rect4, rect5, position;
+    SDL_Rect rect1, rect2, rect3, rect4, rect5, position,rectA, pos;
     SDL_Renderer *renderer;
-    SDL_Texture *texture1, *texture2, *texture3, *texture4, *texture5;
+    SDL_Texture *texture1, *texture2, *texture3, *texture4, *texture5, *textureA;
     SDL_Window *window;
     char *font_path;
     int quit;
@@ -246,9 +279,21 @@ int main(int argc, char **argv)
                 get_text_and_rect(renderer, 200, rect2.y + rect2.h, (char*)quitterJeu.str().c_str(), font, &texture3, &rect3);
                 get_text_and_rect(renderer, 400, 200, (char*)friends.str().c_str(), font, &texture4, &rect4);
                 get_text_and_rect(renderer, 600, 200, (char*)textbox.str().c_str(), font, &texture5, &rect5);
+
+                //Je sais que c'est pas opti mais je decouvre le SDL
+                get_text_and_rect(renderer, 600, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, online);
+                get_text_and_rect(renderer, 600, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, offline);
+                get_text_and_rect(renderer, 600, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, online);
+                get_text_and_rect(renderer, 600, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, offline);
+                get_text_and_rect(renderer, 600, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, online);
+
+                get_text_and_rect(renderer, 600, 225, (char*)userS.str().c_str(), font, &tUserS, &rUserS);
+
+
+
+
                 SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
                 SDL_RenderClear(renderer);
-
                 /* Use TTF textures. */
                 SDL_RenderCopy(renderer, texture1, NULL, &rect1);
                 SDL_RenderCopy(renderer, texture2, NULL, &rect2);
@@ -256,13 +301,20 @@ int main(int argc, char **argv)
                 SDL_RenderCopy(renderer,texture4, NULL, &rect4);
                 SDL_RenderCopy(renderer,texture5, NULL, &rect5);
 
+                SDL_RenderCopy(renderer,tUser1, NULL, &rUser1);
+                SDL_RenderCopy(renderer,tUser2, NULL, &rUser2);
+                SDL_RenderCopy(renderer,tUser3, NULL, &rUser3);
+                SDL_RenderCopy(renderer,tUser4, NULL, &rUser4);
+                SDL_RenderCopy(renderer,tUser5, NULL, &rUser5);
+                SDL_RenderCopy(renderer,tUserS, NULL, &rUserS);
+
                 SDL_RenderPresent(renderer);
                 load = false;
                 }
                 break;
             case 6:
-if(load)
-{
+                if(load)
+                {
 
                 if(reset)
                 {
@@ -307,7 +359,7 @@ if(load)
 
                 SDL_RenderPresent(renderer);
                 load = false;
-}
+                }
                 break;
             case 7:
                 if(!open)
@@ -670,6 +722,9 @@ if(load)
                             //system de recherche d'amies
                             searchfriend = textbox.str();
                             std::cout<<searchfriend<<std::endl;
+                            userS<<"Friend request sent to ";
+                            userS<<searchfriend;
+                            load = true;
                         }
                         break;
 

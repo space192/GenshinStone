@@ -502,12 +502,12 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
     }
 }
 
-void get_text_and_rect(SDL_Renderer *renderer, int x, int y, char *text, TTF_Font *font, SDL_Texture **texture, SDL_Rect *rect)
+void get_text_and_rect(SDL_Renderer *renderer, int x, int y, char *text, TTF_Font *font, SDL_Texture **texture, SDL_Rect *rect,SDL_Color textColor)
 {
     int text_width;
     int text_height;
     SDL_Surface *surface;
-    SDL_Color textColor = {255, 255, 255, 0};
+    //SDL_Color textColor = {255, 255, 255, 0};
 
     surface = TTF_RenderText_Solid(font, text, textColor);
     *texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -519,7 +519,6 @@ void get_text_and_rect(SDL_Renderer *renderer, int x, int y, char *text, TTF_Fon
     rect->w = text_width;
     rect->h = text_height;
 }
-
 
 
 void testSiCarteMorte(std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain,std::vector< std::vector<Cartes*> > & cimetiere )
