@@ -2,7 +2,7 @@
 #define WINDOW_WIDTH 1100
 #define WINDOW_HEIGHT 900
 
-void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck);
+void receptionT(int *port, sf::TcpSocket *socket);
 
 int main(int argc, char **argv)
 {
@@ -72,8 +72,6 @@ int main(int argc, char **argv)
     std::vector<int> deckJoueur;
     std::vector<int> selected;
 
-    std::vector<int> CARTERECUSERVEUR;
-
 
     //putting all the cards need to put this as a function later;
     std::vector<SDL_Surface*> imageCache;
@@ -141,8 +139,7 @@ int main(int argc, char **argv)
     int jour,mois,annee, LOGIN = 0, action;
     int port = -1;
     int inQUEUE;
-    int deck0S = 0,deck1S = 0,deck2S= 0,deck3S=0;
-    sf::Thread thread(std::bind(&receptionT, &port, &socket, &CARTERECUSERVEUR));
+    sf::Thread thread(std::bind(&receptionT, &port, &socket));
     SDL_Surface *windowSurface = NULL;
     windowSurface = SDL_GetWindowSurface( window );
     SDL_Surface *fond = IMG_Load("open.png");
@@ -160,11 +157,11 @@ int main(int argc, char **argv)
     {
         if(port != -1)
         {
-            jeu(port, name, CARTERECUSERVEUR);
+            std::cout << "COUCOU" << std::endl;
+            jeu(port, name);
             thread.terminate();
             port = -1;
             inQUEUE = 0;
-            CARTERECUSERVEUR.clear();
         }
         while (SDL_PollEvent(&event) == 1)
         {
@@ -243,22 +240,22 @@ int main(int argc, char **argv)
                 if(reset)
                 {
 
-                    if(alldecks[3].size() != 0 || deck3S == 1)
+                    if(alldecks[3].size() != 0)
                     {
                         deck4.str(" ");
                         deck4<<"Deck 4";
                     }
-                    if(alldecks[2].size() != 0|| deck2S == 1)
+                    if(alldecks[2].size() != 0)
                     {
                         deck3.str(" ");
                         deck3<<"Deck 3";
                     }
-                    if(alldecks[1].size()!=0|| deck1S == 1)
+                    if(alldecks[1].size()!=0)
                     {
                         deck2.str(" ");
                         deck2<<"Deck 2";
                     }
-                    if(alldecks[0].size()!=0|| deck0S == 1)
+                    if(alldecks[0].size()!=0)
                     {
                         deck1.str(" ");
                         deck1<<"Deck 1";
@@ -307,25 +304,8 @@ int main(int argc, char **argv)
                     page = 4;
                     SDL_DestroyWindow(deckWindow);
                     alldecks[cardpage-1]=deckJoueur;
-                    paquet.clear();
-                    paquet << 2 << LOGIN;
-                    socket.send(paquet);
-                    paquet.clear();
-                    paquet << 1;
-                    socket.send(paquet);
-                    paquet.clear();
-                    paquet << cardpage-1;
-                    socket.send(paquet);
-                    paquet.clear();
-                    paquet << alldecks[cardpage-1].size();
-                    for(int i = 0 ; i < alldecks[cardpage-1].size();i++)
-                    {
-                        paquet << alldecks[cardpage-1][i];
-                    }
-                    socket.send(paquet);
-                    paquet.clear();
                     deckJoueur.erase(deckJoueur.begin(),deckJoueur.end());
-                    for(int i = 0; i<25; i++)
+                    for(int i = 0; i<20; i++)
                     {
                         selected[i] = 0;
                     }
@@ -577,17 +557,6 @@ int main(int argc, char **argv)
                         inQUEUE = 1;
                         page = 4;
                         */
-                        paquet.clear();
-                        paquet << 2 << LOGIN;
-                        socket.send(paquet);
-                        paquet.clear();
-                        paquet << 2;
-                        socket.send(paquet);
-                        paquet.clear();
-                        socket.receive(paquet);
-                        paquet >> deck0S >> deck1S >> deck2S >> deck3S;
-                        paquet.clear();
-                        std::cout << "hello world" << std::endl;
                         page = 6;
                     }
                     else if(event.button.x >400 && event.button.x <539 && event.button.y >432 && event.button.y <456)
@@ -681,9 +650,6 @@ int main(int argc, char **argv)
                         paquet << action << LOGIN;
                         socket.send(paquet);
                         paquet.clear();
-                        paquet << 0;
-                        socket.send(paquet);
-                        paquet.clear();
                         thread.launch();
                         inQUEUE = 1;
                         page = 4;
@@ -695,9 +661,6 @@ int main(int argc, char **argv)
                         paquet.clear();
                         action = 1;
                         paquet << action << LOGIN;
-                        socket.send(paquet);
-                        paquet.clear();
-                        paquet << 1;
                         socket.send(paquet);
                         paquet.clear();
                         thread.launch();
@@ -713,9 +676,6 @@ int main(int argc, char **argv)
                         paquet << action << LOGIN;
                         socket.send(paquet);
                         paquet.clear();
-                        paquet << 2;
-                        socket.send(paquet);
-                        paquet.clear();
                         thread.launch();
                         inQUEUE = 1;
                         page = 4;
@@ -727,9 +687,6 @@ int main(int argc, char **argv)
                         paquet.clear();
                         action = 1;
                         paquet << action << LOGIN;
-                        socket.send(paquet);
-                        paquet.clear();
-                        paquet << 3;
                         socket.send(paquet);
                         paquet.clear();
                         thread.launch();
@@ -846,18 +803,10 @@ int main(int argc, char **argv)
 
 
 
-void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck)
+void receptionT(int *port, sf::TcpSocket *socket)
 {
     sf::Packet paquet;
-    int taille, temp;
     socket->receive(paquet);
     paquet >> *port;
-    paquet >> taille;
-    for(int i = 0 ; i < taille ; i++)
-    {
-        paquet >> temp;
-        deck->push_back(temp);
-    }
-
-    std::cout << deck->size();
+    std::cout << *port << std::endl;
 }
