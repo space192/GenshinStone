@@ -944,3 +944,32 @@ void afficherTour(int & affTour, SDL_Surface* tour,SDL_Surface  *windowSurface)
             }
     }
 }
+
+void afficherChat(std::vector<std::string> & chat,SDL_Surface *texte,SDL_Surface *fondChat,TTF_Font *police,SDL_Surface  *windowSurface)
+{
+    SDL_Rect position;
+    SDL_Color couleur = {255, 255, 255};
+    std::stringstream machaine;
+
+    police = TTF_OpenFont("ARLRDBD.TTF", 30);
+
+
+    position.x = 560;
+    position.y = 200;
+
+
+    SDL_BlitSurface(fondChat, NULL, windowSurface, &position);
+
+    for(int i = 0; i<11; i ++)
+    {
+        position.x = 600;
+        position.y = 220 + i*35;
+        machaine <<chat[10-i];
+        texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
+        SDL_BlitSurface(texte, NULL, windowSurface, &position);
+        machaine.str(" ");
+    }
+
+
+}
+

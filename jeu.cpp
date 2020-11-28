@@ -55,6 +55,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
         SDL_Surface *selec = IMG_Load("selec.png");
 
         SDL_Surface* tour = IMG_Load("your turn.png");
+        SDL_Surface *fondChat = IMG_Load("chat.png");
 
 
         int vieJoueur[2] = {150,150};
@@ -70,9 +71,14 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
         std::vector<int> TID2;
         std::vector<int> Tdegats;
 
+        std::vector<std::string> chat;
+
+        for(size_t i =0; i<11; i++)
+        {
+            chat.push_back(" salut ");
+        }
+
         std::vector<SDL_Surface*> imageCache;
-
-
         imageCache.push_back(IMG_Load("Cartes/VentiP.png"));
         imageCache.push_back(IMG_Load("Cartes/TartagliaP.png"));
         imageCache.push_back(IMG_Load("Cartes/NingguangP.png"));
@@ -92,17 +98,6 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
         imageCache.push_back(IMG_Load("Cartes/maledictionP.png"));
         imageCache.push_back(IMG_Load("Cartes/poisonP.png"));
         imageCache.push_back(IMG_Load("Cartes/potionP.png"));
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -257,7 +252,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
 
             while(condition == 1)
             {
-                //if qui est utliiser quand tu commence le tour
+
                 if(numJoueur == actuJoueur && changeTour == 1)
                 {
                     affTour = 1;
@@ -290,7 +285,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                         case SDL_MOUSEBUTTONDOWN:
 
                             //std::cout << "Coordonnes x :" << event.button.x << std::endl;
-                           // std::cout << "Coordonnes y :" << event.button.y << std::endl;
+                           //std::cout << "Coordonnes y :" << event.button.y << std::endl;
 
                             if((event.button.x > 360 && event.button.x < 1549 && event.button.y > 990 && event.button.y < 1080))
                             {
@@ -304,6 +299,10 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                                 carteSelec = selectionCarte(cartesJoueurTerrain[0],event.button.x,event.button.y);
                                 condDetail=1;
                                 carteDetail = carteSelec; //clique sur une carte sur le terrain
+                            }
+                            else if(event.button.x > 1817 && event.button.x < 1914 && event.button.y > 994 && event.button.y < 1072)
+                            {
+                                conditionSouris = 4;
                             }
                             else
                             {
@@ -502,8 +501,11 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                                 actualiserPositionCartes(cartesJoueur);
                             }
 
+                            if(conditionSouris != 4)
+                            {
+                                conditionSouris = 0;
+                            }
 
-                            conditionSouris = 0;
 
 
                             carteSelec = -1;
@@ -550,6 +552,17 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                                 paquet.clear();
                             }
                         }
+                        else if(event.type == SDL_MOUSEBUTTONDOWN)
+                        {
+                            if(event.button.x > 1817 && event.button.x < 1914 && event.button.y > 994 && event.button.y < 1072)
+                            {
+                                conditionSouris = 4;
+                            }
+                            else
+                            {
+                                conditionSouris = 0;
+                            }
+                        }
                     }
                 }
                 if(actuJoueur == 9)
@@ -561,12 +574,17 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                 afficherPV(nomsJoueur,vieJoueur,texte,police,windowSurface);
                 testSiCarteMorte(cartesJoueurTerrain,cimetiere);
                 afficherCimetiere(cimetiere,imageCache,windowSurface);
+                if(conditionSouris == 4)
+                {
+                    afficherChat(chat,texte,fondChat,police,windowSurface);
+                }
                 if(conditionRect == 1)
                 {
                     SDL_BlitSurface(selec,NULL,windowSurface,&position);
                 }
                 SDL_UpdateWindowSurface(pWindow);
             }
+
         }
         else
         {

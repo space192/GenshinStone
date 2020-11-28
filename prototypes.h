@@ -157,4 +157,6 @@ void initDeckCartes(std::vector<SDL_Surface*> &imageCache);
 
 void afficherTour(int & affTour, SDL_Surface* tour,SDL_Surface  *windowSurface);
 
+void afficherChat(std::vector<std::string> & chat,SDL_Surface *texte,SDL_Surface *fondChat,TTF_Font *police,SDL_Surface  *windowSurface);
+
 #endif // PROTOTYPES_H_INCLUDED
