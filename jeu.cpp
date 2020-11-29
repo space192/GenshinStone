@@ -267,17 +267,18 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                     changeTour = 0;
 
 
+
                     for(int i = 0; i<3; i++)
                     {
-                        if(mainJoueurINT.back() <18)
+                        if(mainJoueurINT[0] <18)
                         {
-                            lierCarteEtId(mainJoueurINT.back(),cartesJoueur[0]);
+                            lierCarteEtId(mainJoueurINT[0],cartesJoueur[0]);
                         }
                         else
                         {
-                            lierEnergiesEtID(mainJoueurINT.back(),energiesJoueur);
+                            lierEnergiesEtID(mainJoueurINT[0],energiesJoueur);
                         }
-                        mainJoueurINT.pop_back();
+                        mainJoueurINT.erase(mainJoueurINT.begin());
                     }
 
                 }
