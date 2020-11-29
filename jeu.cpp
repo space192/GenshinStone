@@ -1,7 +1,7 @@
 #include "prototypes.h"
 
 
-void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
+void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 {
     int numJoueur, actuJoueur;
     sf::TcpSocket socket;
@@ -267,26 +267,36 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                     changeTour = 0;
 
 
-
-                    for(int i = 0; i<3; i++)
-                    {
-                        if(mainJoueurINT[0] <18)
-                        {
-                            lierCarteEtId(mainJoueurINT[0],cartesJoueur[0]);
-                        }
-                        else
-                        {
-                            lierEnergiesEtID(mainJoueurINT[0],energiesJoueur);
-                        }
-                        mainJoueurINT.erase(mainJoueurINT.begin());
-                    }
-
                 }
                 SDL_BlitSurface(fond, NULL, windowSurface, NULL);
                 actualiserImage(cartesJoueur[0],cartesJoueurTerrain,imageCache,windowSurface,texte,police);
                 afficherEnergies(energiesJoueur,imageCacheE,windowSurface);
                 if(numJoueur == actuJoueur) //verification de ton tour
                 {
+
+                    if(changeTour == 1)
+                    {
+                        for(int i = 0; i<3; i++)
+                        {
+                            if(mainJoueurINT[i] <18)
+                            {
+                                lierCarteEtId(mainJoueurINT[0],cartesJoueur[0]);
+                            }
+                            else
+                            {
+                                lierEnergiesEtID(mainJoueurINT[0],energiesJoueur);
+
+                            }
+
+                            mainJoueurINT.erase(mainJoueurINT.begin());
+                            std::cout << mainJoueurINT.size();
+                        }
+                        actualiserPositionCartes(cartesJoueur);
+                        actualiserEnergies(energiesJoueur);
+                    }
+
+
+
                     if(SDL_PollEvent( &event ))
                     {
 
@@ -331,7 +341,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                         case SDL_MOUSEBUTTONDOWN:
 
                             //std::cout << "Coordonnes x :" << event.button.x << std::endl;
-                           //std::cout << "Coordonnes y :" << event.button.y << std::endl;
+                            //std::cout << "Coordonnes y :" << event.button.y << std::endl;
 
                             if((event.button.x > 360 && event.button.x < 1549 && event.button.y > 990 && event.button.y < 1080))
                             {
@@ -519,28 +529,28 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
                             }
                             else if(((event.button.x > 873 && event.button.x < 1060 && event.button.y > 132 && event.button.y < 282)&&(conditionSouris == 3)))
                             {
-                                 if((event.button.button == SDL_BUTTON_LEFT))
-                                    {
-                                        attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(0);
-                                    }
-                                    else
-                                    {
-                                        attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(1);
-                                    }
+                                if((event.button.button == SDL_BUTTON_LEFT))
+                                {
+                                    attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(0);
+                                }
+                                else
+                                {
+                                    attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(1);
+                                }
 
-                                    if(testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain) == 1)
-                                    {
-                                        vieJoueur[1] -= attaqueActive.degat;
-                                        paquet.clear();
-                                        paquet << 10;
-                                        socket.send(paquet);
-                                        paquet.clear();
-                                        paquet << 41 << -attaqueActive.degat;
-                                        socket.send(paquet);
-                                        paquet.clear();
+                                if(testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain) == 1)
+                                {
+                                    vieJoueur[1] -= attaqueActive.degat;
+                                    paquet.clear();
+                                    paquet << 10;
+                                    socket.send(paquet);
+                                    paquet.clear();
+                                    paquet << 41 << -attaqueActive.degat;
+                                    socket.send(paquet);
+                                    paquet.clear();
 
-                                    }
-                                    actualiserPositionCartesT(cartesJoueurTerrain);
+                                }
+                                actualiserPositionCartesT(cartesJoueurTerrain);
                             }
                             else if(conditionSouris == 1)
                             {
