@@ -285,6 +285,10 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                     if(changeTour == 1)
                     {
                         paquet.clear();
+                        paquet << 12;
+                        socket.send(paquet);
+                        paquet.clear();
+
                         for(int i = 0; i<3; i++)
                         {
                             if(mainJoueurINT[0] <18)
