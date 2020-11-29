@@ -249,6 +249,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
         socket.send(paquet);
         paquet.clear();*/
 
+
         //launching thread
         //void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbCarte, int *selec,int *placeID)
         sf::Thread thread(std::bind(&receiveData, &actuJoueur,&socket, numJoueur, &condition, &ID1,&ID2,&degats, &nbrCarte, &selecC, &placeID, &TID1, &TID2, &Tdegats, tempEnvoie, &resultatChat, &notif));
@@ -259,10 +260,26 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
             while(condition == 1)
             {
 
+                //ici pour rajouter des cartes sur la mains
                 if(numJoueur == actuJoueur && changeTour == 1)
                 {
                     affTour = 1;
                     changeTour = 0;
+
+
+                    for(int i = 0; i<3; i++)
+                    {
+                        if(mainJoueurInt.end()  <18)
+                        {
+                            lierCarteEtId(mainJoeurInt.end(),carteJoueur[0]);
+                        }
+                        else
+                        {
+                            lierEnergiesEtID(mainJoueurINT.end(),energiesJoueur);
+                        }
+                        mainJoueurInt.erase(mainJoueurInt.begin()+mainJoueurInt.end()-1);
+                    }
+
                 }
                 SDL_BlitSurface(fond, NULL, windowSurface, NULL);
                 actualiserImage(cartesJoueur[0],cartesJoueurTerrain,imageCache,windowSurface,texte,police);

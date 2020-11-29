@@ -936,6 +936,13 @@ int main(int argc, char **argv)
     SDL_DestroyTexture(texture3);
     SDL_DestroyTexture(texture4);
     SDL_DestroyTexture(texture5);
+
+    SDL_DestroyTexture(tUser1);
+    SDL_DestroyTexture(tUser2);
+    SDL_DestroyTexture(tUser3);
+    SDL_DestroyTexture(tUser4);
+    SDL_DestroyTexture(tUser5);
+    SDL_DestroyTexture(tUserS);
     TTF_Quit();
 
     SDL_DestroyRenderer(renderer);
