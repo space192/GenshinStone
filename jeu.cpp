@@ -62,7 +62,6 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         SDL_Surface* tour = IMG_Load("your turn.png");
         SDL_Surface *fondChat = IMG_Load("chat.png");
 
-
         int vieJoueur[2] = {150,150};
 
         //varianles pour réceptions
@@ -242,6 +241,13 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         bool notif;
 
 
+        std::cout << " Il y a dans mon deck " << std::endl;
+
+        for(size_t i = 0; i < mainJoueurINT.size(); i ++)
+        {
+            std::cout << mainJoueurINT[i]  << std::endl;
+        }
+
         /*paquet << 3;
         socket.send(paquet);
         paquet.clear();
@@ -264,7 +270,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                 if(numJoueur == actuJoueur && changeTour == 1)
                 {
                     affTour = 1;
-                    changeTour = 0;
+
 
 
                 }
@@ -278,7 +284,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                     {
                         for(int i = 0; i<3; i++)
                         {
-                            if(mainJoueurINT[i] <18)
+                            if(mainJoueurINT[0] <18)
                             {
                                 lierCarteEtId(mainJoueurINT[0],cartesJoueur[0]);
                             }
@@ -289,10 +295,12 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                             }
 
                             mainJoueurINT.erase(mainJoueurINT.begin());
-                            std::cout << mainJoueurINT.size();
+
                         }
                         actualiserPositionCartes(cartesJoueur);
                         actualiserEnergies(energiesJoueur);
+
+                        changeTour = 0;
                     }
 
 

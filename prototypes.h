@@ -160,4 +160,6 @@ void afficherTour(int & affTour, SDL_Surface* tour,SDL_Surface  *windowSurface);
 void afficherChat(std::vector<std::string> & chat,SDL_Surface *texte,SDL_Surface *fondChat,TTF_Font *police,SDL_Surface  *windowSurface);
 void ajouterMessage(std::vector<std::string> & chat,std::string tempEnvoie);
 
+void initaliserMain(std::vector<int> & mainJoueurINT,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur);
+
 #endif // PROTOTYPES_H_INCLUDED

@@ -475,7 +475,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         }
         case 15:
         {
-             break;
+            break;
         }
         default:
         {
@@ -945,12 +945,12 @@ void afficherTour(int & affTour, SDL_Surface* tour,SDL_Surface  *windowSurface)
 
     if(affTour != 0)
     {
-            SDL_BlitSurface(tour, NULL, windowSurface, &position);
-            affTour++;
-            if(affTour == 45)
-            {
-                affTour = 0;
-            }
+        SDL_BlitSurface(tour, NULL, windowSurface, &position);
+        affTour++;
+        if(affTour == 45)
+        {
+            affTour = 0;
+        }
     }
 }
 
@@ -987,4 +987,25 @@ void ajouterMessage(std::vector<std::string> & chat,std::string tempEnvoie)
     chat.erase(chat.begin());
     chat.push_back(tempEnvoie);
 
+}
+
+void initaliserMain(std::vector<int> & mainJoueurINT,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur)
+{
+    for(int i = 0; i<6; i++)
+    {
+        if(mainJoueurINT[0] <18)
+        {
+            lierCarteEtId(mainJoueurINT[0],cartesJoueur[0]);
+        }
+        else
+        {
+            lierEnergiesEtID(mainJoueurINT[0],energiesJoueur);
+
+        }
+
+        mainJoueurINT.erase(mainJoueurINT.begin());
+
+    }
+    actualiserPositionCartes(cartesJoueur);
+    actualiserEnergies(energiesJoueur);
 }
