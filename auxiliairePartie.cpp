@@ -378,7 +378,7 @@ void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,
     }
 }
 
-void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbrCarte, int *selec,int *placeID, std::vector<int> *TID1, std::vector<int> *TID2, std::vector<int> *Tdegats, std::string sent, std::string *chaine, bool *notification)
+void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbrCarte, int *selec,int *placeID, std::vector<int> *TID1, std::vector<int> *TID2, std::vector<int> *Tdegats, std::string sent, std::string *chaine, bool *notification, int pioche[])
 {
     sf::Packet tempReceive;
     int receive = 0;
@@ -471,6 +471,11 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
                 TID2->push_back(temp2);
                 Tdegats->push_back(temp3);
             }
+            break;
+        }
+        case 12:
+        {
+            realOne >> pioche[0] >> pioche[1] >> pioche[2];
             break;
         }
         case 15:

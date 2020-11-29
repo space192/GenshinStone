@@ -65,6 +65,8 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         int vieJoueur[2] = {150,150};
 
         //varianles pour réceptions
+        int Pioche[3];
+        Pioche[0] = -1;
         int ID1 = -1;
         int ID2= -1;
         int degats= -1;
@@ -258,7 +260,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 
         //launching thread
         //void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbCarte, int *selec,int *placeID)
-        sf::Thread thread(std::bind(&receiveData, &actuJoueur,&socket, numJoueur, &condition, &ID1,&ID2,&degats, &nbrCarte, &selecC, &placeID, &TID1, &TID2, &Tdegats, tempEnvoie, &resultatChat, &notif));
+        sf::Thread thread(std::bind(&receiveData, &actuJoueur,&socket, numJoueur, &condition, &ID1,&ID2,&degats, &nbrCarte, &selecC, &placeID, &TID1, &TID2, &Tdegats, tempEnvoie, &resultatChat, &notif, Pioche));
         thread.launch();
         if( pWindow )
         {
@@ -282,21 +284,24 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 
                     if(changeTour == 1)
                     {
+                        paquet.clear();
                         for(int i = 0; i<3; i++)
                         {
                             if(mainJoueurINT[0] <18)
                             {
+                                paquet << mainJoueurINT[0];
                                 lierCarteEtId(mainJoueurINT[0],cartesJoueur[0]);
                             }
                             else
                             {
+                                paquet << mainJoueurINT[0];
                                 lierEnergiesEtID(mainJoueurINT[0],energiesJoueur);
-
                             }
-
                             mainJoueurINT.erase(mainJoueurINT.begin());
 
                         }
+                        socket.send(paquet);
+                        paquet.clear();
                         actualiserPositionCartes(cartesJoueur);
                         actualiserEnergies(energiesJoueur);
 
@@ -607,6 +612,18 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                         }
 
                         placeID = -1;
+                    }
+
+                    if(Pioche[0]!= -1)
+                    {
+                        for(int i = 0; i< 3; i++)
+                        {
+                            if( Pioche[i] < 18)
+                            {
+                                lierCarteEtId(Pioche[i], cartesJoueur[1]);
+                            }
+                        }
+                        Pioche[0] = -1;
                     }
 
 
