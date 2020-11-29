@@ -269,15 +269,15 @@ void jeu(int port, std::string nomJoueur, std::vector<int> mainJoueurINT)
 
                     for(int i = 0; i<3; i++)
                     {
-                        if(mainJoueurInt.end()  <18)
+                        if(mainJoueurINT.back() <18)
                         {
-                            lierCarteEtId(mainJoeurInt.end(),carteJoueur[0]);
+                            lierCarteEtId(mainJoueurINT.back(),cartesJoueur[0]);
                         }
                         else
                         {
-                            lierEnergiesEtID(mainJoueurINT.end(),energiesJoueur);
+                            lierEnergiesEtID(mainJoueurINT.back(),energiesJoueur);
                         }
-                        mainJoueurInt.erase(mainJoueurInt.begin()+mainJoueurInt.end()-1);
+                        mainJoueurINT.pop_back();
                     }
 
                 }
