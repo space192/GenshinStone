@@ -62,7 +62,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         SDL_Surface* tour = IMG_Load("your turn.png");
         SDL_Surface *fondChat = IMG_Load("chat.png");
 
-        int vieJoueur[2] = {150,150};
+        int vieJoueur[2] = {50,50};
 
         //varianles pour réceptions
         int Pioche[3];
@@ -158,12 +158,12 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         std::vector<Cartes*> TEMP4;
 
 
-        for(int i = 8; i<18 ; i++)
+        for(int i = 8; i<12 ; i++)
         {
             lierCarteEtId(i,TEMP);
         }
 
-        for(int i = 8; i<18 ; i++)
+        for(int i = 8; i<12 ; i++)
         {
             lierCarteEtId(i,TEMP4);
         }
@@ -243,12 +243,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         bool notif;
 
 
-        std::cout << " Il y a dans mon deck " << std::endl;
 
-        for(size_t i = 0; i < mainJoueurINT.size(); i ++)
-        {
-            std::cout << mainJoueurINT[i]  << std::endl;
-        }
 
         /*paquet << 3;
         socket.send(paquet);
