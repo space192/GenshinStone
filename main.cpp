@@ -183,7 +183,7 @@ int main(int argc, char **argv)
     SDL_Surface *windowSurface = NULL;
     windowSurface = SDL_GetWindowSurface( window );
     SDL_Surface *fond = IMG_Load("open.png");
-
+    int resultat;
     std::string name;
     std::string mdp;
     std::string temp;
@@ -801,26 +801,42 @@ int main(int argc, char **argv)
                     case SDLK_RETURN:
                         if(select == true)
                         {
-                            //system de recherche d'amies
                             searchfriend = textbox.str();
-                            std::cout<<searchfriend<<std::endl;
-                            userS<<"Friend request sent to ";
-                            userS<<searchfriend;
+                            paquet.clear();
+                            paquet << 3 << LOGIN;
+                            socket.send(paquet);
+                            paquet.clear();
+                            paquet << 2;
+                            socket.send(paquet);
+                            paquet.clear();
+                            paquet << searchfriend;
+                            socket.send(paquet);
+                            paquet.clear();
+                            socket.receive(paquet);
+                            paquet >> resultat;
+                            if (resultat == 1)
+                            {
+                                userS<<"Friend request sent to ";
+                                userS<<searchfriend;
+                            }
+                            else
+                            {
+                                userS << "Joueur non trouvé";
+                            }
                             load = true;
-                        }
-                        break;
-
-                    default:
-                        load = true;
-                        int a = event.key.keysym.sym;
-                        char w = static_cast<char>(a);
-                        if(select == true)
-                        {
-                            textbox<<w;
                         }
                         break;
                     }
                     break;
+                    case SDL_TEXTINPUT:
+                    {
+                        load = true;
+                        if(select == true)
+                        {
+                            textbox << event.text.text;
+                        }
+                        break;
+                    }
                 case SDL_MOUSEBUTTONDOWN:
                     //std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
                     if(event.button.x >600 && event.button.x <816 && event.button.y >200 && event.button.y <224 && select == false)
