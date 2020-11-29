@@ -3,6 +3,7 @@
 #define WINDOW_HEIGHT 900
 
 void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck);
+bool checkOnline(sf::Packet *paquet, sf::TcpSocket *socket, int LOGIN, std::string nomJoueur);
 
 int main(int argc, char **argv)
 {
@@ -88,12 +89,15 @@ int main(int argc, char **argv)
 
     //Mettre ici la partie ou on recupere les noms des gens ou les laisser vide si on a pas d'amis
     //aussi mettre si ils sont online ou pas
-    user1<<"bigChungus";
-    user2<<"BigerChungus";
-    user3<<"OmegaChungus";
-    user4<<"ActualChungus";
-    user5<<"MaybeChungus?";
+    int nbAmis;
+    std::string tempAmis;
+    user1 << " ";
+    user2 << " ";
+    user3 << " ";
+    user4 << " ";
+    user5 << " ";
     userS.str(" ");
+    int tempO;
     //online = true;
     SDL_Color online = {0,255,0,0}, offline = {255,0,0,0};
     //SDL_Color onlineC;
@@ -281,11 +285,46 @@ int main(int argc, char **argv)
                 get_text_and_rect(renderer, 600, 200, (char*)textbox.str().c_str(), font, &texture5, &rect5);
 
                 //Je sais que c'est pas opti mais je decouvre le SDL
-                get_text_and_rect(renderer, 600, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, online);
-                get_text_and_rect(renderer, 600, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, offline);
-                get_text_and_rect(renderer, 600, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, online);
-                get_text_and_rect(renderer, 600, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, offline);
-                get_text_and_rect(renderer, 600, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, online);
+                if(checkOnline(&paquet,&socket, LOGIN, user1.str()) == true)
+                {
+                    get_text_and_rect(renderer, 600, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, online);
+                }
+                else
+                {
+                    get_text_and_rect(renderer, 600, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, offline);
+                }
+                if(checkOnline(&paquet,&socket, LOGIN, user2.str()) == true)
+                {
+                    get_text_and_rect(renderer, 600, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, online);
+                }
+                else
+                {
+                    get_text_and_rect(renderer, 600, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, offline);
+                }
+                if(checkOnline(&paquet,&socket, LOGIN, user3.str()) == true)
+                {
+                    get_text_and_rect(renderer, 600, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, online);
+                }
+                else
+                {
+                    get_text_and_rect(renderer, 600, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, offline);
+                }
+                if(checkOnline(&paquet,&socket, LOGIN, user4.str()) == true)
+                {
+                    get_text_and_rect(renderer, 600, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, online);
+                }
+                else
+                {
+                    get_text_and_rect(renderer, 600, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, offline);
+                }
+                if(checkOnline(&paquet,&socket, LOGIN, user5.str()) == true)
+                {
+                    get_text_and_rect(renderer, 600, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, online);
+                }
+                else
+                {
+                    get_text_and_rect(renderer, 600, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, offline);
+                }
 
                 get_text_and_rect(renderer, 600, 225, (char*)userS.str().c_str(), font, &tUserS, &rUserS);
 
@@ -673,7 +712,6 @@ int main(int argc, char **argv)
                         socket.receive(paquet);
                         paquet >> deck0S >> deck1S >> deck2S >> deck3S;
                         paquet.clear();
-                        std::cout << "hello world" << std::endl;
                         page = 6;
                         load = true;
                     }
@@ -695,6 +733,50 @@ int main(int argc, char **argv)
                         std::cout<<"amies";
                         page = 5;
                         load = true;
+                        paquet.clear();
+                        paquet << 3 << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        paquet << 1;
+                        socket.send(paquet);
+                        paquet.clear();
+                        socket.receive(paquet);
+                        paquet >> nbAmis;
+                        for(int i = 0 ; i < nbAmis;i++)
+                        {
+                            paquet.clear();
+                            socket.receive(paquet);
+                            paquet >> tempAmis;
+                            switch(i)
+                            {
+                            case 0:
+                                {
+                                    user1.str(tempAmis);
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    user2.str(tempAmis);
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    user3.str(tempAmis);
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    user4.str(tempAmis);
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    user5.str(tempAmis);
+                                    break;
+                                }
+                            }
+                        }
+
                     }
                     break;
 
@@ -968,4 +1050,39 @@ void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck)
     }
 
     std::cout << deck->size();
+}
+
+
+
+
+bool checkOnline(sf::Packet *paquet, sf::TcpSocket *socket, int LOGIN, std::string nomJoueur)
+{
+    int tempO;
+    if(nomJoueur != " ")
+    {
+        paquet->clear();
+        *paquet << 3 << LOGIN;
+        socket->send(*paquet);
+        paquet->clear();
+        *paquet << 7;
+        socket->send(*paquet);
+        paquet->clear();
+        *paquet << nomJoueur;
+        socket->send(*paquet);
+        paquet->clear();
+        socket->receive(*paquet);
+        *paquet >> tempO;
+        if(tempO == 1)
+        {
+            return true;
+        }
+        else if (tempO == 0)
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
 }
