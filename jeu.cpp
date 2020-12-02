@@ -66,7 +66,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         int vieJoueur[2] = {50,50};
 
         //varianles pour réceptions
-        int Pioche[3];
+        int Pioche[6];
         Pioche[0] = -1;
         int ID1 = -1;
         int ID2= -1;
@@ -246,32 +246,52 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 
 
 
-        /*paquet << 3;
-        socket.send(paquet);
-        paquet.clear();
-        paquet << cartesJoueur[0].size();
-        socket.send(paquet);
-        paquet.clear();*/
+
+
 
 
         //launching thread
         //void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbCarte, int *selec,int *placeID)
         sf::Thread thread(std::bind(&receiveData, &actuJoueur,&socket, numJoueur, &condition, &ID1,&ID2,&degats, &nbrCarte, &selecC, &placeID, &TID1, &TID2, &Tdegats, tempEnvoie, &resultatChat, &notif, Pioche));
         thread.launch();
+
+        for(int i = 0; i<6; i++)
+        {
+            if(mainJoueurINT[0] <18)
+            {
+                paquet << mainJoueurINT[0];
+                lierCarteEtId(mainJoueurINT[0],cartesJoueur[0]);
+            }
+            else
+            {
+                paquet << mainJoueurINT[0];
+                lierEnergiesEtID(mainJoueurINT[0],energiesJoueur);
+            }
+            mainJoueurINT.erase(mainJoueurINT.begin());
+        }
+
+        while(Pioche[0]!= -1)
+        {
+            for(int i = 0; i< 6; i++)
+            {
+                if( Pioche[i] < 18)
+                {
+                    lierCarteEtId(Pioche[i], cartesJoueur[1]);
+                }
+            }
+            Pioche[0] = -1;
+        }
+
+        ///recpetionner et ajouter main joueur adversaire
+
+
         if( pWindow )
         {
 
             while(condition == 1)
             {
 
-                //ici pour rajouter des cartes sur la mains
-                if(numJoueur == actuJoueur && changeTour == 1)
-                {
-                    affTour = 1;
 
-
-
-                }
                 SDL_BlitSurface(fond, NULL, windowSurface, NULL);
                 actualiserImage(cartesJoueur[0],cartesJoueurTerrain,imageCache,windowSurface,texte,police);
                 afficherEnergies(energiesJoueur,imageCacheE,windowSurface);
@@ -280,6 +300,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 
                     if(changeTour == 1)
                     {
+                        affTour = 1;
                         paquet.clear();
                         paquet << 12;
                         socket.send(paquet);
@@ -349,10 +370,10 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                 break;
                             case SDLK_BACKSPACE:
 
-                                    tempChat = message.str();
-                                    tempChat.pop_back();
-                                    message.str(tempChat);
-                                    message.seekp(tempChat.size());
+                                tempChat = message.str();
+                                tempChat.pop_back();
+                                message.str(tempChat);
+                                message.seekp(tempChat.size());
                                 break;
 
 
