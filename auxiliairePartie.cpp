@@ -479,7 +479,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
         }
         case 13:
         {
-            realOne >> pioche[0] >> pioche[1] >> pioche[3] >> pioche[4] >> pioche[5];
+            realOne >> pioche[0] >> pioche[1] >> pioche[2] >> pioche[3] >> pioche[4] >> pioche[5];
             break;
         }
         case 15:

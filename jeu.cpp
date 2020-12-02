@@ -271,6 +271,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
             }
             mainJoueurINT.erase(mainJoueurINT.begin());
         }
+
         socket.send(paquet);
         paquet.clear();
         int continuer = 1;
