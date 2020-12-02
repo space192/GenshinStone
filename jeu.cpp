@@ -159,7 +159,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         std::vector<Cartes*> TEMP4;
 
 
-        for(int i = 8; i<12 ; i++)
+        /*for(int i = 8; i<12 ; i++)
         {
             lierCarteEtId(i,TEMP);
         }
@@ -167,7 +167,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         for(int i = 8; i<12 ; i++)
         {
             lierCarteEtId(i,TEMP4);
-        }
+        }*/
 
 
         if(numJoueur == 1)
@@ -254,7 +254,10 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         //void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbCarte, int *selec,int *placeID)
         sf::Thread thread(std::bind(&receiveData, &actuJoueur,&socket, numJoueur, &condition, &ID1,&ID2,&degats, &nbrCarte, &selecC, &placeID, &TID1, &TID2, &Tdegats, tempEnvoie, &resultatChat, &notif, Pioche));
         thread.launch();
-
+        paquet.clear();
+        paquet << 13;
+        socket.send(paquet);
+        paquet.clear();
         for(int i = 0; i<6; i++)
         {
             if(mainJoueurINT[0] <18)
@@ -269,6 +272,8 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
             }
             mainJoueurINT.erase(mainJoueurINT.begin());
         }
+        socket.send(paquet);
+        paquet.clear();
 
         while(Pioche[0]!= -1)
         {
