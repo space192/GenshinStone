@@ -236,7 +236,6 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         }
 
 
-
         actualiserPositionCartesT(cartesJoueurTerrain);
         actualiserPositionCartes(cartesJoueur);
         actualiserEnergies(energiesJoueur);
@@ -274,19 +273,24 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         }
         socket.send(paquet);
         paquet.clear();
-
-        while(Pioche[0]!= -1)
+        int continuer = 1;
+        while(continuer == 1)
         {
-            for(int i = 0; i< 6; i++)
+            if(Pioche[0] != -1)
             {
-                if( Pioche[i] < 18)
+                for(int i = 0; i< 6; i++)
                 {
-                    lierCarteEtId(Pioche[i], cartesJoueur[1]);
+                    if( Pioche[i] < 18)
+                    {
+                        lierCarteEtId(Pioche[i], cartesJoueur[1]);
+                    }
                 }
+                Pioche[0] = -1;
+                continuer = 0;
             }
-            Pioche[0] = -1;
         }
-
+        actualiserPositionCartes(cartesJoueur);
+        actualiserEnergies(energiesJoueur);
         ///recpetionner et ajouter main joueur adversaire
 
 
