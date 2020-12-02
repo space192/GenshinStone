@@ -706,7 +706,7 @@ void afficherPV(std::string *nomsJoueur,int vieJoueur[2],SDL_Surface *texte,TTF_
     machaine << "PV joueur: " <<vieJoueur[0];
     texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
     SDL_BlitSurface(texte, NULL, windowSurface, &position);
-
+    SDL_FreeSurface(texte);
     position.x = 880;
     position.y = 820;
     machaine2 << nomsJoueur[0];
@@ -722,7 +722,7 @@ void afficherPV(std::string *nomsJoueur,int vieJoueur[2],SDL_Surface *texte,TTF_
     machaine << "PV joueur: " <<vieJoueur[1];
     texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
     SDL_BlitSurface(texte, NULL, windowSurface, &position);
-
+    SDL_FreeSurface(texte);
     position.x = 880;
     position.y = 170;
     machaine2 << nomsJoueur[1];
@@ -983,7 +983,7 @@ void afficherChat(std::vector<std::string> & chat,SDL_Surface *texte,SDL_Surface
         SDL_BlitSurface(texte, NULL, windowSurface, &position);
         machaine.str(" ");
     }
-
+    TTF_CloseFont(police);
 
 }
 
