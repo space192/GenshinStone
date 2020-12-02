@@ -959,7 +959,7 @@ void afficherTour(int & affTour, SDL_Surface* tour,SDL_Surface  *windowSurface)
     }
 }
 
-void afficherChat(std::vector<std::string> & chat,SDL_Surface *texte,SDL_Surface *fondChat,TTF_Font *police,SDL_Surface  *windowSurface)
+void afficherChat(std::vector<std::string> & chat,SDL_Surface *texte,SDL_Surface *fondChat,TTF_Font *police,SDL_Surface  *windowSurface,std::stringstream & message)
 {
     SDL_Rect position;
     SDL_Color couleur = {255, 255, 255};
@@ -981,8 +981,17 @@ void afficherChat(std::vector<std::string> & chat,SDL_Surface *texte,SDL_Surface
         machaine <<chat[i];
         texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
         SDL_BlitSurface(texte, NULL, windowSurface, &position);
+        SDL_FreeSurface(texte);
         machaine.str(" ");
     }
+
+    position.x = 600;
+    position.y = 220 + 385;
+
+    texte = TTF_RenderText_Solid(police, message.str().c_str(), couleur);
+    SDL_BlitSurface(texte, NULL, windowSurface, &position);
+    SDL_FreeSurface(texte);
+
     TTF_CloseFont(police);
 
 }

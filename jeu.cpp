@@ -16,6 +16,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         std::string name1;
         std::string name2;
         std::string oponnent;
+        std::string tempChat;
 
         std::stringstream message;
 
@@ -346,6 +347,15 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                     message.str(" ");
                                 }
                                 break;
+                            case SDLK_BACKSPACE:
+
+                                    tempChat = message.str();
+                                    tempChat.pop_back();
+                                    message.str(tempChat);
+                                    message.seekp(tempChat.size());
+                                break;
+
+
 
                             }
 
@@ -363,10 +373,15 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                             }
                             else if(event.button.x > 322 && event.button.x < 1549 && event.button.y > 500 && event.button.y < 679)
                             {
-                                conditionSouris = 3;
+
                                 carteSelec = selectionCarte(cartesJoueurTerrain[0],event.button.x,event.button.y);
                                 condDetail=1;
                                 carteDetail = carteSelec; //clique sur une carte sur le terrain
+                                if(carteSelec!=-1)
+                                {
+                                    conditionSouris = 3;
+                                }
+
                             }
                             else if(event.button.x > 1817 && event.button.x < 1914 && event.button.y > 994 && event.button.y < 1072)
                             {
@@ -658,7 +673,16 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                 paquet << tempEnvoie;
                                 socket.send(paquet);
                                 paquet.clear();
-                                message << " ";
+                                message.str(" ");
+                            }
+                            else if(event.key.keysym.sym == SDLK_BACKSPACE)
+                            {
+                                tempChat = message.str();
+
+                                tempChat.pop_back();
+
+                                message.str(tempChat);
+                                message.seekp(tempChat.size());
                             }
                         }
                         else if(event.type == SDL_MOUSEBUTTONDOWN)
@@ -694,7 +718,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                 afficherCimetiere(cimetiere,imageCache,windowSurface);
                 if(conditionSouris == 4)
                 {
-                    afficherChat(chat,texte,fondChat,police,windowSurface);
+                    afficherChat(chat,texte,fondChat,police,windowSurface,message);
                 }
                 if(conditionRect == 1)
                 {
@@ -714,12 +738,18 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         {
             SDL_FreeSurface(imageCache[i]);
         }
+        for(size_t i = 0; i<imageCacheE.size(); i++)
+        {
+            SDL_FreeSurface(imageCacheE[i]);
+        }
 
+
+        SDL_FreeSurface(tour);
+        SDL_FreeSurface(fondChat);
         SDL_FreeSurface(fond);
         SDL_FreeSurface(texte);
         SDL_FreeSurface(selec);
 
         SDL_DestroyWindow(pWindow);
-        std::cout << "HELLO" << std::endl;
     }
 }
