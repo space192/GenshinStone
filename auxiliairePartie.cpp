@@ -246,7 +246,6 @@ int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energ
     // Attaque attaqueActive
 
     int resultat = 0;
-    int typeCond = 0;
     int numCond = 0 ;
     int eraseCond = 0;
 
@@ -363,7 +362,7 @@ void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,
 
     for(size_t i = 0; i < cartesJoueur[1].size(); i++)
     {
-        if(i == carteAdverse)
+        if((int)i == carteAdverse)
         {
             cartesJoueur[1][i]->setPosition(900 - ((cartesJoueur[1].size()-1)*50) + i*100, 0);
         }
@@ -571,14 +570,14 @@ void afficherCimetiere(std::vector< std::vector<Cartes*> > & cimetiere,std::vect
 
 
 
-    if(cimetiere[0].size() != NULL)
+    if(cimetiere[0].size() != 0)
     {
         position.x = 0;
         position.y = 0;
         SDL_BlitSurface(imageCache[cimetiere[0][0]->getImage()], NULL, windowSurface, &position);
     }
 
-    if(cimetiere[1].size() != NULL)
+    if(cimetiere[1].size() != 0)
     {
 
         position.x = 0;
@@ -739,7 +738,6 @@ void afficherPV(std::string *nomsJoueur,int vieJoueur[2],SDL_Surface *texte,TTF_
 
 void lierCarteEtId(int imageID,  std::vector<Cartes*> & cartesJoueur )
 {
-    int temp;
 
     if(imageID == 0)
     {

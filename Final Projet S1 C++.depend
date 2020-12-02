@@ -27,7 +27,7 @@
 1606945923 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\auxiliairepartie.cpp
 	"prototypes.h"
 
-1606945868 c:\users\plpai\onedrive\documents\github\projet-s1-ing2\prototypes.h
+1606948085 c:\users\plpai\onedrive\documents\github\projet-s1-ing2\prototypes.h
 	<Windows.h>
 	<unistd.h>
 	<string>
@@ -48,7 +48,7 @@
 1606495965 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\deck.cpp
 	"prototypes.h"
 
-1606946827 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\jeu.cpp
+1606948227 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\jeu.cpp
 	"prototypes.h"
 
 1606923393 source:c:\users\plpai\onedrive\documents\github\projet-s1-ing2\main.cpp

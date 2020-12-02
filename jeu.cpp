@@ -744,12 +744,34 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         }
 
 
+        /*for(int j =0; j<2;j++)
+        {
+            for(size_t i =0;cartesJoueur[j].size(); i++  )
+        {
+            delete cartesJoueur[j][i];
+        }
+        }
+
+        for(int j =0; j<2;j++)
+        {
+            for(size_t i =0;cartesJoueurTerrain[j].size(); i++  )
+        {
+            delete cartesJoueurTerrain[j][i];
+        }
+        }*/
+
+
+
         SDL_FreeSurface(tour);
         SDL_FreeSurface(fondChat);
         SDL_FreeSurface(fond);
         SDL_FreeSurface(texte);
         SDL_FreeSurface(selec);
 
+
         SDL_DestroyWindow(pWindow);
+        SDL_FreeSurface(windowSurface);
+
+        socket.disconnect();
     }
 }

@@ -38,7 +38,7 @@ protected:
 
 public:
     Cartes(std::string name, int type, int value, int rarity,int numImage,int posX,int posY);
-    ~Cartes() {};
+    //~Cartes() {};
 
     void getName()const;
     int getImage();
@@ -68,14 +68,14 @@ public :
     CharacterCards(std::string name, int type, int value, int rarity,int numImage,int posX,int posY,int atk, int hp, int critique);
     ~CharacterCards() {};
 
-    virtual int getTypeT() const{}
-    virtual int getValeurT() const{}
+    virtual int getTypeT() const{return 0;}
+    virtual int getValeurT() const{return 0;}
     virtual int getVie() const;
     virtual void setVie(int deg);
     virtual void definirAttaque(int numAtt, int degat, int ID, int prix, int typeEnergie);
     virtual Attaque getAttaque(int numAtt) ;
 
-    virtual int getElem() const {}
+    virtual int getElem() const {return 0;}
 
 };
 
@@ -89,13 +89,13 @@ public :
     EnergyCards(std::string name, int type, int value, int rarity,int numImage,int posX,int posY,int elem);
     ~EnergyCards() {};
 
-    virtual int getTypeT() const{}
-    virtual int getValeurT() const{}
+    virtual int getTypeT() const{return 0;}
+    virtual int getValeurT() const{return 0;}
     virtual int getElem() const;
-    virtual int getVie() const {}
+    virtual int getVie() const {return 0;}
     virtual void setVie(int deg){}
     virtual void definirAttaque(int numAtt, int degat, int ID, int prix, int typeEnergie){}
-    virtual Attaque getAttaque(int numAtt) {}
+    virtual Attaque getAttaque(int numAtt) {Attaque temp;return temp;}
 
 
 
@@ -113,11 +113,11 @@ public :
 
     virtual int getTypeT() const;
     virtual int getValeurT() const;
-    virtual int getElem() const {}
-    virtual int getVie() const {}
+    virtual int getElem() const {return 0;}
+    virtual int getVie() const {return 0;}
     virtual void setVie(int deg){}
     virtual void definirAttaque(int numAtt, int degat, int ID, int prix, int typeEnergie){}
-    virtual Attaque getAttaque(int numAtt) {}
+    virtual Attaque getAttaque(int numAtt) {Attaque temp;return temp;}
 
 
 };
