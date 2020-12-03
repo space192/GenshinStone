@@ -1046,23 +1046,17 @@ void afficherGagnant(int vieJoueur[2],std::string *nomsJoueur,SDL_Surface *texte
 
     police = TTF_OpenFont("ARLRDBD.TTF", 30);
 
-    position.x = 700;
-    position.y = 480;
-    machaine << "Le gagnant est :" ;
-    texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
-    SDL_BlitSurface(texte, NULL, windowSurface, &position);
-    SDL_FreeSurface(texte);
 
 
-    position.x = 880;
+    position.x = 840;
     position.y = 540;
     if(vieJoueur[0]<=0)
     {
-        machaine2 << nomsJoueur[1];
+        machaine2 << "Dommage,vous avez perdu...";
     }
     else if(vieJoueur[1]<=0)
     {
-        machaine2 << nomsJoueur[0];
+        machaine2 << "Bravo, vous avez gagne !";
     }
 
     texte = TTF_RenderText_Solid(police, machaine2.str().c_str(), couleur);
