@@ -545,7 +545,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                         attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(1); //TYPE d'attaque en fonction du bouton
                                     }
 
-                                    if((testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain) == 1) ) //gerer les energies
+                                    if((testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain,0) == 1) ) //gerer les energies
                                     {
                                         cartesJoueurTerrain[1][carteAttaque]->setVie(attaqueActive.degat); //recevoir les degats sur la carte adverse
                                         paquet.clear();
@@ -600,7 +600,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                     attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(1);
                                 }
 
-                                if((testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain) == 1 )&& (cartesJoueurTerrain[1].size()==0))
+                                if((testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain,1) == 1 ))
                                 {
                                     vieJoueur[1] -= attaqueActive.degat;
                                     paquet.clear();
