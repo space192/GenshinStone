@@ -149,7 +149,7 @@ int main(int argc, char **argv)
 
 
     SDL_Event event;
-    SDL_Rect rect1, rect2, rect3, rect4, rect5, position,rectA, pos;
+    SDL_Rect rect1, rect2, rect3, rect4, rect5, position;
 
     SDL_Renderer *renderer;
     SDL_Texture *texture1, *texture2, *texture3, *texture4, *texture5, *textureA;
@@ -194,7 +194,6 @@ int main(int argc, char **argv)
     sf::Thread thread(std::bind(&receptionT, &port, &socket, &CARTERECUSERVEUR));
     SDL_Surface *windowSurface = NULL;
     windowSurface = SDL_GetWindowSurface( window );
-    SDL_Surface *fond = IMG_Load("open.png");
     int resultat;
     std::string name;
     std::string mdp;
@@ -1127,10 +1126,10 @@ int main(int argc, char **argv)
         }
 
     }
-
     /* Deinit TTF. */
     SDL_DestroyTexture(texture1);
     SDL_DestroyTexture(texture2);
+    /*
     SDL_DestroyTexture(texture3);
     SDL_DestroyTexture(texture4);
     SDL_DestroyTexture(texture5);
@@ -1141,11 +1140,17 @@ int main(int argc, char **argv)
     SDL_DestroyTexture(tUser4);
     SDL_DestroyTexture(tUser5);
     SDL_DestroyTexture(tUserS);
+    SDL_DestroyTexture(textureA);
+    */
+
+    SDL_DestroyRenderer(renderer);
+
     TTF_Quit();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+    system("pause");
     return EXIT_SUCCESS;
 }
 
