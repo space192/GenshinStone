@@ -196,7 +196,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     {
         if(energiesJoueur[i].getElem() == 2)
         {
-            energiesJoueur[i].setPosition(50,900 + cond*25);
+            energiesJoueur[i].setPosition(100,900 + cond*25);
             cond ++;
         }
 
@@ -208,7 +208,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     {
         if(energiesJoueur[i].getElem() == 3)
         {
-            energiesJoueur[i].setPosition(100,900 + cond*25);
+            energiesJoueur[i].setPosition(200,900 + cond*25);
             cond ++;
         }
 
@@ -220,7 +220,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     {
         if(energiesJoueur[i].getElem() == 4)
         {
-            energiesJoueur[i].setPosition(150,900 + cond*25);
+            energiesJoueur[i].setPosition(300,900 + cond*25);
             cond ++;
         }
 
@@ -1048,7 +1048,7 @@ void afficherGagnant(int vieJoueur[2],std::string *nomsJoueur,SDL_Surface *texte
 
 
 
-    position.x = 840;
+    position.x = 740;
     position.y = 540;
     if(vieJoueur[0]<=0)
     {
@@ -1069,4 +1069,15 @@ void afficherGagnant(int vieJoueur[2],std::string *nomsJoueur,SDL_Surface *texte
 
 
     TTF_CloseFont(police);
+}
+
+void afficherExcla(SDL_Surface *windowSurface, SDL_Surface *excla, bool Bexcla)
+{
+    SDL_Rect position;
+    position.x = 1855;
+    position.y = 950;
+    if(Bexcla == true)
+    {
+        SDL_BlitSurface(excla, NULL, windowSurface, &position);
+    }
 }

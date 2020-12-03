@@ -61,7 +61,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         SDL_Surface *fondFin = IMG_Load("fondFin.png");
         SDL_Surface *texte = NULL;
         SDL_Surface *selec = IMG_Load("selec.png");
-
+        SDL_Surface *excla = IMG_Load("Exclamation_Point.png");
         SDL_Surface* tour = IMG_Load("your turn.png");
         SDL_Surface *fondChat = IMG_Load("chat.png");
 
@@ -76,6 +76,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         int nbrCarte= -1;
         int selecC= -1;
         int placeID= -1;
+        bool Bexcla = false;
         std::vector<int> TID1;
         std::vector<int> TID2;
         std::vector<int> Tdegats;
@@ -242,7 +243,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         actualiserPositionCartes(cartesJoueur);
         actualiserEnergies(energiesJoueur);
         std::string tempEnvoie, resultatChat;
-        bool notif;
+        bool notif = false;
 
 
 
@@ -419,6 +420,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                             else if(event.button.x > 1817 && event.button.x < 1914 && event.button.y > 994 && event.button.y < 1072)
                             {
                                 conditionSouris = 4;
+                                Bexcla =  false;
                             }
                             else
                             {
@@ -723,6 +725,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                             if(event.button.x > 1817 && event.button.x < 1914 && event.button.y > 994 && event.button.y < 1072)
                             {
                                 conditionSouris = 4;
+                                Bexcla = false;
                             }
                             else
                             {
@@ -737,9 +740,11 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                 }
                 if(notif == true)
                 {
+                    Bexcla = true;
                     ajouterMessage(chat, resultatChat);
                     notif = false;
                 }
+                afficherExcla(windowSurface, excla, Bexcla);
                 if(actuJoueur == 9)
                 {
                     condition = 0;
