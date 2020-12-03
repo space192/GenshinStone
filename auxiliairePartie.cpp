@@ -1026,3 +1026,12 @@ void initaliserMain(std::vector<int> & mainJoueurINT,std::vector< std::vector<Ca
     actualiserPositionCartes(cartesJoueur);
     actualiserEnergies(energiesJoueur);
 }
+
+void testSiFinDePartie(int vieJoueur[2],int & conditionFinDePartie,int & condition)
+{
+    if(vieJoueur[0]<0 || vieJoueur[1]<0 )
+    {
+        conditionFinDePartie = 1;
+        condition = 0;
+    }
+}
