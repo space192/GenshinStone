@@ -215,6 +215,8 @@ int main(int argc, char **argv)
             port = -1;
             inQUEUE = 0;
             CARTERECUSERVEUR.clear();
+            page = 4;
+            load = true;
         }
         while (SDL_PollEvent(&event) == 1)
         {

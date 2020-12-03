@@ -164,5 +164,5 @@ void initaliserMain(std::vector<int> & mainJoueurINT,std::vector< std::vector<Ca
 
 void testSiFinDePartie(int vieJoueur[2],int & conditionFinDePartie,int & condition);
 void afficherGagnant(int vieJoueur[2],std::string *nomsJoueur,SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface);
-
+void afficherExcla(SDL_Surface *windowSurface, SDL_Surface *excla, bool Bexcla);
 #endif // PROTOTYPES_H_INCLUDED
