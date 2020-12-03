@@ -1026,3 +1026,53 @@ void initaliserMain(std::vector<int> & mainJoueurINT,std::vector< std::vector<Ca
     actualiserPositionCartes(cartesJoueur);
     actualiserEnergies(energiesJoueur);
 }
+
+void testSiFinDePartie(int vieJoueur[2],int & conditionFinDePartie,int & condition)
+{
+    if(vieJoueur[0]<=0 || vieJoueur[1]<=0 )
+    {
+        conditionFinDePartie = 1;
+        condition = 0;
+    }
+}
+
+void afficherGagnant(int vieJoueur[2],std::string *nomsJoueur,SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface)
+{
+    SDL_Rect position;
+    SDL_Color couleur = {255, 255, 255};
+    std::stringstream machaine;
+    std::stringstream machaine2;
+
+
+    police = TTF_OpenFont("ARLRDBD.TTF", 30);
+
+    position.x = 700;
+    position.y = 480;
+    machaine << "Le gagnant est :" ;
+    texte = TTF_RenderText_Solid(police, machaine.str().c_str(), couleur);
+    SDL_BlitSurface(texte, NULL, windowSurface, &position);
+    SDL_FreeSurface(texte);
+
+
+    position.x = 880;
+    position.y = 540;
+    if(vieJoueur[0]<=0)
+    {
+        machaine2 << nomsJoueur[1];
+    }
+    else if(vieJoueur[1]<=0)
+    {
+        machaine2 << nomsJoueur[0];
+    }
+
+    texte = TTF_RenderText_Solid(police, machaine2.str().c_str(), couleur);
+    SDL_BlitSurface(texte, NULL, windowSurface, &position);
+
+    machaine.str(" ");
+    machaine2.str(" ");
+    SDL_FreeSurface(texte);
+
+
+
+    TTF_CloseFont(police);
+}

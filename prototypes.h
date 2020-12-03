@@ -162,4 +162,7 @@ void ajouterMessage(std::vector<std::string> & chat,std::string tempEnvoie);
 
 void initaliserMain(std::vector<int> & mainJoueurINT,std::vector< std::vector<Cartes*> >  & cartesJoueur,std::vector<EnergyCards> & energiesJoueur);
 
+void testSiFinDePartie(int vieJoueur[2],int & conditionFinDePartie,int & condition);
+void afficherGagnant(int vieJoueur[2],std::string *nomsJoueur,SDL_Surface *texte,TTF_Font *police,SDL_Surface  *windowSurface);
+
 #endif // PROTOTYPES_H_INCLUDED

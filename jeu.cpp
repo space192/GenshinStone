@@ -44,6 +44,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         SDL_Window* pWindow = NULL;
         SDL_Event event;
         int condition = 1;
+        int conditionFinDePartie = 1;
         int conditionSouris = 0;
         int conditionRect = 0;
         int carteSelec = -1;
@@ -57,13 +58,14 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         SDL_Surface *windowSurface = NULL;
         windowSurface = SDL_GetWindowSurface( pWindow );
         SDL_Surface *fond = IMG_Load("Fond.png");
+        SDL_Surface *fondFin = IMG_Load("fondFin.png");
         SDL_Surface *texte = NULL;
         SDL_Surface *selec = IMG_Load("selec.png");
 
         SDL_Surface* tour = IMG_Load("your turn.png");
         SDL_Surface *fondChat = IMG_Load("chat.png");
 
-        int vieJoueur[2] = {50,50};
+        int vieJoueur[2] = {1,1};
 
         //varianles pour réceptions
         int Pioche[6];
@@ -747,6 +749,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                 afficherPV(nomsJoueur,vieJoueur,texte,police,windowSurface);
                 testSiCarteMorte(cartesJoueurTerrain,cimetiere);
                 afficherCimetiere(cimetiere,imageCache,windowSurface);
+                testSiFinDePartie(vieJoueur,conditionFinDePartie,condition);
                 if(conditionSouris == 4)
                 {
                     afficherChat(chat,texte,fondChat,police,windowSurface,message);
@@ -755,6 +758,32 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                 {
                     SDL_BlitSurface(selec,NULL,windowSurface,&position);
                 }
+                SDL_UpdateWindowSurface(pWindow);
+            }
+            while(conditionFinDePartie == 1)
+            {
+                SDL_BlitSurface(fondFin, NULL, windowSurface, NULL);
+
+
+                if(SDL_PollEvent( &event ))
+                {
+                switch(event.type)
+                        {
+                        case SDL_KEYDOWN:
+                            switch(event.key.keysym.sym)
+                            {
+                            case SDLK_ESCAPE:
+                                conditionFinDePartie = 0;
+
+                                break;
+                            }
+                        }
+                }
+
+                afficherGagnant(vieJoueur,nomsJoueur,texte,police,windowSurface);
+
+
+
                 SDL_UpdateWindowSurface(pWindow);
             }
 
