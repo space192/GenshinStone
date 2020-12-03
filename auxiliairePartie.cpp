@@ -241,7 +241,7 @@ void afficherEnergies(std::vector<EnergyCards> & energiesJoueur,std::vector<SDL_
     }
 }
 
-int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energiesJoueur, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain )
+int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energiesJoueur, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain, int cible)
 {
     // Attaque attaqueActive
 
@@ -259,39 +259,59 @@ int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energ
 
 
 
-    if(numCond >= attaqueActive.prix)
+    if(cible == 0)
     {
-        resultat=1;
-
-        /*for (auto it = energiesJoueur.begin(); it != energiesJoueur.end(); )
+        if(numCond >= attaqueActive.prix)
         {
-            if(it->getElem() == attaqueActive.typeEnergie && eraseCond < attaqueActive.prix)
+            resultat=1;
+
+
+            if(energiesJoueur.empty() == false)
             {
-                it = energiesJoueur.erase(it);
-                eraseCond ++;
-            }
-
-            it++;
-        }*/
-
-        if(energiesJoueur.empty() == false)
-        {
-            for(int i = energiesJoueur.size() - 1; i >= 0; i--)
-            {
-                if(energiesJoueur.at(i).getElem() == attaqueActive.typeEnergie && eraseCond < attaqueActive.prix)
-
+                for(int i = energiesJoueur.size() - 1; i >= 0; i--)
                 {
-                    energiesJoueur.erase( energiesJoueur.begin() + i );
-                    eraseCond++;
+                    if(energiesJoueur.at(i).getElem() == attaqueActive.typeEnergie && eraseCond < attaqueActive.prix)
+
+                    {
+                        energiesJoueur.erase( energiesJoueur.begin() + i );
+                        eraseCond++;
+                    }
                 }
             }
-        }
 
+        }
+        else
+        {
+            resultat = 0;
+        }
     }
-    else
+    else if(cible == 1)
     {
-        resultat = 0;
+        if(numCond >= attaqueActive.prix && cartesJoueurTerrain[1].size() == 0)
+        {
+            resultat=1;
+
+
+            if(energiesJoueur.empty() == false)
+            {
+                for(int i = energiesJoueur.size() - 1; i >= 0; i--)
+                {
+                    if(energiesJoueur.at(i).getElem() == attaqueActive.typeEnergie && eraseCond < attaqueActive.prix)
+
+                    {
+                        energiesJoueur.erase( energiesJoueur.begin() + i );
+                        eraseCond++;
+                    }
+                }
+            }
+
+        }
+        else
+        {
+            resultat = 0;
+        }
     }
+
 
     return resultat;
 
