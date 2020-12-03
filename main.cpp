@@ -3,6 +3,8 @@
 #define WINDOW_HEIGHT 600
 #define login "login_screen.png"
 #define compte "se_creer_un_compte.png"
+#define main_m "main_menu.png"
+#define d "the_gate.png"
 
 void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck);
 bool checkOnline(sf::Packet *paquet, sf::TcpSocket *socket, int LOGIN, std::string nomJoueur);
@@ -69,15 +71,13 @@ int main(int argc, char **argv)
     //Deck
     bool open = false, reset = true;
     SDL_Texture *img = NULL;
-    SDL_Surface *black = IMG_Load("fond.jpg");
-    SDL_Surface *black1 = IMG_Load("fond.jpg");
-    SDL_Surface *black2 = IMG_Load("fond2.jpg");
-    SDL_Surface *black3 = IMG_Load("fond3.jpg");
-    SDL_Surface *black4 = IMG_Load("fond4.jpg");
-    SDL_Surface *menu = IMG_Load("main_menu.png");
+    SDL_Surface *black = IMG_Load("deck.png");
+    SDL_Surface *black1 = IMG_Load("deck.png");
+    SDL_Surface *black2 = IMG_Load("deck2.png");
+    SDL_Surface *black3 = IMG_Load("deck3.png");
+    SDL_Surface *black4 = IMG_Load("deck4.png");
     SDL_Surface *q = IMG_Load("the_gate.png");
     int w,h;
-    //SDL_Surface *login = IMG_Load("login_screen.png");
     SDL_Window *deckWindow = NULL;
     SDL_Surface *deckWindowSurface = NULL;
     std::vector<Cartes*> toutesCartes;
@@ -282,18 +282,13 @@ int main(int argc, char **argv)
             case 4:
                 if(load)
                 {
-                get_text_and_rect(renderer, 400, 400, (char*)startGame.str().c_str(), font, &texture1, &rect1);
-                get_text_and_rect(renderer, 400, rect1.y + rect1.h, (char*)deckOption.str().c_str(), font, &texture2, &rect2);
-                get_text_and_rect(renderer, 400, rect2.y + rect2.h, (char*)quitterJeu.str().c_str(), font, &texture3, &rect3);
-                get_text_and_rect(renderer, 600, 200, (char*)friends.str().c_str(), font, &texture4, &rect4);
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+                img = IMG_LoadTexture(renderer,main_m);
+                SDL_QueryTexture(img, NULL,NULL,&w,&h);
+                SDL_Rect im; im.x = 0; im.y = 0; im.h = h; im.w = w;
                 SDL_RenderClear(renderer);
 
                 /* Use TTF textures. */
-                SDL_RenderCopy(renderer, texture1, NULL, &rect1);
-                SDL_RenderCopy(renderer, texture2, NULL, &rect2);
-                SDL_RenderCopy(renderer, texture3, NULL, &rect3);
-                SDL_RenderCopy(renderer,texture4, NULL, &rect4);
+                SDL_RenderCopy(renderer, img, NULL, &im);
 
                 SDL_RenderPresent(renderer);
                 load = false;
@@ -406,8 +401,10 @@ int main(int argc, char **argv)
 
                 }
 
-
-                get_text_and_rect(renderer, 400, 400, (char*)deck1.str().c_str(), font, &texture1, &rect1);
+                img = IMG_LoadTexture(renderer,d);
+                SDL_QueryTexture(img, NULL,NULL,&w,&h);
+                SDL_Rect im; im.x = 0; im.y = 0; im.h = h; im.w = w;
+                get_text_and_rect(renderer, 400, 300, (char*)deck1.str().c_str(), font, &texture1, &rect1);
                 get_text_and_rect(renderer, 400, rect1.y + rect1.h, (char*)deck2.str().c_str(), font, &texture2, &rect2);
                 get_text_and_rect(renderer, 400, rect2.y + rect2.h, (char*)deck3.str().c_str(), font, &texture3, &rect3);
                 get_text_and_rect(renderer, 400, rect3.y + rect3.h, (char*)deck4.str().c_str(), font, &texture4, &rect4);
@@ -415,6 +412,7 @@ int main(int argc, char **argv)
                 SDL_RenderClear(renderer);
 
                 /* Use TTF textures. */
+                 SDL_RenderCopy(renderer, img, NULL, &im);
                 SDL_RenderCopy(renderer, texture1, NULL, &rect1);
                 SDL_RenderCopy(renderer, texture2, NULL, &rect2);
                 SDL_RenderCopy(renderer, texture3, NULL, &rect3);
@@ -484,7 +482,7 @@ int main(int argc, char **argv)
 
             switch(page)
             {
-            //page boutton
+            //page q
             case 1:
                 switch(event.type)
                 {
@@ -492,20 +490,9 @@ int main(int argc, char **argv)
                     switch(event.key.keysym.sym)
                     {
                     case SDLK_ESCAPE:
-                        quit = 1;
+                        load = true;
+                        page = 4;
                         break;
-                    }
-                    break;
-                case SDL_MOUSEBUTTONDOWN:
-                    if(event.button.x >100 && event.button.x <515 && event.button.y >390 && event.button.y <500)
-                    {
-                        page++;
-                        load = true;
-                    }
-                    else if(event.button.x >622 && event.button.x <1030 && event.button.y >400 && event.button.y <500)
-                    {
-                        page = 3;
-                        load = true;
                     }
                     break;
                 }
@@ -792,7 +779,8 @@ int main(int argc, char **argv)
                 case SDL_MOUSEBUTTONDOWN:
                     //juste pour voir ou est quoi
                     //std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
-                    if(event.button.x >400 && event.button.x <548 && event.button.y >400 && event.button.y <424)
+
+                    if(event.button.x >469 && event.button.x <624 && event.button.y >177 && event.button.y <191)
                     {
                         //ici mettre le debut du jeu avec serv
                         /*
@@ -819,21 +807,22 @@ int main(int argc, char **argv)
                         page = 6;
                         load = true;
                     }
-                    else if(event.button.x >400 && event.button.x <539 && event.button.y >432 && event.button.y <456)
+                    else if(event.button.x >448 && event.button.x <647 && event.button.y >220 && event.button.y <240)
                     {
                         //aller au deck
                         std::cout<<"Deck";
                         page = 7;
                         load = true;
                     }
-                    else if(event.button.x >400 && event.button.x <488 && event.button.y >461 && event.button.y <485)
+                    else if(event.button.x >471 && event.button.x <620 && event.button.y >309 && event.button.y <328)
                     {
                         //quitter jeu rien a changer
                         std::cout<<"quitter";
                         quit = 1;
                     }
-                    else if(event.button.x >600 && event.button.x <670 && event.button.y >205 && event.button.y <229)
+                    if(event.button.x >448 && event.button.x <638 && event.button.y >265 && event.button.y <286)
                     {
+
                         std::cout<<"amies";
                         page = 5;
                         load = true;
@@ -971,7 +960,7 @@ int main(int argc, char **argv)
                     }
                     break;
                 case SDL_MOUSEBUTTONDOWN:
-                    if(event.button.x >400 && event.button.x <590 && event.button.y >400 && event.button.y <424 && deck0S == 1)
+                    if(event.button.x >400 && event.button.x <590 && event.button.y >300 && event.button.y <324 && deck0S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
                         std::cout<<"Start";
@@ -988,7 +977,7 @@ int main(int argc, char **argv)
                         page = 1;
                         load = true;
                     }
-                    else if(event.button.x >400 && event.button.x <590 && event.button.y >430 && event.button.y <454 || deck1S == 1)
+                    else if(event.button.x >400 && event.button.x <590 && event.button.y >330 && event.button.y <354 || deck1S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
                         std::cout<<"Start";
@@ -1005,7 +994,7 @@ int main(int argc, char **argv)
                         page = 1;
                         load = true;
                     }
-                    else if(event.button.x >400 && event.button.x <590 && event.button.y >462 && event.button.y <478 && deck2S == 1)
+                    else if(event.button.x >400 && event.button.x <590 && event.button.y >362 && event.button.y <378 && deck2S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
                         std::cout<<"Start";
@@ -1022,7 +1011,7 @@ int main(int argc, char **argv)
                         page = 1;
                         load = true;
                     }
-                    else if(event.button.x >400 && event.button.x <590 && event.button.y >489 && event.button.y <507 && deck3S == 1)
+                    else if(event.button.x >400 && event.button.x <590 && event.button.y >389 && event.button.y <407 && deck3S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
                         std::cout<<"Start";
@@ -1061,40 +1050,45 @@ int main(int argc, char **argv)
                     break;
                 case SDL_MOUSEBUTTONDOWN:
                     carteSelec = selectionCarte(toutesCartes, event.button.x, event.button.y);
-                    if(event.button.x >833 && event.button.x <842 && event.button.y >980 && event.button.y <1004)
+                    std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
+                    if(event.button.x >1098 && event.button.x <1198 && event.button.y >1026 && event.button.y <1049 && cardpage<4)
                     {
-                        cardpage = 1;
-                        black = black1;
+
+                        cardpage++;
+                        std::cout<<cardpage<<std::endl;
+                        switch(cardpage)
+                        {
+                        case 2:
+                            black = black2;
+                            break;
+                        case 3:
+                            black = black3;
+                            break;
+                        case 4:
+                            black = black4;
+                            break;
+                        }
                         for(int i = 0; i<20; i++)
                         {
                             selected[i] = 0;
                         }
                         cardnmb = 0;
                     }
-                    else if(event.button.x >877 && event.button.x <888 && event.button.y >980 && event.button.y <1004)
+                    else if(event.button.x >831 && event.button.x <931 && event.button.y >1020 && event.button.y <1053 && cardpage>1)
                     {
-                        cardpage = 2;
-                        black = black2;
-                        for(int i = 0; i<20; i++)
+                        cardpage--;
+                        switch(cardpage)
                         {
-                            selected[i] = 0;
+                        case 2:
+                            black = black2;
+                            break;
+                        case 3:
+                            black = black3;
+                            break;
+                        case 1:
+                            black = black1;
+                            break;
                         }
-                        cardnmb = 0;
-                    }
-                    else if(event.button.x >921 && event.button.x <931 && event.button.y >980 && event.button.y <1004)
-                    {
-                        cardpage = 3;
-                        black = black3;
-                        for(int i = 0; i<20; i++)
-                        {
-                            selected[i] = 0;
-                        }
-                        cardnmb = 0;
-                    }
-                    else if(event.button.x >963 && event.button.x <975 && event.button.y >980 && event.button.y <1004)
-                    {
-                        cardpage = 4;
-                        black = black4;
                         for(int i = 0; i<20; i++)
                         {
                             selected[i] = 0;
@@ -1122,6 +1116,7 @@ int main(int argc, char **argv)
                             std::cout<<"Cartes " <<carteSelec << " was deleted "<<toutesCartes[carteSelec]->getImage()<<std::endl;
                         }
                     }
+
                     break;
                 }
                 break;

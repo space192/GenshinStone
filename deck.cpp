@@ -93,12 +93,12 @@ void initDeckCartes(std::vector<SDL_Surface*> &imageCache)
 
 void actualiserCarteDeck(std::vector<Cartes*>  &cartesPioche)
 {
-    int y = 100, x = 0;
+    int y = 200, x = 0;
 
     for(size_t i = 0; i < cartesPioche.size(); i++)
     {
-        cartesPioche[i]->setPosition(100 + x*200, y);
-        if(x==8)
+        cartesPioche[i]->setPosition(250 + x*200, y);
+        if(x==6)
         {
             x = 0;
             y+=250;
