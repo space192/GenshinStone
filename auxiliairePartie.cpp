@@ -259,7 +259,7 @@ int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energ
 
 
 
-    if(numCond >= attaqueActive.prix)
+    if(numCond >= attaqueActive.prix && cartesJoueurTerrain[1].size() == 0)
     {
         resultat=1;
 
