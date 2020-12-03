@@ -1,6 +1,8 @@
 #include "prototypes.h"
 #define WINDOW_WIDTH 1100
-#define WINDOW_HEIGHT 900
+#define WINDOW_HEIGHT 600
+#define login "login_screen.png"
+#define compte "se_creer_un_compte.png"
 
 void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck);
 bool checkOnline(sf::Packet *paquet, sf::TcpSocket *socket, int LOGIN, std::string nomJoueur);
@@ -20,9 +22,13 @@ int main(int argc, char **argv)
     std::stringstream createName;
     std::stringstream createPassword;
     std::stringstream createDate;
+    std::stringstream dd,mm,aaaa;
+
     createName<<"What is your name";
     createPassword<<"What is your password";
-    createDate<<"What is your birthday (ddmmyyyy)";
+    dd<<"dd";
+    mm<<"mm";
+    aaaa<<"aaaa";
 
 
     //Menu du jeu
@@ -62,11 +68,16 @@ int main(int argc, char **argv)
 
     //Deck
     bool open = false, reset = true;
+    SDL_Texture *img = NULL;
     SDL_Surface *black = IMG_Load("fond.jpg");
     SDL_Surface *black1 = IMG_Load("fond.jpg");
     SDL_Surface *black2 = IMG_Load("fond2.jpg");
     SDL_Surface *black3 = IMG_Load("fond3.jpg");
     SDL_Surface *black4 = IMG_Load("fond4.jpg");
+    SDL_Surface *menu = IMG_Load("main_menu.png");
+    SDL_Surface *q = IMG_Load("the_gate.png");
+    int w,h;
+    //SDL_Surface *login = IMG_Load("login_screen.png");
     SDL_Window *deckWindow = NULL;
     SDL_Surface *deckWindowSurface = NULL;
     std::vector<Cartes*> toutesCartes;
@@ -139,6 +150,7 @@ int main(int argc, char **argv)
 
     SDL_Event event;
     SDL_Rect rect1, rect2, rect3, rect4, rect5, position,rectA, pos;
+
     SDL_Renderer *renderer;
     SDL_Texture *texture1, *texture2, *texture3, *texture4, *texture5, *textureA;
     SDL_Window *window;
@@ -192,7 +204,7 @@ int main(int argc, char **argv)
     std::string cdate;
     int state = 0;
     quit = 0;
-    int page = 1;
+    int page = 2;
     bool load = true;
     while (!quit)
     {
@@ -212,7 +224,7 @@ int main(int argc, char **argv)
             case 1:
                 if(load)
                 {
-                SDL_BlitSurface(fond, NULL, windowSurface, NULL);
+                SDL_BlitSurface(q, NULL, windowSurface, NULL);
                 SDL_UpdateWindowSurface(window);
                 load = false;
                 }
@@ -223,13 +235,15 @@ int main(int argc, char **argv)
 
                 if(load)
                 {
-
-                get_text_and_rect(renderer, 400, 400, (char*)test.str().c_str(), font, &texture1, &rect1);
-                get_text_and_rect(renderer, 380, rect1.y + rect1.h, (char*)test2.str().c_str(), font, &texture2, &rect2);
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+                img = IMG_LoadTexture(renderer,login);
+                SDL_QueryTexture(img, NULL,NULL,&w,&h);
+                SDL_Rect im; im.x = 0; im.y = 0; im.h = h; im.w = w;
+                get_text_and_rect(renderer, 400, 260, (char*)test.str().c_str(), font, &texture1, &rect1);
+                get_text_and_rect(renderer, 400, 365, (char*)test2.str().c_str(), font, &texture2, &rect2);
                 SDL_RenderClear(renderer);
 
                 /* Use TTF textures. */
+                SDL_RenderCopy(renderer, img, NULL, &im);
                 SDL_RenderCopy(renderer, texture1, NULL, &rect1);
                 SDL_RenderCopy(renderer, texture2, NULL, &rect2);
 
@@ -240,16 +254,24 @@ int main(int argc, char **argv)
             case 3:
                 if(load)
                 {
-                get_text_and_rect(renderer, 400, 400, (char*)createName.str().c_str(), font, &texture1, &rect1);
-                get_text_and_rect(renderer, 400, rect1.y + rect1.h, (char*)createPassword.str().c_str(), font, &texture2, &rect2);
-                get_text_and_rect(renderer, 400, rect2.y + rect2.h, (char*)createDate.str().c_str(), font, &texture3, &rect3);
+                img = IMG_LoadTexture(renderer,compte);
+                SDL_QueryTexture(img, NULL,NULL,&w,&h);
+                SDL_Rect im; im.x = 0; im.y = 0; im.h = h; im.w = w;
+                get_text_and_rect(renderer, 400, 245, (char*)createName.str().c_str(), font, &texture1, &rect1);
+                get_text_and_rect(renderer, 400, 315, (char*)createPassword.str().c_str(), font, &texture2, &rect2);
+                get_text_and_rect(renderer, 415, 400, (char*)dd.str().c_str(), font, &texture3, &rect3);
+                get_text_and_rect(renderer, 530, 400, (char*)mm.str().c_str(), font, &texture4, &rect4);
+                get_text_and_rect(renderer, 640, 400, (char*)aaaa.str().c_str(), font, &texture5, &rect5);
                 SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
                 SDL_RenderClear(renderer);
 
                 /* Use TTF textures. */
+                SDL_RenderCopy(renderer, img, NULL, &im);
                 SDL_RenderCopy(renderer, texture1, NULL, &rect1);
                 SDL_RenderCopy(renderer, texture2, NULL, &rect2);
                 SDL_RenderCopy(renderer, texture3, NULL, &rect3);
+                SDL_RenderCopy(renderer, texture4, NULL, &rect4);
+                SDL_RenderCopy(renderer, texture5, NULL, &rect5);
 
                 SDL_RenderPresent(renderer);
                 load = false;
@@ -553,15 +575,44 @@ int main(int argc, char **argv)
                     break;
 
                 case SDL_MOUSEBUTTONDOWN:
-                    //std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
-                    if(event.button.x >400 && event.button.x <614 && event.button.y >400 && event.button.y <424)
+
+                    std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
+
+                    if(event.button.x >359 && event.button.x <735 && event.button.y >245 && event.button.y <298)
                     {
                         state = 0;
                     }
 
-                    else if(event.button.x >377 && event.button.x <641 && event.button.y >432 && event.button.y <456)
+                    else if(event.button.x >359 && event.button.x <735 && event.button.y >349 && event.button.y <399)
                     {
                         state = 1;
+                    }
+                    else if(event.button.x >370 && event.button.x <503 && event.button.y >434 && event.button.y <457)
+                    {
+                        name = test.str();
+                        mdp = test2.str();
+                        paquet.clear();
+                        action = 1;
+                        paquet << action << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        paquet << name << mdp;
+                        socket.send(paquet);
+                        paquet.clear();
+                        socket.receive(paquet);
+                        paquet >> reception;
+                        paquet.clear();
+                        if(reception == 1)
+                        {
+                            page = 4;
+                            LOGIN = 1;
+                            load = true;
+                        }
+                    }
+                    else if(event.button.x >588 && event.button.x <728 && event.button.y >434 && event.button.y <457)
+                    {
+                        page = 3;
+                        load = true;
                     }
                     break;
 
@@ -587,14 +638,22 @@ int main(int argc, char **argv)
                         {
                             createPassword.str(" ");
                         }
+                        else if(state == 2)
+                        {
+                            dd.str(" ");
+                        }
+                        else if(state ==3)
+                        {
+                            mm.str(" ");
+                        }
                         else
                         {
-                            createDate.str(" ");
+                            aaaa.str(" ");
                         }
 
                         break;
                     case SDLK_TAB:
-                        if(state <2)
+                        if(state <5)
                         {
                             state++;
                         }
@@ -604,6 +663,7 @@ int main(int argc, char **argv)
                         }
                         break;
                     case SDLK_RETURN:
+                        createName<<dd.str()<<mm.str()<<aaaa.str();
                         cname = createName.str();
                         cmdp = createPassword.str();
                         cdate = createDate.str();
@@ -620,7 +680,7 @@ int main(int argc, char **argv)
                         paquet.clear();
                         if(reception == 6)
                         {
-                            page = 1;
+                            page = 2;
                             LOGIN = 0;
                             load = true;
                         }
@@ -638,27 +698,69 @@ int main(int argc, char **argv)
                     {
                         createPassword<<event.text.text;
                     }
+                    else if (state == 2)
+                    {
+                        dd<<event.text.text;
+                    }
+                    else if(state == 3)
+                    {
+                        mm<<event.text.text;
+                    }
                     else
                     {
-                        createDate<<event.text.text;
+                        aaaa<< event.text.text;
                     }
                     break;
                 case SDL_MOUSEBUTTONDOWN:
-                    // std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
-                    if(event.button.x >400 && event.button.x <611 && event.button.y >400 && event.button.y <424)
+                    std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
+
+                    if(event.button.x >357 && event.button.x <736 && event.button.y >236 && event.button.y <283)
                     {
                         state = 0;
                     }
-                    else if(event.button.x >400 && event.button.x <664 && event.button.y >434 && event.button.y <458)
+                    else if(event.button.x >357 && event.button.x <736 && event.button.y >310 && event.button.y <360)
                     {
                         state = 1;
                     }
-                    else if(event.button.x >400 && event.button.x <800 && event.button.y >462 && event.button.y <486)
+
+                    else if(event.button.x >405 && event.button.x <473 && event.button.y >389 && event.button.y <440)
                     {
                         state = 2;
                     }
+                    else if(event.button.x >516 && event.button.x <583 && event.button.y >389 && event.button.y <440)
+                    {
+                        state = 3;
+                    }
+                    else if(event.button.x >628 && event.button.x <730 && event.button.y >389 && event.button.y <440)
+                    {
+                        state = 4;
+                    }
+                    else if(event.button.x >480 && event.button.x <620 && event.button.y >479 && event.button.y <502)
+                    {
+                        cname = createName.str();
+                        cmdp = createPassword.str();
+                        cdate = createDate.str();
+                        paquet.clear();
+                        action = 2;
+                        paquet << action << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        paquet << cname << cmdp << jour << mois << annee;
+                        socket.send(paquet);
+                        paquet.clear();
+                        socket.receive(paquet);
+                        paquet >> reception;
+                        paquet.clear();
+                        if(reception == 6)
+                        {
+                            page = 2;
+                            LOGIN = 0;
+                            load = true;
+                        }
+                    }
                     break;
                 }
+                break;
 
             case 4:
                 switch(event.type)
@@ -880,7 +982,7 @@ int main(int argc, char **argv)
                         paquet.clear();
                         thread.launch();
                         inQUEUE = 1;
-                        page = 4;
+                        page = 1;
                         load = true;
                     }
                     else if(event.button.x >400 && event.button.x <590 && event.button.y >430 && event.button.y <454 || deck1S == 1)
@@ -897,7 +999,7 @@ int main(int argc, char **argv)
                         paquet.clear();
                         thread.launch();
                         inQUEUE = 1;
-                        page = 4;
+                        page = 1;
                         load = true;
                     }
                     else if(event.button.x >400 && event.button.x <590 && event.button.y >462 && event.button.y <478 && deck2S == 1)
@@ -914,7 +1016,7 @@ int main(int argc, char **argv)
                         paquet.clear();
                         thread.launch();
                         inQUEUE = 1;
-                        page = 4;
+                        page = 1;
                         load = true;
                     }
                     else if(event.button.x >400 && event.button.x <590 && event.button.y >489 && event.button.y <507 && deck3S == 1)
@@ -931,7 +1033,7 @@ int main(int argc, char **argv)
                         paquet.clear();
                         thread.launch();
                         inQUEUE = 1;
-                        page = 4;
+                        page = 1;
                         load = true;
                     }
                     break;
