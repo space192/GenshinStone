@@ -222,8 +222,6 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 
         std::vector<EnergyCards> energiesJoueur;
         energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,1));
-        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,1));
-        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,1));
         energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,2));
         energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,3));
         energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,4));

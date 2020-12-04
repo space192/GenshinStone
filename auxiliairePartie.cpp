@@ -184,7 +184,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     {
         if(energiesJoueur[i].getElem() == 1)
         {
-            energiesJoueur[i].setPosition(0,900 + cond*25);
+            energiesJoueur[i].setPosition(0,1080 + cond*25);
             cond ++;
         }
 
@@ -196,7 +196,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     {
         if(energiesJoueur[i].getElem() == 2)
         {
-            energiesJoueur[i].setPosition(100,900 + cond*25);
+            energiesJoueur[i].setPosition(100,1080 - cond*25);
             cond ++;
         }
 
@@ -208,7 +208,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     {
         if(energiesJoueur[i].getElem() == 3)
         {
-            energiesJoueur[i].setPosition(200,900 + cond*25);
+            energiesJoueur[i].setPosition(200,1080 - cond*25);
             cond ++;
         }
 
@@ -220,7 +220,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     {
         if(energiesJoueur[i].getElem() == 4)
         {
-            energiesJoueur[i].setPosition(300,900 + cond*25);
+            energiesJoueur[i].setPosition(300,1080 - cond*25);
             cond ++;
         }
 
@@ -597,16 +597,16 @@ void afficherCimetiere(std::vector< std::vector<Cartes*> > & cimetiere,std::vect
 
     if(cimetiere[0].size() != 0)
     {
-        position.x = 0;
-        position.y = 0;
+        position.x = 110;
+        position.y = 225;
         SDL_BlitSurface(imageCache[cimetiere[0][0]->getImage()], NULL, windowSurface, &position);
     }
 
     if(cimetiere[1].size() != 0)
     {
 
-        position.x = 0;
-        position.y = 100;
+        position.x = 110;
+        position.y = 674;
         SDL_BlitSurface(imageCache[cimetiere[1][0]->getImage()], NULL, windowSurface, &position);
     }
 
