@@ -108,7 +108,6 @@ int main(int argc, char **argv)
     user4 << " ";
     user5 << " ";
     userS.str(" ");
-    int tempO;
     //online = true;
     SDL_Color online = {0,255,0,0}, offline = {255,0,0,0};
     //SDL_Color onlineC;
@@ -152,14 +151,14 @@ int main(int argc, char **argv)
     SDL_Rect rect1, rect2, rect3, rect4, rect5, position;
 
     SDL_Renderer *renderer;
-    SDL_Texture *texture1, *texture2, *texture3, *texture4, *texture5, *textureA;
+    SDL_Texture *texture1, *texture2, *texture3, *texture4, *texture5;
     SDL_Window *window;
     char *font_path;
     int quit;
 
     if (argc == 1)
     {
-        font_path = "ARLRDBD.ttf";
+        font_path = (char*)"ARLRDBD.ttf";
     }
     else if (argc == 2)
     {
@@ -976,7 +975,7 @@ int main(int argc, char **argv)
                         page = 1;
                         load = true;
                     }
-                    else if(event.button.x >400 && event.button.x <590 && event.button.y >330 && event.button.y <354 || deck1S == 1)
+                    else if((event.button.x >400 && event.button.x <590 && event.button.y >330 && event.button.y <354) || deck1S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
                         std::cout<<"Start";
