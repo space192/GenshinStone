@@ -101,12 +101,14 @@ int main(int argc, char **argv)
     SDL_Texture *tUser1, *tUser2, *tUser3, *tUser4, *tUser5, *tUserS, *tUserA;
 
     //Pour l'ami
-    userA<<"bigChungus";
+    userA << " ";
 
     //Mettre ici la partie ou on recupere les noms des gens ou les laisser vide si on a pas d'amis
     //aussi mettre si ils sont online ou pas
     int nbAmis;
+    int nbRequest;
     std::string tempAmis;
+    std::string tempRequest;
     user1 << " ";
     user2 << " ";
     user3 << " ";
@@ -307,6 +309,25 @@ int main(int argc, char **argv)
                 else
                 {
                     img = IMG_LoadTexture(renderer, ac);
+                    paquet.clear();
+                    paquet << 3 << LOGIN;
+                    socket.send(paquet);
+                    paquet.clear();
+                    paquet << 3;
+                    socket.send(paquet);
+                    paquet.clear();
+                    socket.receive(paquet);
+                    paquet >> nbRequest;
+                    for(int i = 0 ; i < nbRequest ;i++)
+                    {
+                        paquet.clear();
+                        socket.receive(paquet);
+                        if(i == 0)
+                        {
+                            paquet >> tempRequest;
+                            userA.str(tempRequest);
+                        }
+                    }
                     get_text_and_rect(renderer, 600, 45, (char*)userA.str().c_str(), font, &tUserA, &rUserA);
 
                 }
