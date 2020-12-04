@@ -5,6 +5,7 @@
 #define compte "se_creer_un_compte.png"
 #define main_m "main_menu.png"
 #define d "the_gate.png"
+#define a "friend.png"
 
 void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck);
 bool checkOnline(sf::Packet *paquet, sf::TcpSocket *socket, int LOGIN, std::string nomJoueur);
@@ -295,55 +296,54 @@ int main(int argc, char **argv)
             case 5:
                 if(load)
                 {
-                get_text_and_rect(renderer, 200, 400, (char*)startGame.str().c_str(), font, &texture1, &rect1);
-                get_text_and_rect(renderer, 200, rect1.y + rect1.h, (char*)deckOption.str().c_str(), font, &texture2, &rect2);
-                get_text_and_rect(renderer, 200, rect2.y + rect2.h, (char*)quitterJeu.str().c_str(), font, &texture3, &rect3);
-                get_text_and_rect(renderer, 400, 200, (char*)friends.str().c_str(), font, &texture4, &rect4);
-                get_text_and_rect(renderer, 600, 200, (char*)textbox.str().c_str(), font, &texture5, &rect5);
+                img = IMG_LoadTexture(renderer,a);
+                SDL_QueryTexture(img, NULL,NULL,&w,&h);
+                SDL_Rect im; im.x = 0; im.y = 0; im.h = h; im.w = w;
+                get_text_and_rect(renderer, 400, 200, (char*)textbox.str().c_str(), font, &texture5, &rect5);
 
                 //Je sais que c'est pas opti mais je decouvre le SDL
                 if(checkOnline(&paquet,&socket, LOGIN, user1.str()) == true)
                 {
-                    get_text_and_rect(renderer, 600, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, online);
+                    get_text_and_rect(renderer, 400, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, online);
                 }
                 else
                 {
-                    get_text_and_rect(renderer, 600, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, offline);
+                    get_text_and_rect(renderer, 400, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, offline);
                 }
                 if(checkOnline(&paquet,&socket, LOGIN, user2.str()) == true)
                 {
-                    get_text_and_rect(renderer, 600, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, online);
+                    get_text_and_rect(renderer, 400, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, online);
                 }
                 else
                 {
-                    get_text_and_rect(renderer, 600, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, offline);
+                    get_text_and_rect(renderer, 400, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, offline);
                 }
                 if(checkOnline(&paquet,&socket, LOGIN, user3.str()) == true)
                 {
-                    get_text_and_rect(renderer, 600, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, online);
+                    get_text_and_rect(renderer, 400, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, online);
                 }
                 else
                 {
-                    get_text_and_rect(renderer, 600, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, offline);
+                    get_text_and_rect(renderer, 400, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, offline);
                 }
                 if(checkOnline(&paquet,&socket, LOGIN, user4.str()) == true)
                 {
-                    get_text_and_rect(renderer, 600, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, online);
+                    get_text_and_rect(renderer, 400, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, online);
                 }
                 else
                 {
-                    get_text_and_rect(renderer, 600, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, offline);
+                    get_text_and_rect(renderer, 400, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, offline);
                 }
                 if(checkOnline(&paquet,&socket, LOGIN, user5.str()) == true)
                 {
-                    get_text_and_rect(renderer, 600, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, online);
+                    get_text_and_rect(renderer, 400, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, online);
                 }
                 else
                 {
-                    get_text_and_rect(renderer, 600, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, offline);
+                    get_text_and_rect(renderer, 400, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, offline);
                 }
 
-                get_text_and_rect(renderer, 600, 225, (char*)userS.str().c_str(), font, &tUserS, &rUserS);
+                get_text_and_rect(renderer, 400, 225, (char*)userS.str().c_str(), font, &tUserS, &rUserS);
 
 
 
@@ -351,10 +351,7 @@ int main(int argc, char **argv)
                 SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
                 SDL_RenderClear(renderer);
                 /* Use TTF textures. */
-                SDL_RenderCopy(renderer, texture1, NULL, &rect1);
-                SDL_RenderCopy(renderer, texture2, NULL, &rect2);
-                SDL_RenderCopy(renderer, texture3, NULL, &rect3);
-                SDL_RenderCopy(renderer,texture4, NULL, &rect4);
+                SDL_RenderCopy(renderer, img, NULL, &im);
                 SDL_RenderCopy(renderer,texture5, NULL, &rect5);
 
                 SDL_RenderCopy(renderer,tUser1, NULL, &rUser1);
