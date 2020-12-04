@@ -12,6 +12,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
     }
     if(connect == false)
     {
+        SDL_Delay(100);
         if(socket.connect("fournierfamily.ovh", 53100 + port)!= sf::Socket::Done)
         {
             std::cout << "erreur de connexion" << std::endl;
@@ -73,7 +74,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         SDL_Surface* tour = IMG_Load("your turn.png");
         SDL_Surface *fondChat = IMG_Load("chat.png");
 
-        int vieJoueur[2] = {1,1};
+        int vieJoueur[2] = {30,30};
 
         //varianles pour réceptions
         int Pioche[6];
@@ -264,10 +265,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         //void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbCarte, int *selec,int *placeID)
         sf::Thread thread(std::bind(&receiveData, &actuJoueur,&socket, numJoueur, &condition, &ID1,&ID2,&degats, &nbrCarte, &selecC, &placeID, &TID1, &TID2, &Tdegats, tempEnvoie, &resultatChat, &notif, Pioche));
         thread.launch();
-        paquet.clear();
-        paquet << 13;
-        socket.send(paquet);
-        paquet.clear();
+        sf::Packet ID;
         for(int i = 0; i<6; i++)
         {
             if(mainJoueurINT[0] <18)
@@ -282,7 +280,11 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
             }
             mainJoueurINT.erase(mainJoueurINT.begin());
         }
-
+        actualiserEnergies(energiesJoueur);
+        ID.clear();
+        ID << 13;
+        socket.send(ID);
+        ID.clear();
         socket.send(paquet);
         paquet.clear();
         int continuer = 1;
@@ -292,17 +294,17 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
             {
                 for(int i = 0; i< 6; i++)
                 {
-                    if( Pioche[i] < 18)
+                    if( Pioche[i] < 18 && Pioche[i] != -1)
                     {
                         lierCarteEtId(Pioche[i], cartesJoueur[1]);
                     }
+                    Pioche[i] = -1;
                 }
                 Pioche[0] = -1;
                 continuer = 0;
             }
         }
         actualiserPositionCartes(cartesJoueur);
-        actualiserEnergies(energiesJoueur);
         ///recpetionner et ajouter main joueur adversaire
 
 
