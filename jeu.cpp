@@ -5,13 +5,19 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 {
     int numJoueur, actuJoueur;
     sf::TcpSocket socket;
+    bool connect = true;
     if(socket.connect("fournierfamily.ovh", 53000 + port) != sf::Socket::Done)
+    {
+        connect = false;
+    }
+    if(connect == false)
     {
         if(socket.connect("fournierfamily.ovh", 53100 + port)!= sf::Socket::Done)
         {
             std::cout << "erreur de connexion" << std::endl;
             exit(1);
         }
+        connect = true;
     }
     else
     {
