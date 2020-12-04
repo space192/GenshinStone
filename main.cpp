@@ -470,7 +470,7 @@ int main(int argc, char **argv)
                     socket.send(paquet);
                     paquet.clear();
                     paquet << alldecks[cardpage-1].size();
-                    for(int i = 0 ; i < alldecks[cardpage-1].size();i++)
+                    for(size_t i = 0 ; i < alldecks[cardpage-1].size();i++)
                     {
                         paquet << alldecks[cardpage-1][i];
                     }
