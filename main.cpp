@@ -665,6 +665,9 @@ int main(int argc, char **argv)
                         }
                         break;
                     case SDLK_RETURN:
+                        jour=' ' ;
+                        mois=' ';
+                        annee=' ';
                         createName<<dd.str()<<mm.str()<<aaaa.str();
                         cname = createName.str();
                         cmdp = createPassword.str();
@@ -953,7 +956,7 @@ int main(int argc, char **argv)
                     }
                     else if(event.button.x >886 && event.button.x <948 && event.button.y >42 && event.button.y <82)
                     {
-                        std::cout<<"you have refused the friend request";
+                        std::cout<<"you have refused the friend request"<<std::endl;
                     }
                     break;
                 }
@@ -1218,4 +1221,5 @@ bool checkOnline(sf::Packet *paquet, sf::TcpSocket *socket, int LOGIN, std::stri
     {
         return false;
     }
+    return false;
 }
