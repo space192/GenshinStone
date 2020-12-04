@@ -12,15 +12,19 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
     }
     if(connect == false)
     {
-        SDL_Delay(100);
+        SDL_Delay(10000);
         if(socket.connect("fournierfamily.ovh", 53100 + port)!= sf::Socket::Done)
         {
             std::cout << "erreur de connexion" << std::endl;
             exit(1);
+            connect = false;
         }
-        connect = true;
+        else
+        {
+            connect =true;
+        }
     }
-    else
+    if(connect == true)
     {
         std::string name1;
         std::string name2;
@@ -86,6 +90,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         int selecC= -1;
         int placeID= -1;
         bool Bexcla = false;
+        bool messageSent = false;
         std::vector<int> TID1;
         std::vector<int> TID2;
         std::vector<int> Tdegats;
@@ -280,7 +285,6 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
             }
             mainJoueurINT.erase(mainJoueurINT.begin());
         }
-        actualiserEnergies(energiesJoueur);
         ID.clear();
         ID << 13;
         socket.send(ID);
@@ -304,6 +308,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                 continuer = 0;
             }
         }
+        actualiserEnergies(energiesJoueur);
         actualiserPositionCartes(cartesJoueur);
         ///recpetionner et ajouter main joueur adversaire
 
@@ -389,6 +394,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                     socket.send(paquet);
                                     paquet.clear();
                                     message.str(" ");
+                                    messageSent = true;
                                 }
                                 break;
                             case SDLK_BACKSPACE:
@@ -454,6 +460,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                 socket.send(paquet);
                                 paquet.clear();
                                 changeTour = 1;
+                                SDL_Delay(100);
                             }
 
                             break;
@@ -474,7 +481,6 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                     carteSelec = selectionCarte(cartesJoueurTerrain[0],event.button.x,event.button.y);
                                     condDetail=1;
                                     carteDetail = carteSelec;
-
                                 }
                                 else if(event.button.x > 360 && event.button.x < 1450 && event.button.y > 350 && event.button.y < 500)
                                 {
@@ -719,6 +725,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                 socket.send(paquet);
                                 paquet.clear();
                                 message.str(" ");
+                                messageSent = true;
                             }
                             else if(event.key.keysym.sym == SDLK_BACKSPACE)
                             {
@@ -750,7 +757,14 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                 }
                 if(notif == true)
                 {
-                    Bexcla = true;
+                    if(messageSent == false)
+                    {
+                        Bexcla = true;
+                    }
+                    else if(messageSent == true)
+                    {
+                        messageSent = false;
+                    }
                     ajouterMessage(chat, resultatChat);
                     notif = false;
                 }
