@@ -302,12 +302,6 @@ int main(int argc, char **argv)
             case 5:
                 if(load)
                 {
-                if(userA.str().size() == 0)
-                {
-                    img = IMG_LoadTexture(renderer,a);
-                }
-                else
-                {
                     img = IMG_LoadTexture(renderer, ac);
                     paquet.clear();
                     paquet << 3 << LOGIN;
@@ -318,16 +312,22 @@ int main(int argc, char **argv)
                     paquet.clear();
                     socket.receive(paquet);
                     paquet >> nbRequest;
-                    for(int i = 0 ; i < nbRequest ;i++)
+                    for(int i = 1 ; i < nbRequest ;i++)
                     {
                         paquet.clear();
                         socket.receive(paquet);
-                        if(i == 0)
+                        if(i == 1)
                         {
                             paquet >> tempRequest;
                             userA.str(tempRequest);
                         }
                     }
+                if(userA.str().size() == 0)
+                {
+                    img = IMG_LoadTexture(renderer,a);
+                }
+                else
+                {
                     get_text_and_rect(renderer, 600, 45, (char*)userA.str().c_str(), font, &tUserA, &rUserA);
 
                 }
