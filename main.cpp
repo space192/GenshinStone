@@ -6,6 +6,7 @@
 #define main_m "main_menu.png"
 #define d "the_gate.png"
 #define a "friend.png"
+#define ac "friendC.png"
 
 void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck);
 bool checkOnline(sf::Packet *paquet, sf::TcpSocket *socket, int LOGIN, std::string nomJoueur);
@@ -95,9 +96,12 @@ int main(int argc, char **argv)
 
     //Amis
     //On a 5 amis max vraiment pas envie de re ecrire tout mon code visuel
-    std::stringstream user1, user2, user3, user4, user5, userS;
-    SDL_Rect rUser1, rUser2, rUser3, rUser4, rUser5, rUserS;
-    SDL_Texture *tUser1, *tUser2, *tUser3, *tUser4, *tUser5, *tUserS;
+    std::stringstream user1, user2, user3, user4, user5, userS, userA;
+    SDL_Rect rUser1, rUser2, rUser3, rUser4, rUser5, rUserS, rUserA;
+    SDL_Texture *tUser1, *tUser2, *tUser3, *tUser4, *tUser5, *tUserS, *tUserA;
+
+    //Pour l'ami
+    userA<<"bigChungus";
 
     //Mettre ici la partie ou on recupere les noms des gens ou les laisser vide si on a pas d'amis
     //aussi mettre si ils sont online ou pas
@@ -296,7 +300,17 @@ int main(int argc, char **argv)
             case 5:
                 if(load)
                 {
-                img = IMG_LoadTexture(renderer,a);
+                if(userA.str().size() == 0)
+                {
+                    img = IMG_LoadTexture(renderer,a);
+                }
+                else
+                {
+                    img = IMG_LoadTexture(renderer, ac);
+                    get_text_and_rect(renderer, 600, 45, (char*)userA.str().c_str(), font, &tUserA, &rUserA);
+
+                }
+
                 SDL_QueryTexture(img, NULL,NULL,&w,&h);
                 SDL_Rect im; im.x = 0; im.y = 0; im.h = h; im.w = w;
                 get_text_and_rect(renderer, 400, 200, (char*)textbox.str().c_str(), font, &texture5, &rect5);
@@ -353,6 +367,10 @@ int main(int argc, char **argv)
                 /* Use TTF textures. */
                 SDL_RenderCopy(renderer, img, NULL, &im);
                 SDL_RenderCopy(renderer,texture5, NULL, &rect5);
+                if(userA.str().size()!=0)
+                {
+                    SDL_RenderCopy(renderer,tUserA, NULL, &rUserA);
+                }
 
                 SDL_RenderCopy(renderer,tUser1, NULL, &rUser1);
                 SDL_RenderCopy(renderer,tUser2, NULL, &rUser2);
@@ -878,7 +896,8 @@ int main(int argc, char **argv)
                     switch(event.key.keysym.sym)
                     {
                     case SDLK_ESCAPE:
-                        quit = 1;
+                        page = 4;
+                        load = true;
                         break;
                     case SDLK_BACKSPACE:
                         load = true;
@@ -928,16 +947,13 @@ int main(int argc, char **argv)
                     }
                 case SDL_MOUSEBUTTONDOWN:
                     //std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
-                    if(event.button.x >600 && event.button.x <816 && event.button.y >200 && event.button.y <224 && select == false)
+                    if(event.button.x >826 && event.button.x <870 && event.button.y >49 && event.button.y <80)
                     {
-                        //ici mettre le debut du jeu avec serv
-                        std::cout<<"Start";
-                        select = true;
+                        std::cout<<"you have accepted the friend request!"<<std::endl;
                     }
-                    else if(event.button.x <500)
+                    else if(event.button.x >886 && event.button.x <948 && event.button.y >42 && event.button.y <82)
                     {
-                        page = 4;
-                        load = true;
+                        std::cout<<"you have refused the friend request";
                     }
                     break;
                 }
