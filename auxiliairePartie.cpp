@@ -184,7 +184,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     {
         if(energiesJoueur[i].getElem() == 1)
         {
-            energiesJoueur[i].setPosition(0,1080 + cond*25);
+            energiesJoueur[i].setPosition(0,900 - cond*25);
             cond ++;
         }
 
@@ -196,7 +196,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     {
         if(energiesJoueur[i].getElem() == 2)
         {
-            energiesJoueur[i].setPosition(100,1080 - cond*25);
+            energiesJoueur[i].setPosition(100,900 - cond*25);
             cond ++;
         }
 
@@ -208,7 +208,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     {
         if(energiesJoueur[i].getElem() == 3)
         {
-            energiesJoueur[i].setPosition(200,1080 - cond*25);
+            energiesJoueur[i].setPosition(200,900 - cond*25);
             cond ++;
         }
 
@@ -220,7 +220,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
     {
         if(energiesJoueur[i].getElem() == 4)
         {
-            energiesJoueur[i].setPosition(300,1080 - cond*25);
+            energiesJoueur[i].setPosition(300,900 - cond*25);
             cond ++;
         }
 
@@ -955,11 +955,11 @@ void lierEnergiesEtID(int imageID,std::vector<EnergyCards> & energiesJoueur)
     }
     else if(imageID - 17 == 3)
     {
-        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,2));
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,3));
     }
     else if(imageID - 17== 4)
     {
-        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,2));
+        energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,4));
     }
 }
 
