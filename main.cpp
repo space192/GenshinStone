@@ -665,10 +665,9 @@ int main(int argc, char **argv)
                         }
                         break;
                     case SDLK_RETURN:
-                        jour=' ' ;
-                        mois=' ';
-                        annee=' ';
-                        createName<<dd.str()<<mm.str()<<aaaa.str();
+                        dd >> jour;
+                        mm >> mois;
+                        aaaa >> annee;
                         cname = createName.str();
                         cmdp = createPassword.str();
                         cdate = createDate.str();
