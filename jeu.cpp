@@ -3,10 +3,6 @@
 
 void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 {
-    for(int i= 0; i<mainJoueurINT.size(); i++)
-    {
-        std::cout << mainJoueurINT[i] << std::endl;
-    }
 
 
     int numJoueur, actuJoueur;
@@ -333,31 +329,32 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                     if(changeTour == 1)
                     {
                         affTour = 1;
-                        paquet.clear();
-                        paquet << 12;
-                        socket.send(paquet);
-                        paquet.clear();
-
-                        for(int i = 0; i<3; i++)
+                        if(mainJoueurINT.size() >= 3)
                         {
-                            if(mainJoueurINT[0] <18)
+                            paquet.clear();
+                            paquet << 12;
+                            socket.send(paquet);
+                            paquet.clear();
+                            for(int i = 0; i<3; i++)
                             {
-                                paquet << mainJoueurINT[0];
-                                lierCarteEtId(mainJoueurINT[0],cartesJoueur[0]);
-                            }
-                            else
-                            {
-                                paquet << mainJoueurINT[0];
-                                lierEnergiesEtID(mainJoueurINT[0],energiesJoueur);
-                            }
-                            mainJoueurINT.erase(mainJoueurINT.begin());
+                                if(mainJoueurINT[0] <18)
+                                {
+                                    paquet << mainJoueurINT[0];
+                                    lierCarteEtId(mainJoueurINT[0],cartesJoueur[0]);
+                                }
+                                else
+                                {
+                                    paquet << mainJoueurINT[0];
+                                    lierEnergiesEtID(mainJoueurINT[0],energiesJoueur);
+                                }
+                                mainJoueurINT.erase(mainJoueurINT.begin());
 
+                            }
+                            socket.send(paquet);
+                            paquet.clear();
+                            actualiserPositionCartes(cartesJoueur);
+                            actualiserEnergies(energiesJoueur);
                         }
-                        socket.send(paquet);
-                        paquet.clear();
-                        actualiserPositionCartes(cartesJoueur);
-                        actualiserEnergies(energiesJoueur);
-
                         changeTour = 0;
                     }
 
