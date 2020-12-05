@@ -385,12 +385,12 @@ int main(int argc, char **argv)
 
 
 
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+                std::cout<<"friend load";
                 SDL_RenderClear(renderer);
                 /* Use TTF textures. */
                 SDL_RenderCopy(renderer, img, NULL, &im);
                 SDL_RenderCopy(renderer,texture5, NULL, &rect5);
-                if(userA.str().size()!=0)
+                if(userA.str().size() != 1)
                 {
                     SDL_RenderCopy(renderer,tUserA, NULL, &rUserA);
                 }
@@ -606,11 +606,15 @@ int main(int argc, char **argv)
                     if(event.button.x >359 && event.button.x <735 && event.button.y >245 && event.button.y <298)
                     {
                         state = 0;
+                        test.str(" ");
+                        load = true;
                     }
 
                     else if(event.button.x >359 && event.button.x <735 && event.button.y >349 && event.button.y <399)
                     {
                         state = 1;
+                        test2.str(" ");
+                        load = true;
                     }
                     else if(event.button.x >370 && event.button.x <503 && event.button.y >434 && event.button.y <457)
                     {
@@ -744,23 +748,29 @@ int main(int argc, char **argv)
                     if(event.button.x >357 && event.button.x <736 && event.button.y >236 && event.button.y <283)
                     {
                         state = 0;
+                        createName.str(" ");
+
                     }
                     else if(event.button.x >357 && event.button.x <736 && event.button.y >310 && event.button.y <360)
                     {
                         state = 1;
+                        createPassword.str(" ");
                     }
 
                     else if(event.button.x >405 && event.button.x <473 && event.button.y >389 && event.button.y <440)
                     {
                         state = 2;
+                        dd.str(" ");
                     }
                     else if(event.button.x >516 && event.button.x <583 && event.button.y >389 && event.button.y <440)
                     {
                         state = 3;
+                        mm.str(" ");
                     }
                     else if(event.button.x >628 && event.button.x <730 && event.button.y >389 && event.button.y <440)
                     {
                         state = 4;
+                        aaaa.str(" ");
                     }
                     else if(event.button.x >480 && event.button.x <620 && event.button.y >479 && event.button.y <502)
                     {
@@ -785,6 +795,7 @@ int main(int argc, char **argv)
                             load = true;
                         }
                     }
+                    load = true;
                     break;
                 }
                 break;
@@ -922,7 +933,10 @@ int main(int argc, char **argv)
                     {
                     case SDLK_ESCAPE:
                         page = 4;
+                        userS.str(" ");
                         load = true;
+                        textbox.str(" ");
+                        textbox << "Search for a friend";
                         break;
                     case SDLK_BACKSPACE:
                         load = true;
@@ -934,6 +948,7 @@ int main(int argc, char **argv)
                     case SDLK_RETURN:
                         if(select == true)
                         {
+                            userS.str(" ");
                             searchfriend = textbox.str();
                             paquet.clear();
                             paquet << 3 << LOGIN;
@@ -959,19 +974,19 @@ int main(int argc, char **argv)
                             load = true;
                         }
                         break;
-                    }
-                    break;
+                    }break;
                     case SDL_TEXTINPUT:
-                    {
                         load = true;
                         if(select == true)
                         {
                             textbox << event.text.text;
                         }
                         break;
-                    }
+
+                    break;
                 case SDL_MOUSEBUTTONDOWN:
                     //std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
+
                     if(event.button.x >826 && event.button.x <870 && event.button.y >49 && event.button.y <80)
                     {
                         std::cout<<"you have accepted the friend request!"<<std::endl;
@@ -979,6 +994,13 @@ int main(int argc, char **argv)
                     else if(event.button.x >886 && event.button.x <948 && event.button.y >42 && event.button.y <82)
                     {
                         std::cout<<"you have refused the friend request"<<std::endl;
+                    }
+                    else if(event.button.x >400 && event.button.x <600 && event.button.y >200 && event.button.y <224)
+                    {
+
+                        select = true;
+                        load = true;
+                        textbox.str(" ");
                     }
                     break;
                 }
