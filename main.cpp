@@ -302,7 +302,7 @@ int main(int argc, char **argv)
             case 5:
                 if(load)
                 {
-                    img = IMG_LoadTexture(renderer, ac);
+
                     paquet.clear();
                     paquet << 3 << LOGIN;
                     socket.send(paquet);
@@ -322,12 +322,14 @@ int main(int argc, char **argv)
                             userA.str(tempRequest);
                         }
                     }
-                if(userA.str().size() == 0)
+                std::cout<<userA.str().size()<<std::endl;
+                if(userA.str().size() == 1)
                 {
                     img = IMG_LoadTexture(renderer,a);
                 }
                 else
                 {
+                    img = IMG_LoadTexture(renderer, ac);
                     get_text_and_rect(renderer, 600, 45, (char*)userA.str().c_str(), font, &tUserA, &rUserA);
 
                 }
