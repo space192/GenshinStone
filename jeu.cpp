@@ -345,33 +345,36 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                         }
                         else if(mainJoueurINT.size() < 3)
                         {
-                            paquet.clear();
-                            paquet << 12;
-                            socket.send(paquet);
-                            paquet.clear();
-                            tempTailleMain = mainJoueurINT.size();
-                            for(size_t i = 0 ; i < mainJoueurINT.size(); i++)
+                            if(mainJoueurINT.size() != 0)
                             {
-                                if(mainJoueurINT[i] < 18)
+                                paquet.clear();
+                                paquet << 12;
+                                socket.send(paquet);
+                                paquet.clear();
+                                tempTailleMain = mainJoueurINT.size();
+                                for(size_t i = 0 ; i < mainJoueurINT.size(); i++)
                                 {
-                                    paquet << mainJoueurINT[i];
-                                    lierCarteEtId(mainJoueurINT[i],cartesJoueur[0]);
+                                    if(mainJoueurINT[i] < 18)
+                                    {
+                                        paquet << mainJoueurINT[i];
+                                        lierCarteEtId(mainJoueurINT[i],cartesJoueur[0]);
+                                    }
+                                    else
+                                    {
+                                        paquet << mainJoueurINT[i];
+                                        lierEnergiesEtID(mainJoueurINT[i],energiesJoueur);
+                                    }
                                 }
-                                else
+                                if(tempTailleMain != 3)
                                 {
-                                    paquet << mainJoueurINT[i];
-                                    lierEnergiesEtID(mainJoueurINT[i],energiesJoueur);
+                                    paquet << -1;
                                 }
+                                socket.send(paquet);
+                                paquet.clear();
+                                actualiserPositionCartes(cartesJoueur);
+                                actualiserEnergies(energiesJoueur);
+                                mainJoueurINT.clear();
                             }
-                            if(tempTailleMain != 3)
-                            {
-                                paquet << -1;
-                            }
-                            socket.send(paquet);
-                            paquet.clear();
-                            actualiserPositionCartes(cartesJoueur);
-                            actualiserEnergies(energiesJoueur);
-                            mainJoueurINT.clear();
                         }
                         changeTour = 0;
                     }
