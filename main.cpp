@@ -944,7 +944,16 @@ int main(int argc, char **argv)
                         load = true;
                         if(select == true)
                         {
-                            textbox.str(" ");
+                            tempName = textbox.str();
+                            if(tempName.size() != 1)
+                            {
+                                tempName.pop_back();
+                                textbox.str(tempName);
+                            }
+                            else
+                            {
+                                textbox.str(" ");
+                            }
                         }
                         break;
                     case SDLK_RETURN:
