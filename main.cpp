@@ -72,6 +72,7 @@ int main(int argc, char **argv)
 
     //Deck
     bool open = false, reset = true;
+    int recu;
     SDL_Texture *img = NULL;
     SDL_Surface *black = IMG_Load("deck.png");
     SDL_Surface *black1 = IMG_Load("deck.png");
@@ -312,17 +313,17 @@ int main(int argc, char **argv)
                     paquet.clear();
                     socket.receive(paquet);
                     paquet >> nbRequest;
-                    for(int i = 1 ; i < nbRequest ;i++)
+                    for(int i = 0 ; i < nbRequest ;i++)
                     {
                         paquet.clear();
                         socket.receive(paquet);
-                        if(i == 1)
+                        if(i == 0)
                         {
                             paquet >> tempRequest;
                             userA.str(tempRequest);
                         }
                     }
-                std::cout<<userA.str().size()<<std::endl;
+                std::cout<<userA.str() <<std::endl;
                 if(userA.str().size() == 1)
                 {
                     img = IMG_LoadTexture(renderer,a);
@@ -989,11 +990,52 @@ int main(int argc, char **argv)
 
                     if(event.button.x >826 && event.button.x <870 && event.button.y >49 && event.button.y <80)
                     {
-                        std::cout<<"you have accepted the friend request!"<<std::endl;
+                        paquet.clear();
+                        paquet << 3 << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        paquet << 4;
+                        socket.send(paquet);
+                        paquet.clear();
+                        paquet << userA.str();
+                        paquet << 1;
+                        socket.send(paquet);
+                        paquet.clear();
+                        socket.receive(paquet);
+                        paquet >> recu;
+                        if(recu ==1)
+                        {
+                            std::cout<<"you have accepted the friend request!"<<std::endl;
+                        }
+                        else
+                        {
+                            std::cout << "error" << std::endl;
+                        }
+
                     }
                     else if(event.button.x >886 && event.button.x <948 && event.button.y >42 && event.button.y <82)
                     {
-                        std::cout<<"you have refused the friend request"<<std::endl;
+                        paquet.clear();
+                        paquet << 3 << LOGIN;
+                        socket.send(paquet);
+                        paquet.clear();
+                        paquet << 4;
+                        socket.send(paquet);
+                        paquet.clear();
+                        paquet << userA.str();
+                        paquet << 0;
+                        socket.send(paquet);
+                        paquet.clear();
+                        socket.receive(paquet);
+                        paquet >> recu;
+                        if(recu == 0)
+                        {
+                            std::cout<<"you have refused the friend request"<<std::endl;
+                        }
+                        else
+                        {
+                            std::cout << "error" << std::endl;
+                        }
                     }
                     else if(event.button.x >400 && event.button.x <600 && event.button.y >200 && event.button.y <224)
                     {
