@@ -120,17 +120,6 @@ int main(int argc, char **argv)
     SDL_Color online = {0,255,0,0}, offline = {255,0,0,0};
     //SDL_Color onlineC;
     //Ici pour verifier si les amis sont co ou pas
-    /*
-    if(online)
-    {
-        onlineC = {0,255,0,0};
-    }
-    else
-    {
-        onlineC = {255,0,0,0}
-
-    }
-    */
 
 
 
@@ -183,7 +172,6 @@ int main(int argc, char **argv)
     sf::Socket::Status status = socket.connect("fournierfamily.ovh", 53000);
     if(status != sf::Socket::Done)
     {
-        std::cout << "erreur lors de la connexion" << std::endl;
         exit(EXIT_FAILURE);
     }
     if (font == NULL)
@@ -386,7 +374,6 @@ int main(int argc, char **argv)
 
 
 
-                std::cout<<"friend load";
                 SDL_RenderClear(renderer);
                 /* Use TTF textures. */
                 SDL_RenderCopy(renderer, img, NULL, &im);
@@ -478,7 +465,6 @@ int main(int argc, char **argv)
                 }
                 if(cardnmb==25 )
                 {
-                    std::cout<<"test";
                     open = false;
                     page = 4;
                     SDL_DestroyWindow(deckWindow);
@@ -602,7 +588,6 @@ int main(int argc, char **argv)
 
                 case SDL_MOUSEBUTTONDOWN:
 
-                    std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
 
                     if(event.button.x >359 && event.button.x <735 && event.button.y >245 && event.button.y <298)
                     {
@@ -744,7 +729,6 @@ int main(int argc, char **argv)
                     }
                     break;
                 case SDL_MOUSEBUTTONDOWN:
-                    std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
 
                     if(event.button.x >357 && event.button.x <736 && event.button.y >236 && event.button.y <283)
                     {
@@ -828,7 +812,6 @@ int main(int argc, char **argv)
                     break;
                 case SDL_MOUSEBUTTONDOWN:
                     //juste pour voir ou est quoi
-                    //std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
 
                     if(event.button.x >469 && event.button.x <624 && event.button.y >177 && event.button.y <191)
                     {
@@ -859,21 +842,16 @@ int main(int argc, char **argv)
                     }
                     else if(event.button.x >448 && event.button.x <647 && event.button.y >220 && event.button.y <240)
                     {
-                        //aller au deck
-                        std::cout<<"Deck";
                         page = 7;
                         load = true;
                     }
                     else if(event.button.x >471 && event.button.x <620 && event.button.y >309 && event.button.y <328)
                     {
-                        //quitter jeu rien a changer
-                        std::cout<<"quitter";
                         quit = 1;
                     }
                     if(event.button.x >448 && event.button.x <638 && event.button.y >265 && event.button.y <286)
                     {
 
-                        std::cout<<"amies";
                         page = 5;
                         load = true;
                         paquet.clear();
@@ -986,7 +964,6 @@ int main(int argc, char **argv)
 
                     break;
                 case SDL_MOUSEBUTTONDOWN:
-                    //std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
 
                     if(event.button.x >826 && event.button.x <870 && event.button.y >49 && event.button.y <80)
                     {
@@ -1003,14 +980,9 @@ int main(int argc, char **argv)
                         paquet.clear();
                         socket.receive(paquet);
                         paquet >> recu;
-                        if(recu ==1)
-                        {
-                            std::cout<<"you have accepted the friend request!"<<std::endl;
-                        }
-                        else
-                        {
-                            std::cout << "error" << std::endl;
-                        }
+                        userA.str(" ");
+                        load = true;
+
 
                     }
                     else if(event.button.x >886 && event.button.x <948 && event.button.y >42 && event.button.y <82)
@@ -1028,14 +1000,7 @@ int main(int argc, char **argv)
                         paquet.clear();
                         socket.receive(paquet);
                         paquet >> recu;
-                        if(recu == 0)
-                        {
-                            std::cout<<"you have refused the friend request"<<std::endl;
-                        }
-                        else
-                        {
-                            std::cout << "error" << std::endl;
-                        }
+
                     }
                     else if(event.button.x >400 && event.button.x <600 && event.button.y >200 && event.button.y <224)
                     {
@@ -1063,7 +1028,7 @@ int main(int argc, char **argv)
                     if(event.button.x >400 && event.button.x <590 && event.button.y >300 && event.button.y <324 && deck0S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
-                        std::cout<<"Start";
+
                         paquet.clear();
                         action = 1;
                         paquet << action << LOGIN;
@@ -1080,7 +1045,7 @@ int main(int argc, char **argv)
                     else if((event.button.x >400 && event.button.x <590 && event.button.y >330 && event.button.y <354) || deck1S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
-                        std::cout<<"Start";
+
                         paquet.clear();
                         action = 1;
                         paquet << action << LOGIN;
@@ -1097,7 +1062,7 @@ int main(int argc, char **argv)
                     else if(event.button.x >400 && event.button.x <590 && event.button.y >362 && event.button.y <378 && deck2S == 1)
                     {
                         /*alldecks[0] dois etre envoyer au serv*/
-                        std::cout<<"Start";
+
                         paquet.clear();
                         action = 1;
                         paquet << action << LOGIN;
@@ -1113,8 +1078,6 @@ int main(int argc, char **argv)
                     }
                     else if(event.button.x >400 && event.button.x <590 && event.button.y >389 && event.button.y <407 && deck3S == 1)
                     {
-                        /*alldecks[0] dois etre envoyer au serv*/
-                        std::cout<<"Start";
                         paquet.clear();
                         action = 1;
                         paquet << action << LOGIN;
@@ -1150,12 +1113,10 @@ int main(int argc, char **argv)
                     break;
                 case SDL_MOUSEBUTTONDOWN:
                     carteSelec = selectionCarte(toutesCartes, event.button.x, event.button.y);
-                    std::cout<<event.button.x<<" "<<event.button.y<<std::endl;
                     if(event.button.x >1098 && event.button.x <1198 && event.button.y >1026 && event.button.y <1049 && cardpage<4)
                     {
 
                         cardpage++;
-                        std::cout<<cardpage<<std::endl;
                         switch(cardpage)
                         {
                         case 2:
@@ -1202,7 +1163,6 @@ int main(int argc, char **argv)
                             deckJoueur.push_back(toutesCartes[carteSelec]->getImage());
                             selected[carteSelec]++;
                             position = toutesCartes[carteSelec]->getPosition();
-                            std::cout<<"Cartes " << carteSelec <<" was added "<<std::endl;
                             cardnmb++;
                         }
                         else
@@ -1212,8 +1172,6 @@ int main(int argc, char **argv)
                             deckJoueur.erase(deckJoueur.begin()+cardnmb);
                             selected[carteSelec] = 0;
 
-
-                            std::cout<<"Cartes " <<carteSelec << " was deleted "<<toutesCartes[carteSelec]->getImage()<<std::endl;
                         }
                     }
 
@@ -1271,7 +1229,6 @@ void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck)
         deck->push_back(temp);
     }
 
-    std::cout << deck->size();
 }
 
 
