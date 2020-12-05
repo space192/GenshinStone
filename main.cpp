@@ -196,6 +196,7 @@ int main(int argc, char **argv)
     std::string cname;
     std::string cmdp;
     std::string cdate;
+    std::string tempName;
     int state = 0;
     quit = 0;
     int page = 2;
@@ -533,11 +534,31 @@ int main(int argc, char **argv)
                         load = true;
                         if(state == 0)
                         {
-                            test.str(" ");
+                            tempName = test.str();
+                            if(tempName.size() != 1)
+                            {
+                                tempName.pop_back();
+                                test.str(tempName);
+                                test.seekp(tempName.size());
+                            }
+                            else
+                            {
+                                test.str(" ");
+                            }
                         }
                         else
                         {
-                            test2.str(" ");
+                            tempName = test2.str();
+                            if(tempName.size() != 1)
+                            {
+                                tempName.pop_back();
+                                test2.str(tempName);
+                                test2.seekp(tempName.size());
+                            }
+                            else
+                            {
+                                test2.str(" ");
+                            }
                         }
                         break;
                     case SDLK_TAB:
