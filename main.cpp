@@ -311,7 +311,6 @@ int main(int argc, char **argv)
                             userA.str(tempRequest);
                         }
                     }
-                std::cout<<userA.str() <<std::endl;
                 if(userA.str().size() == 1)
                 {
                     img = IMG_LoadTexture(renderer,a);
