@@ -13,19 +13,6 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         connect = false;
         socket.disconnect();
     }
-    if(connect == false)
-    {
-        SDL_Delay(10000);
-        if(socket.connect("fournierfamily.ovh", 53100 + port)!= sf::Socket::Done)
-        {
-            std::cout << "erreur de connexion" << std::endl;
-            connect = false;
-        }
-        else
-        {
-            connect =true;
-        }
-    }
     if(connect == true)
     {
         std::string name1;
@@ -91,6 +78,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         int nbrCarte= -1;
         int selecC= -1;
         int placeID= -1;
+        int tempTailleMain;
         bool Bexcla = false;
         bool messageSent = false;
         std::vector<int> TID1;
@@ -329,7 +317,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                     if(changeTour == 1)
                     {
                         affTour = 1;
-                        if(mainJoueurINT.size() >= 3)
+                        if(mainJoueurINT.size() > 3)
                         {
                             paquet.clear();
                             paquet << 12;
@@ -354,6 +342,36 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                             paquet.clear();
                             actualiserPositionCartes(cartesJoueur);
                             actualiserEnergies(energiesJoueur);
+                        }
+                        else if(mainJoueurINT.size() < 3)
+                        {
+                            paquet.clear();
+                            paquet << 12;
+                            socket.send(paquet);
+                            paquet.clear();
+                            tempTailleMain = mainJoueurINT.size();
+                            for(size_t i = 0 ; i < mainJoueurINT.size(); i++)
+                            {
+                                if(mainJoueurINT[i] < 18)
+                                {
+                                    paquet << mainJoueurINT[i];
+                                    lierCarteEtId(mainJoueurINT[i],cartesJoueur[0]);
+                                }
+                                else
+                                {
+                                    paquet << mainJoueurINT[i];
+                                    lierEnergiesEtID(mainJoueurINT[i],energiesJoueur);
+                                }
+                            }
+                            if(tempTailleMain != 3)
+                            {
+                                paquet << -1;
+                            }
+                            socket.send(paquet);
+                            paquet.clear();
+                            actualiserPositionCartes(cartesJoueur);
+                            actualiserEnergies(energiesJoueur);
+                            mainJoueurINT.clear();
                         }
                         changeTour = 0;
                     }
@@ -684,7 +702,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                     {
                         for(int i = 0; i< 3; i++)
                         {
-                            if( Pioche[i] < 18)
+                            if( Pioche[i] < 18 && Pioche[i] != -1)
                             {
                                 lierCarteEtId(Pioche[i], cartesJoueur[1]);
                             }
