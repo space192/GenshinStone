@@ -210,13 +210,13 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         TEMP3.push_back( new CharacterCards("Carte2","feu",10,1,1,897,0,10,30,2));*/
 
 
-        std::vector<EnergyCards> energiesJoueur;
+        std::vector<EnergyCards> energiesJoueur; //On initialise avec quatre énergies
         energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,1));
         energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,2));
         energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,3));
         energiesJoueur.push_back( EnergyCards("Carte1",3,10,1,1,797,0,4));
 
-        std::vector< std::vector<Cartes*> > cimetiere;
+        std::vector< std::vector<Cartes*> > cimetiere;// cimetière vide
         std::vector<Cartes*> TEMP5;
         std::vector<Cartes*> TEMP6;
 
@@ -262,7 +262,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
         {
             if(mainJoueurINT[0] <18)
             {
-                paquet << mainJoueurINT[0];
+                paquet << mainJoueurINT[0];//on rajoute à la main les cartes puis on les envoie au serveur
                 lierCarteEtId(mainJoueurINT[0],cartesJoueur[0]);
             }
             else
@@ -287,7 +287,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                 {
                     if( Pioche[i] < 18 && Pioche[i] != -1)
                     {
-                        lierCarteEtId(Pioche[i], cartesJoueur[1]);
+                        lierCarteEtId(Pioche[i], cartesJoueur[1]);// si on est joueur inactif je récupère des informations
                     }
                     Pioche[i] = -1;
                 }
@@ -308,7 +308,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 
 
                 SDL_BlitSurface(fond, NULL, windowSurface, NULL);
-                actualiserImage(cartesJoueur[0],cartesJoueurTerrain,imageCache,windowSurface,texte,police);
+                actualiserImage(cartesJoueur[0],cartesJoueurTerrain,imageCache,windowSurface,texte,police);//affiche les cartes
                 afficherEnergies(energiesJoueur,imageCacheE,windowSurface);
                 if(numJoueur == actuJoueur) //verification de ton tour
                 {
@@ -342,7 +342,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                             actualiserPositionCartes(cartesJoueur);
                             actualiserEnergies(energiesJoueur);
                         }
-                        else if(mainJoueurINT.size() < 3)
+                        else if(mainJoueurINT.size() < 3)//Cas ou il rest moins de 3 cartes dans le deck
                         {
                             if(mainJoueurINT.size() != 0)
                             {
@@ -433,8 +433,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                             break;
                         case SDL_MOUSEBUTTONDOWN:
 
-                            //std::cout << "Coordonnes x :" << event.button.x << std::endl;
-                            //std::cout << "Coordonnes y :" << event.button.y << std::endl;
+
 
                             if((event.button.x > 360 && event.button.x < 1549 && event.button.y > 990 && event.button.y < 1080))
                             {
@@ -456,7 +455,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                             }
                             else if(event.button.x > 1817 && event.button.x < 1914 && event.button.y > 994 && event.button.y < 1072)
                             {
-                                conditionSouris = 4;
+                                conditionSouris = 4;// cas ou on veut accéder au chat
                                 Bexcla =  false;
                             }
                             else
@@ -489,13 +488,13 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 
                             if(conditionSouris == 1)
                             {
-                                cartesJoueur[0][carteSelec]->setPosition(event.motion.x,event.motion.y);
+                                cartesJoueur[0][carteSelec]->setPosition(event.motion.x,event.motion.y);//permet de draque la carte au niveau de la souris
                             }
                             else if(conditionSouris == 3)
                             {
-                                cartesJoueurTerrain[0][carteSelec]->setPosition(event.motion.x,event.motion.y);
+                                cartesJoueurTerrain[0][carteSelec]->setPosition(event.motion.x,event.motion.y);//permet de draque la carte au niveau de la souris
                             }
-                            else if(conditionSouris == 0)
+                            else if(conditionSouris == 0)//permet d'agrandir les cartes pour la lecture des details
                             {
                                 if(event.button.x > 322 && event.button.x < 1549 && event.button.y > 500 && event.button.y < 679)
                                 {
@@ -547,7 +546,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                             }
                             else if((event.button.x > 360 && event.button.x < 1450 && event.button.y > 500 && event.button.y < 680 )&&(conditionSouris == 1)&&(cartesJoueur[0][carteSelec]->getType()==2))
                             {
-                                actionTrainer(carteSelec,cartesJoueurTerrain,cartesJoueur,energiesJoueur,vieJoueur, &socket);
+                                actionTrainer(carteSelec,cartesJoueurTerrain,cartesJoueur,energiesJoueur,vieJoueur, &socket);//actionne la carte Trainer
                                 cartesJoueur[0].erase(cartesJoueur[0].begin() + carteSelec);
                                 actualiserPositionCartes(cartesJoueur);
                                 paquet.clear();
@@ -637,7 +636,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                     attaqueActive = cartesJoueurTerrain[0][carteDetail]->getAttaque(1);
                                 }
 
-                                if((testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain,1) == 1 ))
+                                if((testSiAttaquePossible(attaqueActive,energiesJoueur,cartesJoueurTerrain,1) == 1 ))//attaue d'une carte vers le joueur adverses
                                 {
                                     vieJoueur[1] -= attaqueActive.degat;
                                     paquet.clear();
@@ -664,7 +663,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 
 
                             carteSelec = -1;
-                            break;
+                            break; //permet de rentrer le contenu d'un message
                         case SDL_TEXTINPUT:
 
                             if(conditionSouris == 4)

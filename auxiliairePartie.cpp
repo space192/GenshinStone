@@ -4,7 +4,7 @@ int old = -1;
 int newV = -1;
 
 
-int selectionCarte(std::vector<Cartes*> & cartesJoueur, int x, int y)
+int selectionCarte(std::vector<Cartes*> & cartesJoueur, int x, int y)//permet de selectionner une carte en fonction de sa position
 {
     SDL_Rect position;
     int resultat = -1;
@@ -20,7 +20,7 @@ int selectionCarte(std::vector<Cartes*> & cartesJoueur, int x, int y)
     return resultat;
 }
 
-void placerCarte(std::vector<Cartes*> & cartesJoueur,std::vector<Cartes*> & cartesJoueurTerrain,int carteSelec)
+void placerCarte(std::vector<Cartes*> & cartesJoueur,std::vector<Cartes*> & cartesJoueurTerrain,int carteSelec)//ajouter une carte au terrain
 {
     cartesJoueurTerrain.push_back(cartesJoueur[carteSelec]);
     cartesJoueur.erase(cartesJoueur.begin() + carteSelec);
@@ -37,7 +37,7 @@ void actualiserImage(std::vector<Cartes*> & cartesJoueur,std::vector< std::vecto
 
 
 
-    for(size_t i = 0; i< cartesJoueur.size(); i++ )
+    for(size_t i = 0; i< cartesJoueur.size(); i++ )//affiche les cartes joueurs
     {
         position = cartesJoueur[i]->getPosition();
         SDL_BlitSurface(imageCache[cartesJoueur[i]->getImage()], NULL, windowSurface, &position);
@@ -51,7 +51,7 @@ void actualiserImage(std::vector<Cartes*> & cartesJoueur,std::vector< std::vecto
         }
     }
 
-    for(size_t i = 0; i< cartesJoueurTerrain[0].size(); i++ )
+    for(size_t i = 0; i< cartesJoueurTerrain[0].size(); i++ )//affiche les cartes sur le terrain
     {
         position = cartesJoueurTerrain[0][i]->getPosition();
 
@@ -63,7 +63,7 @@ void actualiserImage(std::vector<Cartes*> & cartesJoueur,std::vector< std::vecto
         SDL_FreeSurface(texte);
     }
 
-    for(size_t i = 0; i< cartesJoueurTerrain[1].size(); i++ )
+    for(size_t i = 0; i< cartesJoueurTerrain[1].size(); i++ )//affiches les cartes sur le terrain adverses
     {
         position = cartesJoueurTerrain[1][i]->getPosition();
         SDL_BlitSurface(imageCache[cartesJoueurTerrain[1][i]->getImage()], NULL, windowSurface, &position);
@@ -77,7 +77,7 @@ void actualiserImage(std::vector<Cartes*> & cartesJoueur,std::vector< std::vecto
     TTF_CloseFont(police);
 }
 
-void actualiserPositionCartes(std::vector< std::vector<Cartes*> > & cartesJoueur)
+void actualiserPositionCartes(std::vector< std::vector<Cartes*> > & cartesJoueur)//defini les positions des cartes de la main du joueur
 {
     for(size_t i = 0; i < cartesJoueur[0].size(); i++)
     {
@@ -86,7 +86,7 @@ void actualiserPositionCartes(std::vector< std::vector<Cartes*> > & cartesJoueur
     }
 }
 
-void actualiserPositionCartesT(std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain)
+void actualiserPositionCartesT(std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain)//defini la positio des cartes sur le terrain
 {
     for(size_t i = 0; i < cartesJoueurTerrain[0].size(); i++)
     {
@@ -176,7 +176,7 @@ void afficherDetails(int & condDetail, int & carteDetail,std::vector< std::vecto
 }
 
 
-void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
+void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)// defini la position des cartes energies
 {
     int cond = 0;
 
@@ -230,7 +230,7 @@ void actualiserEnergies(std::vector<EnergyCards> & energiesJoueur)
 
 }
 
-void afficherEnergies(std::vector<EnergyCards> & energiesJoueur,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface)
+void afficherEnergies(std::vector<EnergyCards> & energiesJoueur,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface)// affiche les cartes energies
 {
     SDL_Rect position;
 
@@ -320,7 +320,7 @@ int testSiAttaquePossible(Attaque attaqueActive,std::vector<EnergyCards> & energ
 
 }
 
-void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain, int vieJoueur[], std::vector<int> &TID1, std::vector<int> &TID2, std::vector<int> &Tdegats)
+void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vector<Cartes*> >  & cartesJoueurTerrain, int vieJoueur[], std::vector<int> &TID1, std::vector<int> &TID2, std::vector<int> &Tdegats)//permet d'infiliger des degats après les avoir recu coté client
 {
     int temp;
     if(ID2 != -1)
@@ -375,7 +375,7 @@ void actualiserDegats(int & ID1, int &ID2, int & degats, std::vector< std::vecto
     }
 }
 
-void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,int carteAdverse,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface)
+void afficherCartesAdverses(std::vector< std::vector<Cartes*> >  & cartesJoueur,int carteAdverse,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface)//affiche les cartes coté adversaires
 {
 
     SDL_Rect position;
