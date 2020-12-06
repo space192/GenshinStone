@@ -1,4 +1,5 @@
 #include "prototypes.h"
+//Permet de print toutes les cartes avec une bonne position dans le gestionnaire de deck
 void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Surface*> & imageCache, SDL_Surface  *windowSurface,std::vector<int> selected)
 {
     SDL_Rect position, position2, position3;
@@ -45,6 +46,7 @@ void actualiserImageDeck(std::vector<Cartes*> & cartesJoueur,std::vector<SDL_Sur
     }
 }
 
+//Init de toutes les images de cartes
 void initDeckCartes(std::vector<SDL_Surface*> &imageCache)
 {
     imageCache.push_back(IMG_Load("Cartes/VentiP.png"));
@@ -91,6 +93,7 @@ void initDeckCartes(std::vector<SDL_Surface*> &imageCache)
         imageCache.push_back(IMG_Load("Cartes/potionG.png"));
 }
 
+//Permet de choisir les coordonee des cartes dans le gestionnaire de deck
 void actualiserCarteDeck(std::vector<Cartes*>  &cartesPioche)
 {
     int y = 200, x = 0;

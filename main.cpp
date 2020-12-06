@@ -143,7 +143,7 @@ int main(int argc, char **argv)
 
 
 
-
+    //Creation des texture et de la page pour les menus
     SDL_Event event;
     SDL_Rect rect1, rect2, rect3, rect4, rect5, position;
 
@@ -215,10 +215,13 @@ int main(int argc, char **argv)
         }
         while (SDL_PollEvent(&event) == 1)
         {
-
+            //le code est diviser en 2 swithc principaux le premier pour les graphiques et le second pour les user inputs
             switch(page)
             {
+            //Page d'attente
             case 1:
+                //load permet de ne pas faire bruler le cpu
+                //En effet la surface ne ce render que quand necessaire
                 if(load)
                 {
                     SDL_BlitSurface(q, NULL, windowSurface, NULL);
@@ -227,7 +230,7 @@ int main(int argc, char **argv)
                 }
 
                 break;
-
+            //page de login
             case 2:
 
                 if(load)
@@ -252,6 +255,7 @@ int main(int argc, char **argv)
                     load = false;
                 }
                 break;
+            //page de creation de compte
             case 3:
                 if(load)
                 {
@@ -282,6 +286,7 @@ int main(int argc, char **argv)
                     load = false;
                 }
                 break;
+            //graphique du menu principale
             case 4:
                 if(load)
                 {
@@ -301,6 +306,7 @@ int main(int argc, char **argv)
                     load = false;
                 }
                 break;
+            //page d'ami
             case 5:
                 if(load)
                 {
@@ -324,6 +330,7 @@ int main(int argc, char **argv)
                             userA.str(tempRequest);
                         }
                     }
+                    //le fond sera different si il a une demande d'ami ou non
                     if(userA.str().size() == 1)
                     {
                         img = IMG_LoadTexture(renderer,a);
@@ -410,6 +417,7 @@ int main(int argc, char **argv)
                     load = false;
                 }
                 break;
+            //page de choix des decks
             case 6:
                 if(load)
                 {
@@ -466,6 +474,7 @@ int main(int argc, char **argv)
                     load = false;
                 }
                 break;
+            //page de creation et modification des decks
             case 7:
                 if(!open)
                 {
@@ -828,7 +837,7 @@ int main(int argc, char **argv)
                     break;
                 }
                 break;
-
+            //page du menu
             case 4:
                 switch(event.type)
                 {
@@ -948,6 +957,7 @@ int main(int argc, char **argv)
 
                 }
                 break;
+            //page d'ami
             case 5:
                 switch(event.type)
                 {
@@ -1066,6 +1076,7 @@ int main(int argc, char **argv)
                     break;
                 }
                 break;
+            //page de choix de deck
             case 6:
                 switch(event.type)
                 {
@@ -1148,6 +1159,7 @@ int main(int argc, char **argv)
                     break;
                 }
                 break;
+            //page de gestion des decks
             case 7:
                 switch(event.type)
                 {
@@ -1239,6 +1251,7 @@ int main(int argc, char **argv)
         }
 
     }
+    //destruction du renderer et de toutes les surfaces
     SDL_DestroyRenderer(renderer);
 
     TTF_Quit();
