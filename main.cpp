@@ -220,9 +220,9 @@ int main(int argc, char **argv)
             case 1:
                 if(load)
                 {
-                SDL_BlitSurface(q, NULL, windowSurface, NULL);
-                SDL_UpdateWindowSurface(window);
-                load = false;
+                    SDL_BlitSurface(q, NULL, windowSurface, NULL);
+                    SDL_UpdateWindowSurface(window);
+                    load = false;
                 }
 
                 break;
@@ -231,61 +231,73 @@ int main(int argc, char **argv)
 
                 if(load)
                 {
-                img = IMG_LoadTexture(renderer,login);
-                SDL_QueryTexture(img, NULL,NULL,&w,&h);
-                SDL_Rect im; im.x = 0; im.y = 0; im.h = h; im.w = w;
-                get_text_and_rect(renderer, 400, 260, (char*)test.str().c_str(), font, &texture1, &rect1);
-                get_text_and_rect(renderer, 400, 365, (char*)test2.str().c_str(), font, &texture2, &rect2);
-                SDL_RenderClear(renderer);
+                    img = IMG_LoadTexture(renderer,login);
+                    SDL_QueryTexture(img, NULL,NULL,&w,&h);
+                    SDL_Rect im;
+                    im.x = 0;
+                    im.y = 0;
+                    im.h = h;
+                    im.w = w;
+                    get_text_and_rect(renderer, 400, 260, (char*)test.str().c_str(), font, &texture1, &rect1);
+                    get_text_and_rect(renderer, 400, 365, (char*)test2.str().c_str(), font, &texture2, &rect2);
+                    SDL_RenderClear(renderer);
 
-                /* Use TTF textures. */
-                SDL_RenderCopy(renderer, img, NULL, &im);
-                SDL_RenderCopy(renderer, texture1, NULL, &rect1);
-                SDL_RenderCopy(renderer, texture2, NULL, &rect2);
+                    /* Use TTF textures. */
+                    SDL_RenderCopy(renderer, img, NULL, &im);
+                    SDL_RenderCopy(renderer, texture1, NULL, &rect1);
+                    SDL_RenderCopy(renderer, texture2, NULL, &rect2);
 
-                SDL_RenderPresent(renderer);
-                load = false;
+                    SDL_RenderPresent(renderer);
+                    load = false;
                 }
                 break;
             case 3:
                 if(load)
                 {
-                img = IMG_LoadTexture(renderer,compte);
-                SDL_QueryTexture(img, NULL,NULL,&w,&h);
-                SDL_Rect im; im.x = 0; im.y = 0; im.h = h; im.w = w;
-                get_text_and_rect(renderer, 400, 245, (char*)createName.str().c_str(), font, &texture1, &rect1);
-                get_text_and_rect(renderer, 400, 315, (char*)createPassword.str().c_str(), font, &texture2, &rect2);
-                get_text_and_rect(renderer, 415, 400, (char*)dd.str().c_str(), font, &texture3, &rect3);
-                get_text_and_rect(renderer, 530, 400, (char*)mm.str().c_str(), font, &texture4, &rect4);
-                get_text_and_rect(renderer, 640, 400, (char*)aaaa.str().c_str(), font, &texture5, &rect5);
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-                SDL_RenderClear(renderer);
+                    img = IMG_LoadTexture(renderer,compte);
+                    SDL_QueryTexture(img, NULL,NULL,&w,&h);
+                    SDL_Rect im;
+                    im.x = 0;
+                    im.y = 0;
+                    im.h = h;
+                    im.w = w;
+                    get_text_and_rect(renderer, 400, 245, (char*)createName.str().c_str(), font, &texture1, &rect1);
+                    get_text_and_rect(renderer, 400, 315, (char*)createPassword.str().c_str(), font, &texture2, &rect2);
+                    get_text_and_rect(renderer, 415, 400, (char*)dd.str().c_str(), font, &texture3, &rect3);
+                    get_text_and_rect(renderer, 530, 400, (char*)mm.str().c_str(), font, &texture4, &rect4);
+                    get_text_and_rect(renderer, 640, 400, (char*)aaaa.str().c_str(), font, &texture5, &rect5);
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+                    SDL_RenderClear(renderer);
 
-                /* Use TTF textures. */
-                SDL_RenderCopy(renderer, img, NULL, &im);
-                SDL_RenderCopy(renderer, texture1, NULL, &rect1);
-                SDL_RenderCopy(renderer, texture2, NULL, &rect2);
-                SDL_RenderCopy(renderer, texture3, NULL, &rect3);
-                SDL_RenderCopy(renderer, texture4, NULL, &rect4);
-                SDL_RenderCopy(renderer, texture5, NULL, &rect5);
+                    /* Use TTF textures. */
+                    SDL_RenderCopy(renderer, img, NULL, &im);
+                    SDL_RenderCopy(renderer, texture1, NULL, &rect1);
+                    SDL_RenderCopy(renderer, texture2, NULL, &rect2);
+                    SDL_RenderCopy(renderer, texture3, NULL, &rect3);
+                    SDL_RenderCopy(renderer, texture4, NULL, &rect4);
+                    SDL_RenderCopy(renderer, texture5, NULL, &rect5);
 
-                SDL_RenderPresent(renderer);
-                load = false;
+                    SDL_RenderPresent(renderer);
+                    load = false;
                 }
                 break;
             case 4:
                 if(load)
                 {
-                img = IMG_LoadTexture(renderer,main_m);
-                SDL_QueryTexture(img, NULL,NULL,&w,&h);
-                SDL_Rect im; im.x = 0; im.y = 0; im.h = h; im.w = w;
-                SDL_RenderClear(renderer);
+                    img = IMG_LoadTexture(renderer,main_m);
+                    SDL_QueryTexture(img, NULL,NULL,&w,&h);
+                    SDL_Rect im;
+                    im.x = 0;
+                    im.y = 0;
+                    im.h = h;
+                    im.w = w;
+                    SDL_RenderClear(renderer);
 
-                /* Use TTF textures. */
-                SDL_RenderCopy(renderer, img, NULL, &im);
+                    /* Use TTF textures. */
+                    SDL_RenderCopy(renderer, img, NULL, &im);
 
-                SDL_RenderPresent(renderer);
-                load = false;
+                    SDL_RenderPresent(renderer);
+                    load = false;
                 }
                 break;
             case 5:
@@ -301,7 +313,7 @@ int main(int argc, char **argv)
                     paquet.clear();
                     socket.receive(paquet);
                     paquet >> nbRequest;
-                    for(int i = 0 ; i < nbRequest ;i++)
+                    for(int i = 0 ; i < nbRequest ; i++)
                     {
                         paquet.clear();
                         socket.receive(paquet);
@@ -311,138 +323,146 @@ int main(int argc, char **argv)
                             userA.str(tempRequest);
                         }
                     }
-                if(userA.str().size() == 1)
-                {
-                    img = IMG_LoadTexture(renderer,a);
-                }
-                else
-                {
-                    img = IMG_LoadTexture(renderer, ac);
-                    get_text_and_rect(renderer, 600, 45, (char*)userA.str().c_str(), font, &tUserA, &rUserA);
+                    if(userA.str().size() == 1)
+                    {
+                        img = IMG_LoadTexture(renderer,a);
+                    }
+                    else
+                    {
+                        img = IMG_LoadTexture(renderer, ac);
+                        get_text_and_rect(renderer, 600, 45, (char*)userA.str().c_str(), font, &tUserA, &rUserA);
 
-                }
+                    }
 
-                SDL_QueryTexture(img, NULL,NULL,&w,&h);
-                SDL_Rect im; im.x = 0; im.y = 0; im.h = h; im.w = w;
-                get_text_and_rect(renderer, 400, 200, (char*)textbox.str().c_str(), font, &texture5, &rect5);
+                    SDL_QueryTexture(img, NULL,NULL,&w,&h);
+                    SDL_Rect im;
+                    im.x = 0;
+                    im.y = 0;
+                    im.h = h;
+                    im.w = w;
+                    get_text_and_rect(renderer, 400, 200, (char*)textbox.str().c_str(), font, &texture5, &rect5);
 
-                //Je sais que c'est pas opti mais je decouvre le SDL
-                if(checkOnline(&paquet,&socket, LOGIN, user1.str()) == true)
-                {
-                    get_text_and_rect(renderer, 400, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, online);
-                }
-                else
-                {
-                    get_text_and_rect(renderer, 400, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, offline);
-                }
-                if(checkOnline(&paquet,&socket, LOGIN, user2.str()) == true)
-                {
-                    get_text_and_rect(renderer, 400, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, online);
-                }
-                else
-                {
-                    get_text_and_rect(renderer, 400, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, offline);
-                }
-                if(checkOnline(&paquet,&socket, LOGIN, user3.str()) == true)
-                {
-                    get_text_and_rect(renderer, 400, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, online);
-                }
-                else
-                {
-                    get_text_and_rect(renderer, 400, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, offline);
-                }
-                if(checkOnline(&paquet,&socket, LOGIN, user4.str()) == true)
-                {
-                    get_text_and_rect(renderer, 400, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, online);
-                }
-                else
-                {
-                    get_text_and_rect(renderer, 400, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, offline);
-                }
-                if(checkOnline(&paquet,&socket, LOGIN, user5.str()) == true)
-                {
-                    get_text_and_rect(renderer, 400, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, online);
-                }
-                else
-                {
-                    get_text_and_rect(renderer, 400, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, offline);
-                }
+                    //Je sais que c'est pas opti mais je decouvre le SDL
+                    if(checkOnline(&paquet,&socket, LOGIN, user1.str()) == true)
+                    {
+                        get_text_and_rect(renderer, 400, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, online);
+                    }
+                    else
+                    {
+                        get_text_and_rect(renderer, 400, 300, (char*)user1.str().c_str(), font, &tUser1, &rUser1, offline);
+                    }
+                    if(checkOnline(&paquet,&socket, LOGIN, user2.str()) == true)
+                    {
+                        get_text_and_rect(renderer, 400, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, online);
+                    }
+                    else
+                    {
+                        get_text_and_rect(renderer, 400, 325, (char*)user2.str().c_str(), font, &tUser2, &rUser2, offline);
+                    }
+                    if(checkOnline(&paquet,&socket, LOGIN, user3.str()) == true)
+                    {
+                        get_text_and_rect(renderer, 400, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, online);
+                    }
+                    else
+                    {
+                        get_text_and_rect(renderer, 400, 350, (char*)user3.str().c_str(), font, &tUser3, &rUser3, offline);
+                    }
+                    if(checkOnline(&paquet,&socket, LOGIN, user4.str()) == true)
+                    {
+                        get_text_and_rect(renderer, 400, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, online);
+                    }
+                    else
+                    {
+                        get_text_and_rect(renderer, 400, 375, (char*)user4.str().c_str(), font, &tUser4, &rUser4, offline);
+                    }
+                    if(checkOnline(&paquet,&socket, LOGIN, user5.str()) == true)
+                    {
+                        get_text_and_rect(renderer, 400, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, online);
+                    }
+                    else
+                    {
+                        get_text_and_rect(renderer, 400, 400, (char*)user5.str().c_str(), font, &tUser5, &rUser5, offline);
+                    }
 
-                get_text_and_rect(renderer, 400, 225, (char*)userS.str().c_str(), font, &tUserS, &rUserS);
-
-
+                    get_text_and_rect(renderer, 400, 225, (char*)userS.str().c_str(), font, &tUserS, &rUserS);
 
 
-                SDL_RenderClear(renderer);
-                /* Use TTF textures. */
-                SDL_RenderCopy(renderer, img, NULL, &im);
-                SDL_RenderCopy(renderer,texture5, NULL, &rect5);
-                if(userA.str().size() != 1)
-                {
-                    SDL_RenderCopy(renderer,tUserA, NULL, &rUserA);
-                }
 
-                SDL_RenderCopy(renderer,tUser1, NULL, &rUser1);
-                SDL_RenderCopy(renderer,tUser2, NULL, &rUser2);
-                SDL_RenderCopy(renderer,tUser3, NULL, &rUser3);
-                SDL_RenderCopy(renderer,tUser4, NULL, &rUser4);
-                SDL_RenderCopy(renderer,tUser5, NULL, &rUser5);
-                SDL_RenderCopy(renderer,tUserS, NULL, &rUserS);
 
-                SDL_RenderPresent(renderer);
-                load = false;
+                    SDL_RenderClear(renderer);
+                    /* Use TTF textures. */
+                    SDL_RenderCopy(renderer, img, NULL, &im);
+                    SDL_RenderCopy(renderer,texture5, NULL, &rect5);
+                    if(userA.str().size() != 1)
+                    {
+                        SDL_RenderCopy(renderer,tUserA, NULL, &rUserA);
+                    }
+
+                    SDL_RenderCopy(renderer,tUser1, NULL, &rUser1);
+                    SDL_RenderCopy(renderer,tUser2, NULL, &rUser2);
+                    SDL_RenderCopy(renderer,tUser3, NULL, &rUser3);
+                    SDL_RenderCopy(renderer,tUser4, NULL, &rUser4);
+                    SDL_RenderCopy(renderer,tUser5, NULL, &rUser5);
+                    SDL_RenderCopy(renderer,tUserS, NULL, &rUserS);
+
+                    SDL_RenderPresent(renderer);
+                    load = false;
                 }
                 break;
             case 6:
                 if(load)
                 {
 
-                if(reset)
-                {
-
-                    if(alldecks[3].size() != 0 || deck3S == 1)
+                    if(reset)
                     {
-                        deck4.str(" ");
-                        deck4<<"Deck 4";
-                    }
-                    if(alldecks[2].size() != 0|| deck2S == 1)
-                    {
-                        deck3.str(" ");
-                        deck3<<"Deck 3";
-                    }
-                    if(alldecks[1].size()!=0|| deck1S == 1)
-                    {
-                        deck2.str(" ");
-                        deck2<<"Deck 2";
-                    }
-                    if(alldecks[0].size()!=0|| deck0S == 1)
-                    {
-                        deck1.str(" ");
-                        deck1<<"Deck 1";
-                    }
-                    reset = false;
 
-                }
+                        if(alldecks[3].size() != 0 || deck3S == 1)
+                        {
+                            deck4.str(" ");
+                            deck4<<"Deck 4";
+                        }
+                        if(alldecks[2].size() != 0|| deck2S == 1)
+                        {
+                            deck3.str(" ");
+                            deck3<<"Deck 3";
+                        }
+                        if(alldecks[1].size()!=0|| deck1S == 1)
+                        {
+                            deck2.str(" ");
+                            deck2<<"Deck 2";
+                        }
+                        if(alldecks[0].size()!=0|| deck0S == 1)
+                        {
+                            deck1.str(" ");
+                            deck1<<"Deck 1";
+                        }
+                        reset = false;
 
-                img = IMG_LoadTexture(renderer,d);
-                SDL_QueryTexture(img, NULL,NULL,&w,&h);
-                SDL_Rect im; im.x = 0; im.y = 0; im.h = h; im.w = w;
-                get_text_and_rect(renderer, 400, 300, (char*)deck1.str().c_str(), font, &texture1, &rect1);
-                get_text_and_rect(renderer, 400, rect1.y + rect1.h, (char*)deck2.str().c_str(), font, &texture2, &rect2);
-                get_text_and_rect(renderer, 400, rect2.y + rect2.h, (char*)deck3.str().c_str(), font, &texture3, &rect3);
-                get_text_and_rect(renderer, 400, rect3.y + rect3.h, (char*)deck4.str().c_str(), font, &texture4, &rect4);
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-                SDL_RenderClear(renderer);
+                    }
 
-                /* Use TTF textures. */
-                 SDL_RenderCopy(renderer, img, NULL, &im);
-                SDL_RenderCopy(renderer, texture1, NULL, &rect1);
-                SDL_RenderCopy(renderer, texture2, NULL, &rect2);
-                SDL_RenderCopy(renderer, texture3, NULL, &rect3);
-                SDL_RenderCopy(renderer,texture4, NULL, &rect4);
+                    img = IMG_LoadTexture(renderer,d);
+                    SDL_QueryTexture(img, NULL,NULL,&w,&h);
+                    SDL_Rect im;
+                    im.x = 0;
+                    im.y = 0;
+                    im.h = h;
+                    im.w = w;
+                    get_text_and_rect(renderer, 400, 300, (char*)deck1.str().c_str(), font, &texture1, &rect1);
+                    get_text_and_rect(renderer, 400, rect1.y + rect1.h, (char*)deck2.str().c_str(), font, &texture2, &rect2);
+                    get_text_and_rect(renderer, 400, rect2.y + rect2.h, (char*)deck3.str().c_str(), font, &texture3, &rect3);
+                    get_text_and_rect(renderer, 400, rect3.y + rect3.h, (char*)deck4.str().c_str(), font, &texture4, &rect4);
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+                    SDL_RenderClear(renderer);
 
-                SDL_RenderPresent(renderer);
-                load = false;
+                    /* Use TTF textures. */
+                    SDL_RenderCopy(renderer, img, NULL, &im);
+                    SDL_RenderCopy(renderer, texture1, NULL, &rect1);
+                    SDL_RenderCopy(renderer, texture2, NULL, &rect2);
+                    SDL_RenderCopy(renderer, texture3, NULL, &rect3);
+                    SDL_RenderCopy(renderer,texture4, NULL, &rect4);
+
+                    SDL_RenderPresent(renderer);
+                    load = false;
                 }
                 break;
             case 7:
@@ -479,7 +499,7 @@ int main(int argc, char **argv)
                     socket.send(paquet);
                     paquet.clear();
                     paquet << alldecks[cardpage-1].size();
-                    for(size_t i = 0 ; i < alldecks[cardpage-1].size();i++)
+                    for(size_t i = 0 ; i < alldecks[cardpage-1].size(); i++)
                     {
                         paquet << alldecks[cardpage-1][i];
                     }
@@ -551,7 +571,8 @@ int main(int argc, char **argv)
                             test.str(" ");
                             state--;
 
-                        }load = true;
+                        }
+                        load = true;
                         break;
                     case SDLK_RETURN:
                         name = test.str();
@@ -865,7 +886,7 @@ int main(int argc, char **argv)
                         paquet.clear();
                         socket.receive(paquet);
                         paquet >> nbAmis;
-                        for(int i = 0 ; i < nbAmis;i++)
+                        for(int i = 0 ; i < nbAmis; i++)
                         {
                             paquet.clear();
                             socket.receive(paquet);
@@ -873,30 +894,30 @@ int main(int argc, char **argv)
                             switch(i)
                             {
                             case 0:
-                                {
-                                    user1.str(tempAmis);
-                                    break;
-                                }
+                            {
+                                user1.str(tempAmis);
+                                break;
+                            }
                             case 1:
-                                {
-                                    user2.str(tempAmis);
-                                    break;
-                                }
+                            {
+                                user2.str(tempAmis);
+                                break;
+                            }
                             case 2:
-                                {
-                                    user3.str(tempAmis);
-                                    break;
-                                }
+                            {
+                                user3.str(tempAmis);
+                                break;
+                            }
                             case 3:
-                                {
-                                    user4.str(tempAmis);
-                                    break;
-                                }
+                            {
+                                user4.str(tempAmis);
+                                break;
+                            }
                             case 4:
-                                {
-                                    user5.str(tempAmis);
-                                    break;
-                                }
+                            {
+                                user5.str(tempAmis);
+                                break;
+                            }
                             }
                         }
                         break;
@@ -955,14 +976,15 @@ int main(int argc, char **argv)
                             load = true;
                         }
                         break;
-                    }break;
-                    case SDL_TEXTINPUT:
-                        load = true;
-                        if(select == true)
-                        {
-                            textbox << event.text.text;
-                        }
-                        break;
+                    }
+                    break;
+                case SDL_TEXTINPUT:
+                    load = true;
+                    if(select == true)
+                    {
+                        textbox << event.text.text;
+                    }
+                    break;
 
                     break;
                 case SDL_MOUSEBUTTONDOWN:

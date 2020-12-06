@@ -818,17 +818,17 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 
                 if(SDL_PollEvent( &event ))
                 {
-                switch(event.type)
+                    switch(event.type)
+                    {
+                    case SDL_KEYDOWN:
+                        switch(event.key.keysym.sym)
                         {
-                        case SDL_KEYDOWN:
-                            switch(event.key.keysym.sym)
-                            {
-                            case SDLK_ESCAPE:
-                                conditionFinDePartie = 0;
+                        case SDLK_ESCAPE:
+                            conditionFinDePartie = 0;
 
-                                break;
-                            }
+                            break;
                         }
+                    }
                 }
 
                 afficherGagnant(vieJoueur,nomsJoueur,texte,police,windowSurface);
