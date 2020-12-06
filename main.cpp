@@ -169,10 +169,10 @@ int main(int argc, char **argv)
     TTF_Init();
     TTF_Font *font = TTF_OpenFont(font_path, 24);
     sf::TcpSocket socket;
-    sf::Socket::Status status = socket.connect("fournierfamily.ovh", 53000);
+    sf::Socket::Status status = socket.connect("fournierfamily.ovh", 53000); //connexion au serveur
     if(status != sf::Socket::Done)
     {
-        exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE); //quitte le jeu si une erreur lors de la connexion est détécté
     }
     if (font == NULL)
     {
@@ -196,6 +196,7 @@ int main(int argc, char **argv)
     std::string cname;
     std::string cmdp;
     std::string cdate;
+    std::string tempName;
     int state = 0;
     quit = 0;
     int page = 2;
@@ -305,10 +306,10 @@ int main(int argc, char **argv)
                 {
 
                     paquet.clear();
-                    paquet << 3 << LOGIN;
+                    paquet << 3 << LOGIN; //indique que le joueur veut acceder a la partie amis du serveur
                     socket.send(paquet);
                     paquet.clear();
-                    paquet << 3;
+                    paquet << 3; //indique que le joueur veut afficher les requetes d'amis
                     socket.send(paquet);
                     paquet.clear();
                     socket.receive(paquet);
@@ -489,10 +490,10 @@ int main(int argc, char **argv)
                     SDL_DestroyWindow(deckWindow);
                     alldecks[cardpage-1]=deckJoueur;
                     paquet.clear();
-                    paquet << 2 << LOGIN;
+                    paquet << 2 << LOGIN; //envoie au serveur que le joueur veut acceder au deck
                     socket.send(paquet);
                     paquet.clear();
-                    paquet << 1;
+                    paquet << 1; //permet de creer un deck sur le serveur
                     socket.send(paquet);
                     paquet.clear();
                     paquet << cardpage-1;
@@ -501,7 +502,7 @@ int main(int argc, char **argv)
                     paquet << alldecks[cardpage-1].size();
                     for(size_t i = 0 ; i < alldecks[cardpage-1].size(); i++)
                     {
-                        paquet << alldecks[cardpage-1][i];
+                        paquet << alldecks[cardpage-1][i]; //met les differentes cartes dans le paquet que l'on va envoyer au serveur
                     }
                     socket.send(paquet);
                     paquet.clear();
@@ -553,11 +554,31 @@ int main(int argc, char **argv)
                         load = true;
                         if(state == 0)
                         {
-                            test.str(" ");
+                            tempName = test.str();
+                            if(tempName.size() != 1)
+                            {
+                                tempName.pop_back();
+                                test.str(tempName);
+                                test.seekp(tempName.size());
+                            }
+                            else
+                            {
+                                test.str(" ");
+                            }
                         }
                         else
                         {
-                            test2.str(" ");
+                            tempName = test2.str();
+                            if(tempName.size() != 1)
+                            {
+                                tempName.pop_back();
+                                test2.str(tempName);
+                                test2.seekp(tempName.size());
+                            }
+                            else
+                            {
+                                test2.str(" ");
+                            }
                         }
                         break;
                     case SDLK_TAB:
@@ -579,13 +600,13 @@ int main(int argc, char **argv)
                         mdp = test2.str();
                         paquet.clear();
                         action = 1;
-                        paquet << action << LOGIN;
+                        paquet << action << LOGIN; //permet de se login sur le jeu
                         socket.send(paquet);
                         paquet.clear();
-                        paquet << name << mdp;
+                        paquet << name << mdp; //envoie du nom d'utilisateur et du mot de passe
                         socket.send(paquet);
                         paquet.clear();
-                        socket.receive(paquet);
+                        socket.receive(paquet); //attend la reponse du serveur pour savoir si le login a bien marché
                         paquet >> reception;
                         paquet.clear();
                         if(reception == 1)
@@ -709,13 +730,13 @@ int main(int argc, char **argv)
                         cdate = createDate.str();
                         paquet.clear();
                         action = 2;
-                        paquet << action << LOGIN;
+                        paquet << action << LOGIN; //permet d'aller se creer un compte
                         socket.send(paquet);
                         paquet.clear();
-                        paquet << cname << cmdp << jour << mois << annee;
+                        paquet << cname << cmdp << jour << mois << annee; //met toute les informations du joueur dans le paquet pour qu'il soit interpreter de l'autre coté par le serveur
                         socket.send(paquet);
                         paquet.clear();
-                        socket.receive(paquet);
+                        socket.receive(paquet); //attend la reception pour savoir si le login c'est bien déroulé
                         paquet >> reception;
                         paquet.clear();
                         if(reception == 6)
@@ -851,14 +872,14 @@ int main(int argc, char **argv)
                         page = 4;
                         */
                         paquet.clear();
-                        paquet << 2 << LOGIN;
+                        paquet << 2 << LOGIN; //permet d'acceder au deck est de savoir quel deck on déjà été créer afin de savoir quel deck on peut utiliser pour le deck
                         socket.send(paquet);
                         paquet.clear();
                         paquet << 2;
                         socket.send(paquet);
                         paquet.clear();
                         socket.receive(paquet);
-                        paquet >> deck0S >> deck1S >> deck2S >> deck3S;
+                        paquet >> deck0S >> deck1S >> deck2S >> deck3S; //recuoere les différentes info
                         paquet.clear();
                         page = 6;
                         load = true;
@@ -878,10 +899,10 @@ int main(int argc, char **argv)
                         page = 5;
                         load = true;
                         paquet.clear();
-                        paquet << 3 << LOGIN;
+                        paquet << 3 << LOGIN; //permet d'accder a la partie amis
                         socket.send(paquet);
                         paquet.clear();
-                        paquet << 1;
+                        paquet << 1; //afficher la liste d'amis
                         socket.send(paquet);
                         paquet.clear();
                         socket.receive(paquet);
@@ -944,7 +965,16 @@ int main(int argc, char **argv)
                         load = true;
                         if(select == true)
                         {
-                            textbox.str(" ");
+                            tempName = textbox.str();
+                            if(tempName.size() != 1)
+                            {
+                                tempName.pop_back();
+                                textbox.str(tempName);
+                            }
+                            else
+                            {
+                                textbox.str(" ");
+                            }
                         }
                         break;
                     case SDLK_RETURN:
@@ -953,13 +983,13 @@ int main(int argc, char **argv)
                             userS.str(" ");
                             searchfriend = textbox.str();
                             paquet.clear();
-                            paquet << 3 << LOGIN;
+                            paquet << 3 << LOGIN; //acceder a la partie amis
                             socket.send(paquet);
                             paquet.clear();
-                            paquet << 2;
+                            paquet << 2; //ajouter un amis
                             socket.send(paquet);
                             paquet.clear();
-                            paquet << searchfriend;
+                            paquet << searchfriend; //recupere le nom du joueur pour la recherche d'amis
                             socket.send(paquet);
                             paquet.clear();
                             socket.receive(paquet);
@@ -992,14 +1022,14 @@ int main(int argc, char **argv)
                     if(event.button.x >826 && event.button.x <870 && event.button.y >49 && event.button.y <80)
                     {
                         paquet.clear();
-                        paquet << 3 << LOGIN;
+                        paquet << 3 << LOGIN; //acceder a la partie amis du serveur
                         socket.send(paquet);
                         paquet.clear();
-                        paquet << 4;
+                        paquet << 4; //accepter une requetes d'amis
                         socket.send(paquet);
                         paquet.clear();
                         paquet << userA.str();
-                        paquet << 1;
+                        paquet << 1; // envoie le fait que l'on veut accepter la requete d'amis
                         socket.send(paquet);
                         paquet.clear();
                         socket.receive(paquet);
@@ -1012,14 +1042,14 @@ int main(int argc, char **argv)
                     else if(event.button.x >886 && event.button.x <948 && event.button.y >42 && event.button.y <82)
                     {
                         paquet.clear();
-                        paquet << 3 << LOGIN;
+                        paquet << 3 << LOGIN; //acceder a la partie amis du serveur
                         socket.send(paquet);
                         paquet.clear();
-                        paquet << 4;
+                        paquet << 4; //accepter une requete d'amis
                         socket.send(paquet);
                         paquet.clear();
                         paquet << userA.str();
-                        paquet << 0;
+                        paquet << 0; //refuser la demande d'amis
                         socket.send(paquet);
                         paquet.clear();
                         socket.receive(paquet);
@@ -1222,17 +1252,17 @@ int main(int argc, char **argv)
 
 
 
-void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck)
+void receptionT(int *port, sf::TcpSocket *socket, std::vector<int> *deck) //thread de reception
 {
     sf::Packet paquet;
     int taille, temp;
-    socket->receive(paquet);
+    socket->receive(paquet); //permet de recuperer le port de la partie pour acceder a un lobby
     paquet >> *port;
     paquet >> taille;
     for(int i = 0 ; i < taille ; i++)
     {
         paquet >> temp;
-        deck->push_back(temp);
+        deck->push_back(temp); //recupere le deck du joueur melangé pour jouer la partie
     }
 
 }
@@ -1246,24 +1276,24 @@ bool checkOnline(sf::Packet *paquet, sf::TcpSocket *socket, int LOGIN, std::stri
     if(nomJoueur != " ")
     {
         paquet->clear();
-        *paquet << 3 << LOGIN;
+        *paquet << 3 << LOGIN; //envoie au serveur que le joueur est bien login et qu'il souhaite acceder a la partie AMIS du serveur
+        socket->send(*paquet); //envoie l'information
+        paquet->clear();
+        *paquet << 7; //indique le joueur voudrait connaitre si cette amis est en ligne
         socket->send(*paquet);
         paquet->clear();
-        *paquet << 7;
-        socket->send(*paquet);
-        paquet->clear();
-        *paquet << nomJoueur;
+        *paquet << nomJoueur; //envoie du nom du joueur au serveur
         socket->send(*paquet);
         paquet->clear();
         socket->receive(*paquet);
         *paquet >> tempO;
         if(tempO == 1)
         {
-            return true;
+            return true; //si le joueur est en ligne on renvoie true pour iniquer que le joueur est en ligne
         }
         else if (tempO == 0)
         {
-            return false;
+            return false; //sinon le serveur indique que le joueur n'est pas connecté
         }
     }
     else
