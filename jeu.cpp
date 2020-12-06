@@ -8,9 +8,9 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
     int numJoueur, actuJoueur;
     sf::TcpSocket socket;
     bool connect = true;
-    if(socket.connect("fournierfamily.ovh", 53000 + port) != sf::Socket::Done)
+    if(socket.connect("fournierfamily.ovh", 53000 + port) != sf::Socket::Done) //connexion au serveur a l'aide du port récupéré depuis le main pour acceder a un lobby
     {
-        connect = false;
+        connect = false;  //dans le cas d'une erreur lors de la connexion on deconnecte directement le client et on le ramene au menu principale
         socket.disconnect();
     }
     if(connect == true)
@@ -254,8 +254,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
 
 
 
-        //launching thread
-        //void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *condition, int *ID1, int *ID2, int *degats, int *nbCarte, int *selec,int *placeID)
+        //ici on creer/lance le thread de reception avec tous les différents paramètres dont il aura besoin, il sera ensuite autonome durant toute la partie
         sf::Thread thread(std::bind(&receiveData, &actuJoueur,&socket, numJoueur, &condition, &ID1,&ID2,&degats, &nbrCarte, &selecC, &placeID, &TID1, &TID2, &Tdegats, tempEnvoie, &resultatChat, &notif, Pioche));
         thread.launch();
         sf::Packet ID;
@@ -274,10 +273,10 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
             mainJoueurINT.erase(mainJoueurINT.begin());
         }
         ID.clear();
-        ID << 13;
-        socket.send(ID);
+        ID << 13;//mise de l'information dans le paquet
+        socket.send(ID); //envoie au serveur de l'identificateur afin qu'il puisse savoir quelle type de données va arriver
         ID.clear();
-        socket.send(paquet);
+        socket.send(paquet); //on met ensuite ici les vraies informations que l'on veut envoyer dans le cas présent il s'agit d'envoyer les 6 cartes piochés par le joueur
         paquet.clear();
         int continuer = 1;
         while(continuer == 1)
@@ -320,14 +319,14 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                         if(mainJoueurINT.size() > 3)
                         {
                             paquet.clear();
-                            paquet << 12;
-                            socket.send(paquet);
+                            paquet << 12; //on met l'information dans l'identificateur
+                            socket.send(paquet);//envoie de la pioche au tour par tour afin de dire au joueur adverse quel carte on était pioché
                             paquet.clear();
                             for(int i = 0; i<3; i++)
                             {
                                 if(mainJoueurINT[0] <18)
                                 {
-                                    paquet << mainJoueurINT[0];
+                                    paquet << mainJoueurINT[0];//on met les cartes dans le paquet afin de les envoyer
                                     lierCarteEtId(mainJoueurINT[0],cartesJoueur[0]);
                                 }
                                 else
@@ -338,7 +337,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                 mainJoueurINT.erase(mainJoueurINT.begin());
 
                             }
-                            socket.send(paquet);
+                            socket.send(paquet);//on envoie le paquet au client afin que le joueur adverse ai toutes les informations
                             paquet.clear();
                             actualiserPositionCartes(cartesJoueur);
                             actualiserEnergies(energiesJoueur);
@@ -394,7 +393,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                 condition = 0;
                                 paquet.clear();
                                 paquet << 9;
-                                socket.send(paquet);
+                                socket.send(paquet); //cas ou le joueur clique sur la touche echap pour avertir le serveur qu'un joueur se déconnecte
                                 thread.terminate();
                                 paquet.clear();
                                 break;
@@ -412,7 +411,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                     paquet << 1;
                                     socket.send(paquet);
                                     paquet.clear();
-                                    paquet << tempEnvoie;
+                                    paquet << tempEnvoie; //envoie du message au serveur afin qu'il soit renvoyé au client de l'autre coté pour permettre de chatter !
                                     socket.send(paquet);
                                     paquet.clear();
                                     message.str(" ");
@@ -468,7 +467,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                             if(event.button.x >1568 && event.button.x < 1773 && event.button.y > 445 && event.button.y < 526)
                             {
                                 paquet.clear();
-                                paquet << 7; //envoie nombre de carte
+                                paquet << 7; //envoie une fin de tour et change le joueur actif afin de permettre de passer son tour
                                 socket.send(paquet);
                                 paquet.clear();
                                 if(actuJoueur == 1)
@@ -539,10 +538,10 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                 paquet << cartesJoueur[0].size();
                                 socket.send(paquet);
                                 paquet.clear();
-                                paquet << 5; //envoie carte place
+                                paquet << 5; //envoie identificateur de carte placé
                                 socket.send(paquet);
                                 paquet.clear();
-                                paquet << carteSelec;
+                                paquet << carteSelec; //indique au serveur quel carte on envoie au serveur
                                 socket.send(paquet);
                                 paquet.clear();
                             }
@@ -590,7 +589,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                         paquet << 2;
                                         socket.send(paquet);
                                         paquet.clear();
-                                        paquet << 2 << carteAttaque << attaqueActive.degat;
+                                        paquet << 2 << carteAttaque << attaqueActive.degat; //envoie l'attaque au serveur avec l'ID du monstre qui va recevoir l'attaque et les dégats
                                         socket.send(paquet);
                                         paquet.clear();
                                     }//            attaqué                          attaque de l'attaquant
@@ -725,7 +724,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                 condition = 0;
                                 paquet.clear();
                                 paquet << 9;
-                                socket.send(paquet);
+                                socket.send(paquet); //fin de partie envoyé au serveur pour avertir l'autre client
                                 thread.terminate();
                                 paquet.clear();
                             }
@@ -743,7 +742,7 @@ void jeu(int port, std::string nomJoueur, std::vector<int> & mainJoueurINT)
                                 paquet << 1;
                                 socket.send(paquet);
                                 paquet.clear();
-                                paquet << tempEnvoie;
+                                paquet << tempEnvoie; //message au serveur pour le chat
                                 socket.send(paquet);
                                 paquet.clear();
                                 message.str(" ");

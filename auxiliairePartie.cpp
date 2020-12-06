@@ -408,13 +408,15 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
     int temp, temp2, temp3;
     std::string tempChaine;
     int continuer = 1;
+    //il s'agit du thread de reception il permet de recuperer les données du serveur au fur est a mesure de la partie, on utilise un informateur qui va servir a savoir qu'elle type de données
+    //va arriver, ensuite toutes nos informations sont mise dans des pointeurs afin de permettre une modification instantanée de la memoire qui va permettre de faire fonctionner le jeu sans interruption
     while(continuer != 9)
     {
-        socket->receive(tempReceive);
+        socket->receive(tempReceive); //identificateur
         tempReceive >> receive;
         if(receive != 9 && receive != 15)
         {
-            socket->receive(realOne);
+            socket->receive(realOne); //la vraie donnée
         }
         if(receive != 4)
         {
@@ -428,7 +430,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
             realOne >> tempChaine; //recevoir un texte
             if(tempChaine != sent)
             {
-                *chaine = tempChaine;
+                *chaine = tempChaine; //il s'agit du chat du jeu
                 *notification = true;
             }
             else
@@ -464,23 +466,23 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
             //décés d'une carte
             break;
         }
-        case 7:
+        case 7://change le joueur actif actuellement
         {
             realOne >> *activePlayer;
             break;
         }
-        case 9:
+        case 9://fin de partie
         {
             continuer = 9;
             *condition = 0;
             break;
         }
-        case 10:
+        case 10://permet d'attaquer un joueur
         {
             realOne >> *ID1 >> *degats;
             break;
         }
-        case 11:
+        case 11://permet d'attaquer plusieurs ennemies
         {
             realOne >> boucle;
             for(int i = 0 ; i < boucle ; i++)
@@ -492,12 +494,12 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
             }
             break;
         }
-        case 12:
+        case 12://pioche au debut de chaque tour
         {
             realOne >> pioche[0] >> pioche[1] >> pioche[2];
             break;
         }
-        case 13:
+        case 13://pioche du debut de partie on recupere 6 cartes
         {
             realOne >> pioche[0] >> pioche[1] >> pioche[2] >> pioche[3] >> pioche[4] >> pioche[5];
             break;
@@ -513,7 +515,7 @@ void receiveData(int *activePlayer, sf::TcpSocket *socket, int &numJoueur, int *
             break;
         }
         }
-        if(old == news)
+        if(old == news)//anti time-out afin d'empecher que le joueur adverse puisse faire planter le jeu de l'autre joueur
         {
             compteur ++;
         }
